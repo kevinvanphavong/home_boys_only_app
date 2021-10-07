@@ -1,0 +1,50 @@
+{% block stylesheets %}
+	{{ encore_entry_link_tags('navbar-scss') }}
+{% endblock %}
+
+<nav class="block-navbar">
+
+    <div class="navbar-logo-user">
+        <p class="btn-menu-user" onclick="showUserMenu()">LOGO-USER</p>
+        <div class="menu-user">
+            <ul>
+                <li>LOGIN</li>
+                <li>REGISTRATION</li>
+                <li>MY ACCOUNT</li>
+                <li>WISHLIST EVENTS</li>
+                <li>ALL YOUR PARTIES</li>
+                <hr>
+                <li>LOGOUT</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="group-btn-party">
+        <div class="btn-party btn-finding-party">
+            <p>Let's find a party</p>
+        </div>
+
+        <div class="circle-navbar">
+            <div class="circle"></div>
+        </div>
+        
+        <div class="btn-party btn-creating-party">
+            <p>Let's create a party</p>
+        </div>
+    </div>
+
+    <div class="navbar-logo-app">
+        LOGO-APP
+    </div>
+
+</nav>
+
+
+<script>
+    let userMenu = document.querySelector('.menu-user')
+
+    function showUserMenu () {
+        userMenu.classList.toggle('active');
+    }
+</script>

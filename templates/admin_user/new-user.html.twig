@@ -1,0 +1,21 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Create your profile - HOME BOYS ONLY{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('user-form-scss') }}
+{% endblock %}
+
+{% block body %}
+<header class="section-80">
+	<h1>Create an account on HomeBoysOnly</h1>
+    <br>
+    <p>You are one step away from joining the HBO family</p>
+    <p>The more informations you give, the more accessible parties will be !</p>
+</header>
+
+<div class="section-80">
+    {{ include('form/user-form.html.twig') }}
+    <p class="btn-submit-user-form">CREATE YOUR PROFILE</p>
+</div>
+{% endblock %}

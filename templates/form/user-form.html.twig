@@ -1,0 +1,28 @@
+{% block userForm %}
+    {{ form_start(userForm, {'attr': {'id': 'user-form'}}) }}
+        <div class="user-form-group">
+            {{form_row(userForm.firstname) }}
+            {{form_row(userForm.lastname) }}
+        </div>
+
+        <div class="user-form-group">
+            {{form_row(userForm.email) }}
+            {{form_row(userForm.password) }}
+        </div>
+    
+        <div class="user-form-group">
+            {{form_row(userForm.birthdate) }}
+            {{form_row(userForm.phonenumber) }}
+        </div>
+
+        <div class="user-form-group">
+            {{form_row(userForm.pictureProfile) }}
+        </div>
+        <div class="user-form-group">
+            {{form_row(userForm.selfPresentation) }}
+        </div>
+        <div class="user-form-group">
+            {{form_row(userForm.agreeTerms) }}
+        </div>
+    {{ form_end(userForm) }}
+{% endblock %}

@@ -1,0 +1,85 @@
+@import 'app.scss';
+
+.navbar-logo-app,
+.navbar-logo-user {
+    height: fit-content;
+}
+
+.block-navbar {
+    background: linear-gradient(180deg, $primary-red-tr 0%, $primary-orange-tr 100%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 50px;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    box-shadow: $box-shadow;
+}
+
+.group-btn-party {
+    display: flex;
+    height: fit-content;
+    border-radius: $radius;
+    box-shadow: $box-shadow
+}
+
+.group-btn-party {
+    .btn-finding-party,
+    .btn-creating-party,
+    .circle-navbar {
+        border-top: $border;
+        border-bottom: $border;
+        background: $white;
+        padding: 10px 50px;
+        cursor: pointer;
+    }
+    .btn-finding-party {
+        border-top-left-radius: $radius;
+        border-bottom-left-radius: $radius;
+    }
+    .btn-creating-party {
+        border-top-right-radius: $radius;
+        border-bottom-right-radius: $radius;
+    }
+}
+
+.group-btn-party .circle-navbar {
+    padding: 0px;
+    .circle {
+        height: 100%;
+        width: 40px;
+        border-radius: 50%;
+        background: linear-gradient(180deg, $primary-red 0%, $primary-orange 100%);
+        border: $border;
+    }
+}
+
+
+// ---------- menu navbar ------------
+.menu-user {
+    display: none;
+    width: fit-content;
+    background-color: $white;
+    padding: 20px 30px;
+    margin-top: 10px;
+    border: $border;
+    border-radius: $radius;
+    box-shadow: $box-shadow;
+    position: absolute;
+    z-index: 20;
+    ul {
+        list-style: none;
+    }
+    ul li {
+        padding: 10px 0px;
+    }
+}
+
+.active {
+    display: block;
+}
+
+.btn-menu-user {
+    cursor: pointer;
+}

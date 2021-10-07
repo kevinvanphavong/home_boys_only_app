@@ -1,0 +1,39 @@
+{% block eventform %}
+	{{ form_start(eventForm, {'attr': {'id': 'event-form'}}) }}
+	<div class="event-form-group">
+		{{form_row(eventForm.title) }}
+        {{form_row(eventForm.entrancePrice) }}
+	</div>
+
+	<div class="event-form-group">
+		{{form_row(eventForm.startingDate) }}
+		{{form_row(eventForm.endingDate) }}
+	</div>
+
+	<div class="event-form-group">
+		{{form_row(eventForm.country) }}
+		{{form_row(eventForm.city) }}
+	</div>
+
+	<div class="event-form-group">
+		{{form_row(eventForm.address) }}
+		{{form_row(eventForm.limitedPlaces) }}
+	</div>
+
+	<div class="event-form-group">
+		{{form_row(eventForm.endOfRegistrations) }}
+	</div>
+
+	<div class="event-form-group">
+		{{form_row(eventForm.complementsIncluded) }}
+	</div>
+
+	<div class="event-form-group">
+		{{form_row(eventForm.complementsToBring) }}	
+	</div>
+
+	<div class="event-form-group">
+		{{form_row(eventForm.presentation) }}
+	</div>
+	{{ form_end(eventForm) }}
+{% endblock %}

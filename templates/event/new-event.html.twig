@@ -1,0 +1,239 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Create an event - {{parent() }}{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('event-form-scss') }}
+{% endblock %}
+
+
+{% block body %}
+<style>
+    .block-navbar {
+        position: absolute;
+        top: 0;
+    }
+    .header-new-event {
+        width: 100%;
+        box-shadow: 0px 4px 4px lightgrey;
+        display: flex;
+        flex-direction: column;
+    }
+    .header-new-event img {
+        width: 100%;
+        height: 60vh;
+        object-fit: cover;
+    }
+
+    .underline {
+        width: 50%;
+        height: 5px;
+        background: linear-gradient(90deg, red 0%, orange 100%);
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+
+    .section-title-new-event ul li {
+        margin: 10px 0px;
+    }
+
+
+    input.event-form-input,
+    textarea.event-form-input,
+    .event-form-input select {
+        padding: 10px 20px;
+        border-radius: 30px;
+        border: 1px solid lightgrey;
+        box-shadow: 0px 4px 4px lightgrey;
+    }
+    
+    .event-form-row {
+        width: 48%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .event-form-label {
+        margin: 0px 0px 10px 5px;
+    }
+
+    .event-form-input div {
+        display: flex;
+    }
+
+    .event-form-input div:first-child {
+        margin-bottom: 10px;
+    }
+
+    .event-form-input div select {
+        width: 100%;
+    }
+
+</style>
+
+<div class="header-new-event">
+    <img src="{{asset('build/images/las-vegas.jpg') }}" alt="">
+</div>
+
+<div class="section-title-new-event section-80">
+    <h1 id="title-create-party">Start by creating your own party !</h1>
+    <div class="underline"></div>
+    <p>Then you can invite as many people as you wish for more fun</p>
+    <br>
+    <h2>HOW TO BUILD A EVENT ?</h2>
+    <ul>
+    {% set var = [
+        "Fill the form for all the informations needed below",
+        "Click on the button “Create my party”",
+        "Give a presentation of your gathering, so people can be more enthousiasm",
+        "Add multiples pictures of the place where the party will take place",
+    ] %}
+    {% for i in 0.. ((var | length) - 1) %}
+        <li>
+        {% if i == 0 %}
+            <svg xmlns="http://www.w3.org/2000/svg" id="test-icon" width="32" height="32" fill="green" class="bi bi-bookmark-check-fill" viewbox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm8.854-9.646a.5.5 0 0 0-.708-.708L7.5 7.793 6.354 6.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+            </svg>
+        {% else %}
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bookmark" viewbox="0 0 16 16">
+            	<path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+            </svg>
+        {% endif %}
+            <span>{{ 'STEP ' ~ (i+1) ~ ' - ' ~ var[i] }}</span>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+
+<div class="section-80">
+    {{ include('form/event-form.html.twig') }}
+</div>
+
+<style>
+    label.material-icons {
+        font-size: 50px;
+        padding: 20px;
+        border: 1px solid lightgrey;
+        box-shadow: 0px 4px 4px lightgrey;
+        border-radius: 30px;
+        cursor: pointer;
+    }
+
+    label.material-icons.checked {
+        background: lightgreen;
+    }
+
+    .event-form-row-presentation,
+    .event-form-row-whats-included,
+    .event-form-row-what-to-bring {
+        width: 100%;
+    }
+
+    .event-form-row-whats-included .event-form-input,
+    .event-form-row-what-to-bring .event-form-input {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .block-label-whats-included,
+    .block-label-what-to-bring {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+    }
+</style>
+
+<script>
+    const title = document.getElementById('title-create-party')
+    const underline = document.querySelector('.underline')
+    const body = document.querySelector('body')
+
+    underline.style.width = title.offsetTop + "px";
+
+    // -------------- START - handling the display SVG icon
+    const inputsWhatsIncluded = document.querySelectorAll('#event_complementsIncluded input')
+    const labelsWhatsIncluded = document.querySelectorAll('#event_complementsIncluded label')
+    const blockWhatsIncluded = document.querySelector('#event_complementsIncluded')
+
+    for (let index = 0; index < inputsWhatsIncluded.length; index++) {
+
+        // 1) Transformer les span en icon
+        const currentInput = inputsWhatsIncluded[index];
+        currentInput.style.display = "none";
+
+        const currentLabel = labelsWhatsIncluded[index];
+        currentLabel.classList.add('material-icons');
+
+        // le nom de l'icon SVG a mettre en texte pour la faire apparaitre
+        const inputValue = currentInput.value;
+
+        const paraph = document.createElement('p')
+        paraph.innerText = inputValue
+        paraph.style.textAlign = 'center'
+
+        const div = document.createElement('div')
+        div.classList.add('block-label-whats-included')
+        div.appendChild(paraph)
+        div.appendChild(currentLabel)
+
+        blockWhatsIncluded.appendChild(div)
+
+        // 2) Donner du style au input s'il sont checked true or false
+        currentInput.addEventListener('change', function() {
+            console.log(currentInput.checked)
+            if (currentInput.checked == false) {
+                currentLabel.classList.remove('checked')
+            } else if (currentInput.checked == true) {
+                currentLabel.classList.remove('not-checked')
+                currentLabel.classList.add('checked')
+            }
+        })
+    }
+
+    const inputsWhatToBring = document.querySelectorAll('#event_complementsToBring input')
+    const labelsWhatToBring = document.querySelectorAll('#event_complementsToBring label')
+    const blockWhatToBring = document.querySelector('#event_complementsToBring')
+
+
+    for (let index = 0; index < inputsWhatToBring.length; index++) { 
+
+
+        // 1) Transformer les span en icon
+        const currentInput = inputsWhatToBring[index];
+        currentInput.style.display = "none";
+
+        const currentLabel = labelsWhatToBring[index];
+        currentLabel.classList.add('material-icons');
+
+        // le nom de l'icon SVG a mettre en texte pour la faire apparaitre
+        const inputValue = currentInput.value;
+
+        const paraph = document.createElement('p')
+        paraph.innerText = inputValue
+        paraph.style.textAlign = 'center'
+
+        const div = document.createElement('div')
+        div.classList.add('block-label-what-to-bring')
+        div.appendChild(paraph)
+        div.appendChild(currentLabel)
+
+        blockWhatToBring.appendChild(div)
+
+
+        // 2) Donner du style au input s'il sont checked true or false
+        currentInput.addEventListener('change', function() {
+            console.log(currentInput.checked)
+            if (currentInput.checked == false) {
+                currentLabel.classList.remove('checked')
+            } else if (currentInput.checked == true) {
+                currentLabel.classList.remove('not-checked')
+                currentLabel.classList.add('checked')
+            }
+        })
+    }
+
+    // -------------- END - handling the display SVG icon
+</script>
+
+
+{% endblock %}

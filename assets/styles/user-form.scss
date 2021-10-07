@@ -1,0 +1,80 @@
+@import 'app.scss';
+
+.block-navbar {
+    position: absolute;
+    top: 0;
+}
+
+.user-form-group {
+    margin: 30px 0px;
+    display: flex;
+    justify-content: space-between;
+}
+.user-form-row {
+    display: flex;
+    flex-direction: column;
+}
+
+input.user-form-input,
+#user_selfPresentation,
+#user_birthdate select {
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 1px solid lightgrey;
+    box-shadow: $box-shadow;
+}
+
+.user-form-row {
+    width: 48%;
+}
+.user-form-row-self-presentation,
+.user-form-row-profile-picture {
+    width: 100%;
+}
+.user-form-row-self-presentation textarea {
+    min-height: 300px;
+}
+.user-form-row-profile-picture input {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.user-form-label {
+    margin: 0px 0px 10px 5px;
+}
+
+.user-form-row-agree-terms {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end
+}
+
+#user_birthdate {
+    display: flex;
+}
+#user_birthdate select {
+    width: 100%;
+}
+#user_agreeTerms {
+    transform: translateY(3px);
+    margin-right: 10px;
+}
+
+.btn-submit-user-form {
+    width: 50%;
+    text-align: center;
+    color: $white;
+    margin: 0px auto;
+    padding: 10px 20px;
+    border: $border;
+    border-radius: $radius;
+    box-shadow: $box-shadow;
+    background: linear-gradient(180deg, $primary-red 0%, $primary-orange 100%);
+    vertical-align: center;
+    align-self: center;
+    cursor: pointer;
+}
+.btn-submit-user-form:hover {
+    transform: scale(1.05);
+    transition: 0.4s;
+}

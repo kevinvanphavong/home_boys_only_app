@@ -1,0 +1,519 @@
+{% extends "layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('homepage-scss') }}
+{% endblock %}
+
+{% block body %}
+<header>
+    <div class="header-homepage-block">
+        <img class="header-homepage-img" src="{{ asset('build/images/hbo-background-header-homepage.jpg') }}" alt=""/>
+    </div>
+</header>
+
+<section class="section-upcoming-parties section-80">
+    <h2>UPCOMING PARTIES</h2>
+    <p>You want to join the ride ?</p>
+
+    <div class="block-events">
+        <button class="btn-carousel btn-carousel-left">
+            <img class="arrow-carousel" src="{{ asset('build/images/arrow-carousel.png') }}" alt="">
+        </button>
+
+        <button class="btn-carousel btn-carousel-right">
+            <img class="arrow-carousel" src="{{ asset('build/images/arrow-carousel.png') }}" alt="">
+        </button>
+
+        <div class="block-upcoming-event-card slide-active">
+            {% for party in events1 %}
+                <div class="event-card event-card-{{ loop.index }}">
+                    <h3>{{ party.id ~ ' - ' ~  party.title }}</h3>
+                    <h4>{{party.city }}</h4>
+                    <p>{{ party.startingDate | date("d-m-Y") }}</p>
+                    <p>{{ party.startingDate | date("h:i a") }} -
+                    {% if (party.startingDate | date_modify("+1day") | date("Y-m-d")) == (party.endingDate | date("Y-m-d")) %}
+                        {{ party.endingDate | date('H:i a') }}
+                    {% else %}
+                        {{ party.endingDate | date('Y-m-d H:i a') }}
+                    {% endif %}
+                    </p>
+                    {# <p>{{ party.presentation}}</p> #}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="block-upcoming-event-card">
+            {% for party in events2 %}
+                <div class="event-card event-card-{{ loop.index }}">
+                    <h3>{{ party.id ~ ' - ' ~  party.title }}</h3>
+                    <h4>{{party.city }}</h4>
+                    <p>{{ party.startingDate | date("d-m-Y") }}</p>
+                    <p>{{ party.startingDate | date("h:i a") }}
+                        -
+                        {% if (party.startingDate | date_modify("+1day") | date("Y-m-d")) == (party.endingDate | date("Y-m-d")) %}
+                            {{ party.endingDate | date('H:i a') }}
+                        {% else %}
+                            {{ party.endingDate | date('Y-m-d H:i a') }}
+                        {% endif %}
+                    </p>
+                    {# <p>{{ party.presentation}}</p> #}
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+
+<section class="section-past-parties section-80">
+    <h2>PAST PARTIES</h2>
+    <p>Take a look at what you've missed !</p>
+
+    <div class="block-events">
+        <button class="btn-carousel btn-carousel-left">
+            <img class="arrow-carousel" src="{{ asset('build/images/arrow-carousel.png') }}" alt="">
+        </button>
+
+        <button class="btn-carousel btn-carousel-right">
+            <img class="arrow-carousel" src="{{ asset('build/images/arrow-carousel.png') }}" alt="">
+        </button>
+
+        <div class="block-past-event-card slide-active">
+            {% for party in events4 %}
+                <div class="event-card event-card-{{ loop.index }}">
+                    <h3>{{ party.id ~ ' - ' ~  party.title }}</h3>
+                    <h4>{{ party.city }}</h4>
+                    <p>{{ party.startingDate | date("d-m-Y") }}</p>
+                    <p>{{ party.startingDate | date("h:i a") }}
+                        -
+                        {% if (party.startingDate | date_modify("+1day") | date("Y-m-d")) == (party.endingDate | date("Y-m-d")) %}
+                            {{ party.endingDate | date('H:i a') }}
+                        {% else %}
+                            {{ party.endingDate | date('Y-m-d H:i a') }}
+                        {% endif %}
+                    </p>
+                    {# <p>{{ party.presentation}}</p> #}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="block-past-event-card">
+            {% for party in events3 %}
+                <div class="event-card event-card-{{ loop.index }}">
+                    <h3>{{party.id ~ ' - ' ~ party.title }}</h3>
+                    <h4>{{party.city }}</h4>
+                    <p>{{ party.startingDate | date("d-m-Y") }}</p>
+                    <p>{{ party.startingDate | date("h:i a") }}
+                        -
+                        {% if (party.startingDate | date_modify("+1day") | date("Y-m-d")) == (party.endingDate | date("Y-m-d")) %}
+                            {{ party.endingDate | date('H:i a') }}
+                        {% else %}
+                            {{ party.endingDate | date('Y-m-d H:i a') }}
+                        {% endif %}
+                    </p>
+                    {# <p>{{ party.presentation}}</p> #}
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+
+<div class="block-separator">
+    <div class="separator"></div>
+</div>
+
+<section class="section-recent-comments">
+    <div class="recent-comments-content">
+        <h2>RECENT COMMENTS</h2>
+        <p>See reviews and how fun was described theses parties !</p>
+        <div class="block-buttons-comments">
+            <div class="btn-arrow btn-arrow-left">
+                <img src="{{ asset('build/images/arrow-carousel.png') }}" alt="">
+            </div>
+            <div class="btn-arrow btn-arrow-right">
+                <img src="{{ asset('build/images/arrow-carousel.png') }}" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="recent-comments-cards">
+        {% for i in 0..3 %}
+            <div class="commments-card">
+                <div class="blur">
+                    <h4>Lorem ipsum dolor</h4>
+                    <p>Lorem ipsum dolor sit amet.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum non nulla, cupiditate ipsam libero esse quo. Et eius quis dolor?</p>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum non nulla, cupiditate ipsam libero esse quo. Et eius quis dolor?</p>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="commments-card">
+            {% for comment in comments %}
+                <div class="comment-card-content {% if loop.index == 1 %}comment-active{% endif %} ">
+                    <h4>{{ comment.author.firstname ~ ' ' ~ comment.author.lastname }}</h4>
+                    <p>{{ comment.date | date('Y-m-d h:i a') }}</p>
+                    <p>{{ comment.content }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<div class="enveloppe"><img src="{{asset('build/images/homeboys-bgc.jpg') }}" alt=""></div>
+<section class="section-introducing-hbo section-80">
+    <div class="letter">
+        <h2>INTRODUCING <span>HOME BOYS ONLY</span></h2>
+        <p>Do your own party or get invited to one of them, at private homes and meet new people from everywhere 🎉</p>
+        <div class="section-introducing-content">
+
+            <div class="introduction-blocks introduction-part-one">
+                <div class="part-common-content">
+                    <h3>LET'S CHANGE THE RULES</h3>
+                    <br>
+                    <p>
+                        You want to have fun tonight ?<br>
+                        Let’s meet new people
+                    </p>
+                    <br>
+                    <p>
+                        You want to share your passion ?<br>
+                        Let’s find people who have the same passion
+                    </p>
+                    <br>
+                    <p>
+                        You want to grow your social circle ?<br>
+                        Let’s gathering with persons who are different
+                    </p>
+                    <br> 
+                    <p>
+                        You don’t want to be bored by yourself alone ?<br>
+                        Let’s find a party and make new friends
+                    </p>
+                </div>
+                <div class="part-common-img transform-left">
+                    <img src="{{ asset('build/images/hbo-introducing.jpg') }}" alt="">
+                </div>
+            </div>
+
+            <div class="introduction-blocks introduction-part-two">
+                <div class="part-common-content">
+                    <h3>WHAT DO WE OFFER ?</h3>
+                    <br>
+                    <p>
+                        As a student, a young entreprenor, a simple worker, a unemployed, a retiree or anything else, we all enjoying parties.
+                        > Dancing with friends
+                        > Talking with new friends
+                        > Catching up with old friends
+                        Everything will be more possible with HomeBoysOnly
+                    </p><br>
+                    <p>    
+                        As a planner you’ll be the CEO of your party. You create on your own the event. You choose the drinks and foods. You plan the playlist you like. You pick a list of guests. Everything it’s on you tonight
+                    </p><br>
+                    <p>   
+                        As a guest you’ll be able to see all the gathering around your place. You can choose mutiples one, add them to your wishlist, see all the guests, check if you like the music type, send message to the planner and get invited
+                    </p>
+                </div>
+                <div class="part-common-img transform-right">
+                    <img src="{{ asset('build/images/enter.jpg') }}" alt="">
+                </div>
+            </div>
+
+            <div class="introduction-blocks introduction-part-three">
+                <div class="part-common-content">
+                    <h3>
+                        WHY ARE WE DOING THIS ?
+                    </h3>
+                    <br>
+                    <p>
+                        We are humans, we are social persons, we need interactions with people.
+                    </p>
+                    <br>
+                    <p>Ever been in one of theses situations :</p>
+                    <ul>
+                        <li>Moving in a new city without knowing anyone</li>
+                        <li>Having a passion with no one to share</li>
+                        <li>Being on holidays and don’t know where to party</li>
+                    </ul>
+                    <br>
+                    <p>
+                        Many reasons and many experiences lead us here.
+                        But at the end the most important thing is our willness to create a solid community based on one common point :
+                        <b><i>We Enjoy What Life Has To Offer</i></b>
+                    </p>
+                </div>
+                <div class="part-common-img transform-left">
+                    <img src="{{ asset('build/images/thrills.jpg') }}" alt="">
+                </div>
+            </div>
+
+            <div class="introduction-blocks introduction-part-four">
+                <div class="part-common-content">
+                    <h3>WHY YOU SHOULD TRY IT ?</h3>
+                    <br>
+                    <p>
+                        The real question is why you shouldn’t ?
+                        So whether you are the planner or the guest, one thing guaranted :<br>
+                        YOU ARE GOING TO HAVE FUN                   
+                    </p>
+                    <br>
+                    <h3>HOW IS IT WORKING ?</h3>
+                    <br>
+                    <p>
+                        Pick the blue pill and you’ll be a <b><i>planner</i></b><br>
+                        Pick the red pill and you’ll be a <b><i>special guest</i></b>
+                    </p>
+                    <br>
+                    <p>                
+                        Joke aside, you can click on one of the buttons down below and you’ll become a member of our H.B.O family                
+                    </p>
+                    <br>
+                    <div class="group-btn-introducing-choice">
+                        <div class="btn-introducing-choice btn-planner">
+                            <a href="">PLANNER</a>
+                        </div>
+                        <div class="btn-introducing-choice btn-guest">
+                            <a href="">GUEST</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="part-common-img transform-right">
+                    <img src="{{ asset('build/images/girls-have-fun.jpg') }}" alt="">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<style>
+    .enveloppe {
+        position: relative;
+    }
+
+    .enveloppe {
+        width: 100%;
+        z-index: -10;
+    }
+
+    .enveloppe img {
+        position: absolute;
+        width: 100%;
+        object-fit: cover;
+        box-shadow: 0px -4px 10px lightgrey, 0px 4px 10px darkgrey;
+    }
+</style>
+
+<script>
+
+// ------------- START - carousel upcoming parties 
+const arrowLeft = document.querySelectorAll('button.btn-carousel-left')
+const arrowRight = document.querySelectorAll('button.btn-carousel-right')
+
+const items = document.querySelectorAll('.block-upcoming-event-card')
+const nbSlide = items.length
+let count = 0;
+
+function nextSlide(e) {
+    arrowRight[0].disabled = true;
+    arrowLeft[0].disabled = true;
+    let oldCount = count;
+    // ajout de class disappearLeft pour avoir l'animation de 1 seconde
+    // 1) Décaler le block a gauche
+    // 2) Rendre le block opacité = 0
+    items[oldCount].classList.remove('fadeRight');
+    items[oldCount].classList.remove('fadeLeft');
+    items[oldCount].classList.add('disappearLeft');
+    // mettre un delai de 1 seconde avant 
+    setTimeout(() => {
+        items[oldCount].classList.remove('slide-active');
+
+        if (count < (nbSlide - 1)) {
+            count++;
+        } else {
+            count = 0;
+        }
+
+        items[count].classList.add('slide-active')
+        items[count].classList.add('fadeRight')
+        items[oldCount].classList.remove('disappearLeft');
+    }, 400);
+    // rendre les bouton inactif et actif seulement a la fin de l'animation pour ne pas eviter trop de clics
+    setTimeout(() => {
+        arrowRight[0].disabled = false;
+        arrowLeft[0].disabled = false;
+    }, 1400);
+}
+
+function previousSlide(e) {
+    arrowLeft[0].disabled = true;
+    arrowRight[0].disabled = true;
+    let oldCount = count;
+    // ajout de class disappearRight pour avoir l'animation de 1 seconde
+    // 1) Décaler le block a gauche
+    // 2) Rendre le block opacité = 0
+    items[oldCount].classList.remove('fadeRight');
+    items[oldCount].classList.remove('fadeLeft');
+    items[oldCount].classList.add('disappearRight');
+    // mettre un delai de 1 seconde avant
+    setTimeout(() => {    
+        items[oldCount].classList.remove('slide-active');
+    
+        if (count > 0) {
+            count--;
+        } else if (count == 0) {
+            count = (nbSlide - 1);
+        }
+    
+        items[count].classList.add('slide-active')
+        items[count].classList.add('fadeLeft')
+        items[oldCount].classList.remove('disappearRight')
+    }, 400);
+    // rendre les bouton inactif et actif seulement a la fin de l'animation pour ne pas eviter trop de clics
+    setTimeout(() => {
+        arrowRight[0].disabled = false;
+        arrowLeft[0].disabled = false;
+    }, 1400);
+}
+
+arrowRight[0].addEventListener('click', nextSlide);
+arrowLeft[0].addEventListener('click', previousSlide);
+// ------------- END - carousel upcoming parties
+
+
+// -------------- START - carousel past parties
+const cards = document.querySelectorAll('.block-past-event-card')
+const lgSlide = cards.length
+let index = 0;
+
+function futurSlide() {
+    arrowRight[1].disabled = true;
+    arrowLeft[1].disabled = true;
+    let oldIndex = index;
+    // ajout de class disappearLeft pour avoir l'animation de 1 seconde
+    // 1) Décaler le block a gauche
+    // 2) Rendre le block opacité = 0
+    cards[oldIndex].classList.remove('fadeRight');
+    cards[oldIndex].classList.remove('fadeLeft');
+    cards[oldIndex].classList.add('disappearLeft');
+    // mettre un delai de 1 seconde avant 
+    setTimeout(() => {
+        cards[oldIndex].classList.remove('slide-active');
+
+        if (index < (lgSlide - 1)) {
+            index++;
+        } else {
+            index = 0;
+        }
+
+        cards[index].classList.add('slide-active')
+        cards[index].classList.add('fadeRight')
+        cards[oldIndex].classList.remove('disappearLeft');
+    }, 400);
+    // rendre les bouton inactif et actif seulement a la fin de l'animation pour ne pas eviter trop de clics
+    setTimeout(() => {
+        arrowRight[1].disabled = false;
+        arrowLeft[1].disabled = false;
+    }, 1400);
+}
+
+function oldSlide() {
+    arrowLeft[1].disabled = true;
+    arrowRight[1].disabled = true;
+    let oldIndex = index;
+    // ajout de class disappearRight pour avoir l'animation de 1 seconde
+    // 1) Décaler le block a gauche
+    // 2) Rendre le block opacité = 0
+    cards[oldIndex].classList.remove('fadeRight');
+    cards[oldIndex].classList.remove('fadeLeft');
+    cards[oldIndex].classList.add('disappearRight');
+    // mettre un delai de 1 seconde avant
+    setTimeout(() => {    
+        cards[oldIndex].classList.remove('slide-active');
+    
+        if (index > 0) {
+            index--;
+        } else if (index == 0) {
+            index = (lgSlide - 1);
+        }
+    
+        cards[index].classList.add('slide-active')
+        cards[index].classList.add('fadeLeft')
+        cards[oldIndex].classList.remove('disappearRight')
+    }, 400);
+    // rendre les bouton inactif et actif seulement a la fin de l'animation pour ne pas eviter trop de clics
+    setTimeout(() => {
+        arrowRight[1].disabled = false;
+        arrowLeft[1].disabled = false;
+    }, 1400);
+}
+
+arrowRight[1].addEventListener('click', futurSlide);
+arrowLeft[1].addEventListener('click', oldSlide);
+// ------------- END - carousel past parties
+
+
+
+// ------------- START - carousel recents comments
+const commentsCards = document.querySelectorAll('.commments-card')
+let nbCards = commentsCards.length
+let counter = 1
+let moreHeight = 30
+commentsCards[(commentsCards.length) - 1].style.filter = "blur(0px)";
+
+ commentsCards.forEach(card => {
+    card.style.width = (80 - (counter * 10)) + '%'
+    card.style.height = card.offsetHeight + (counter * moreHeight) + "px"
+    counter++
+ });
+
+const cardsContent = document.querySelectorAll('.comment-card-content');
+const cardsLength = cardsContent.length;
+const btnArrowLeft = document.querySelector('.btn-arrow-left');
+const btnArrowRight = document.querySelector('.btn-arrow-right');
+let i = 0;
+
+function nextComment() {
+    commentsCards[nbCards - 1].classList.add('card-moving')
+    cardsContent[i].classList.remove('comment-active');
+    if (i < (cardsLength - 1)) {
+        i++;
+    } else {
+        i = 0;
+    }
+    cardsContent[i].classList.add('comment-active')
+    setTimeout(() => {
+        commentsCards[nbCards - 1].classList.remove('card-moving')
+    }, 1000);
+}
+
+function previousComment() {
+    commentsCards[nbCards - 1].classList.add('card-moving')
+    cardsContent[i].classList.remove('comment-active');
+    if (i > 0) {
+        i--;
+    } else if (index == 0) {
+        i = (cardsLength - 1);
+    }
+    cardsContent[i].classList.add('comment-active')
+    setTimeout(() => {
+        commentsCards[nbCards - 1].classList.remove('card-moving')
+    }, 1000);
+}
+
+btnArrowLeft.addEventListener('click', previousComment);
+btnArrowRight.addEventListener('click', nextComment);
+// ------------- END - carousel recents comments
+
+const enveloppe = document.querySelector('.enveloppe');
+const enveloppeImg = document.querySelector('.enveloppe img');
+
+
+window.addEventListener('scroll', function() {
+    let value = window.scrollY;
+    let basicValue = 300;
+
+    enveloppe.style.top = value*0.2 + "px"
+})
+</script>
+
+{% endblock %}
