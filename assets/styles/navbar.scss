@@ -28,8 +28,8 @@
     .btn-finding-party,
     .btn-creating-party,
     .circle-navbar {
-        border-top: $border;
-        border-bottom: $border;
+        border-top: $border-3;
+        border-bottom: $border-3;
         background: $white;
         padding: 10px 50px;
         cursor: pointer;
@@ -51,7 +51,7 @@
         width: 50px;
         border-radius: 50%;
         background: linear-gradient(180deg, $primary-red 0%, $primary-orange 100%);
-        border: $border;
+        border: $border-3;
     }
 }
 
@@ -63,7 +63,7 @@
     background-color: $white;
     padding: 20px 30px;
     margin-top: 10px;
-    border: $border;
+    border: $border-3;
     border-radius: $radius;
     box-shadow: $box-shadow;
     position: absolute;

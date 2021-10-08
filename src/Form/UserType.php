@@ -61,27 +61,17 @@ class UserType extends AbstractType
                 'row_attr' => ['class' => 'user-form-row']
             ])
 
-            ->add('phonenumber', TextType::class, [
+            ->add('phone', TextType::class, [
                 'label' => 'Phone number',
                 'label_attr' => ['class' => 'user-form-label'],
                 'attr' => ['class' => 'user-form-input', 'placeholder' => '+33 645953115'],
                 'row_attr' => ['class' => 'user-form-row']
             ])
 
-            ->add('selfPresentation', TextareaType::class, [
+            ->add('presentation', TextareaType::class, [
                 'label_attr' => ['class' => 'user-form-label'],
                 'attr' => ['class' => 'user-form-input', 'placeholder' => 'Describe yourself so people can get to know you ...'],
                 'row_attr' => ['class' => 'user-form-row user-form-row-self-presentation']
-            ])
-
-            ->add('pictureProfile', FileType::class, [
-                'label' => 'Profile picture',
-                'label_attr' => ['class' => 'user-form-label'],
-                'attr' => ['class' => 'user-form-input'],
-                'row_attr' => ['class' => 'user-form-row user-form-row-profile-picture'],
-                'multiple' => false,
-                'required' => false,
-                'mapped' => false,
             ])
 
             ->add('agreeTerms', CheckboxType::class, [

@@ -1,10 +1,5 @@
 @import 'app.scss';
 
-.block-navbar {
-    position: absolute;
-    top: 0;
-}
-
 .user-form-group {
     margin: 30px 0px;
     display: flex;
@@ -16,11 +11,11 @@
 }
 
 input.user-form-input,
-#user_selfPresentation,
+#user_presentation,
 #user_birthdate select {
     padding: 10px 20px;
     border-radius: 30px;
-    border: 1px solid lightgrey;
+    border: $border-1;
     box-shadow: $box-shadow;
 }
 
@@ -66,7 +61,7 @@ input.user-form-input,
     color: $white;
     margin: 0px auto;
     padding: 10px 20px;
-    border: $border;
+    border: $border-1;
     border-radius: $radius;
     box-shadow: $box-shadow;
     background: linear-gradient(180deg, $primary-red 0%, $primary-orange 100%);

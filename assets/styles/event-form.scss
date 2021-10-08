@@ -31,7 +31,7 @@ textarea.event-form-input,
 .event-form-input select {
     padding: 10px 20px;
     border-radius: 30px;
-    border: 1px solid lightgrey;
+    border: $border-1;
     box-shadow: 0px 4px 4px lightgrey;
 }
 
@@ -70,7 +70,7 @@ textarea.event-form-input,
 label.material-icons {
     font-size: 50px;
     padding: 20px;
-    border: 1px solid lightgrey;
+    border: $border-1;
     box-shadow: 0px 4px 4px lightgrey;
     border-radius: 30px;
     cursor: pointer;

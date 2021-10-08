@@ -40,7 +40,7 @@ h2 + p {
 .event-card {
     width: auto;
     padding: 10px 20px;
-    border: $border;
+    border: $border-3;
     border-radius: $radius;
     background: $white;
     box-shadow: $box-shadow;
@@ -74,7 +74,7 @@ h2 + p {
     padding: 10px;
     position: absolute;
     top: 50%;
-    border: $border;
+    border: $border-3;
     border-radius: $radius;
     box-shadow: $box-shadow;
     background-color: rgba($white, 0.15);
@@ -180,7 +180,7 @@ h2 + p {
     height: 10px;
     width: 50%;
     background: $white;
-    border: 1px solid $border-color;
+    border: $border-1;
     box-shadow: $box-shadow;
     border-radius: $radius;
     transform: translateY(5px);
@@ -213,7 +213,7 @@ h2 + p {
 }
 
 .commments-card {
-    border: 3px solid lightgrey;
+    border: $border-3;
     border-radius: 30px;
     background: whitesmoke;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
@@ -276,7 +276,7 @@ h2 + p {
 }
 
     .btn-arrow {
-        border: $border;
+        border: $border-3;
         box-shadow: $box-shadow;
         background: $white;
         cursor: pointer;
@@ -317,7 +317,7 @@ h2 + p {
     width: 60%;
     border-radius: 30px;
     background: linear-gradient(180deg, $primary-red 0%, $primary-orange 100%);
-    border: $border;
+    border: $border-3;
     color: $white;
     box-shadow: $box-shadow
 }
@@ -328,7 +328,7 @@ h2 + p {
     align-items: center;
 }
 .part-common-img img {
-    border: 2px solid #E8E8E8;
+    border: $border-1;
     box-shadow: $box-shadow;
     height: 250px;
     width: 100%;
@@ -359,7 +359,7 @@ h2 + p {
 }
 .btn-introducing-choice {
     padding: 10px 20px;
-    border: 3px outset lightgrey;
+    border: $border-3;
     border-radius: $radius;
     background: $white;
     text-align: center;

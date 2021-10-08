@@ -12,17 +12,15 @@
     
         <div class="user-form-group">
             {{form_row(userForm.birthdate) }}
-            {{form_row(userForm.phonenumber) }}
+            {{form_row(userForm.phone) }}
         </div>
 
         <div class="user-form-group">
-            {{form_row(userForm.pictureProfile) }}
-        </div>
-        <div class="user-form-group">
-            {{form_row(userForm.selfPresentation) }}
+            {{form_row(userForm.presentation) }}
         </div>
         <div class="user-form-group">
             {{form_row(userForm.agreeTerms) }}
         </div>
+        <button class="btn-submit-user-form" type="submit">CREATE YOUR PROFILE</button>
     {{ form_end(userForm) }}
 {% endblock %}
