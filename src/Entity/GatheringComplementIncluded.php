@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\GatheringComplementRepository;
+use App\Repository\GatheringComplementIncludedRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=GatheringComplementRepository::class)
+ * @ORM\Entity(repositoryClass=GatheringComplementIncludedRepository::class)
  */
-class GatheringComplement
+class GatheringComplementIncluded
 {
     /**
      * @ORM\Id

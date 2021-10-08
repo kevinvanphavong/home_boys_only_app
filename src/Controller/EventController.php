@@ -24,17 +24,17 @@ class EventController extends AbstractController
         if ($eventForm->isSubmitted() && $eventForm->isValid()) {
 
 
-            $complements1 = $eventForm->get('complementsIncluded')->getData();
+            $complements1 = $eventForm->get('gatheringComplementsIncluded')->getData();
             foreach($complements1 as $complement) {
                 $event->addGatheringComplementsIncluded($complement);
             }
             
-            $complements2 = $eventForm->get('complementsToBring')->getData();
+            $complements2 = $eventForm->get('gatheringComplementsToBring')->getData();
             foreach($complements2 as $complement) {
-                $event->addGatheringComplementsIncluded($complement);
+                $event->addGatheringComplementsToBring($complement);
             }
 
-            $event->setPlanner($userRepository->find(31));
+            $event->setPlanner($userRepository->find(51));
             
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($event);

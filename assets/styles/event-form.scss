@@ -1,6 +1,62 @@
 @import 'app.scss';
 
 // ---------- START - handling the event-form ----------
+.header-new-event {
+    width: 100%;
+    box-shadow: 0px 4px 4px lightgrey;
+    display: flex;
+    flex-direction: column;
+}
+.header-new-event img {
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+}
+
+.underline {
+    width: 50%;
+    height: 5px;
+    background: linear-gradient(90deg, red 0%, orange 100%);
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.section-title-new-event ul li {
+    margin: 10px 0px;
+}
+
+
+input.event-form-input,
+textarea.event-form-input,
+.event-form-input select {
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 1px solid lightgrey;
+    box-shadow: 0px 4px 4px lightgrey;
+}
+
+.event-form-row {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+}
+
+.event-form-label {
+    margin: 0px 0px 10px 5px;
+}
+
+.event-form-input div {
+    display: flex;
+}
+
+.event-form-input div:first-child {
+    margin-bottom: 10px;
+}
+
+.event-form-input div select {
+    width: 100%;
+}
+
 .event-form-group {
     margin: 30px 0px;
     display: flex;
@@ -9,5 +65,41 @@
 .event-form-row {
     display: flex;
     flex-direction: column;
+}
+
+label.material-icons {
+    font-size: 50px;
+    padding: 20px;
+    border: 1px solid lightgrey;
+    box-shadow: 0px 4px 4px lightgrey;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+label.material-icons.checked {
+    background: lightgreen;
+}
+
+.event-form-row-presentation,
+.event-form-row-whats-included,
+.event-form-row-what-to-bring {
+    width: 100%;
+}
+
+.event-form-row-presentation .event-form-input{
+    min-height: 200px; 
+}
+
+.event-form-row-whats-included .event-form-input,
+.event-form-row-what-to-bring .event-form-input {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.block-label-whats-included,
+.block-label-what-to-bring {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
 }
 // ---------- END - handling the event-form ----------

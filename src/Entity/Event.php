@@ -76,19 +76,25 @@ class Event
     private $relatedComments;
 
     /**
-     * @ORM\ManyToMany(targetEntity=GatheringComplement::class, mappedBy="eventsWithComplementIncluded")
+     * @ORM\Column(type="text")
+     */
+    private $presentation;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=GatheringComplementIncluded::class, mappedBy="eventsWithComplementIncluded")
      */
     private $gatheringComplementsIncluded;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\ManyToMany(targetEntity=GatheringComplementToBring::class, mappedBy="eventsWithComplementsToBring")
      */
-    private $presentation;
+    private $gatheringComplementsToBring;
 
     public function __construct()
     {
         $this->relatedComments = new ArrayCollection();
         $this->gatheringComplementsIncluded = new ArrayCollection();
+        $this->gatheringComplementsToBring = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -246,15 +252,27 @@ class Event
         return $this;
     }
 
+    public function getPresentation(): ?string
+    {
+        return $this->presentation;
+    }
+
+    public function setPresentation(string $presentation): self
+    {
+        $this->presentation = $presentation;
+
+        return $this;
+    }
+
     /**
-     * @return Collection|GatheringComplement[]
+     * @return Collection|GatheringComplementIncluded[]
      */
     public function getGatheringComplementsIncluded(): Collection
     {
         return $this->gatheringComplementsIncluded;
     }
 
-    public function addGatheringComplementsIncluded(GatheringComplement $gatheringComplementsIncluded): self
+    public function addGatheringComplementsIncluded(GatheringComplementIncluded $gatheringComplementsIncluded): self
     {
         if (!$this->gatheringComplementsIncluded->contains($gatheringComplementsIncluded)) {
             $this->gatheringComplementsIncluded[] = $gatheringComplementsIncluded;
@@ -264,7 +282,7 @@ class Event
         return $this;
     }
 
-    public function removeGatheringComplementsIncluded(GatheringComplement $gatheringComplementsIncluded): self
+    public function removeGatheringComplementsIncluded(GatheringComplementIncluded $gatheringComplementsIncluded): self
     {
         if ($this->gatheringComplementsIncluded->removeElement($gatheringComplementsIncluded)) {
             $gatheringComplementsIncluded->removeEventsWithComplementIncluded($this);
@@ -273,14 +291,29 @@ class Event
         return $this;
     }
 
-    public function getPresentation(): ?string
+    /**
+     * @return Collection|GatheringComplementToBring[]
+     */
+    public function getGatheringComplementsToBring(): Collection
     {
-        return $this->presentation;
+        return $this->gatheringComplementsToBring;
     }
 
-    public function setPresentation(string $presentation): self
+    public function addGatheringComplementsToBring(GatheringComplementToBring $gatheringComplementsToBring): self
     {
-        $this->presentation = $presentation;
+        if (!$this->gatheringComplementsToBring->contains($gatheringComplementsToBring)) {
+            $this->gatheringComplementsToBring[] = $gatheringComplementsToBring;
+            $gatheringComplementsToBring->addEventsWithComplementsToBring($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGatheringComplementsToBring(GatheringComplementToBring $gatheringComplementsToBring): self
+    {
+        if ($this->gatheringComplementsToBring->removeElement($gatheringComplementsToBring)) {
+            $gatheringComplementsToBring->removeEventsWithComplementsToBring($this);
+        }
 
         return $this;
     }

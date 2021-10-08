@@ -3,6 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\GatheringComplement;
+use App\Entity\GatheringComplementIncluded;
+use App\Entity\GatheringComplementToBring;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -13,7 +15,7 @@ class GatheringComplementsFixtures extends Fixture
         'food'              => 'restaurant',
         'drink'             => 'local_drink',
         'decoration'        => 'local_florist',
-        'good vibes'        => 'thumb_up_alt',
+        'good-vibes'        => 'thumb_up_alt',
         'humour'            => 'mood',
         'games'             => 'games',
         'photographer'      => 'camera_enhance',
@@ -25,7 +27,14 @@ class GatheringComplementsFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         foreach ($this->complements as $key => $value) {
-            $complement = new GatheringComplement();
+            $complement = new GatheringComplementIncluded();
+            $complement->setName(ucfirst($key));
+            $complement->setIcon($value);
+            $manager->persist($complement);
+        }
+
+        foreach ($this->complements as $key => $value) {
+            $complement = new GatheringComplementToBring();
             $complement->setName(ucfirst($key));
             $complement->setIcon($value);
             $manager->persist($complement);

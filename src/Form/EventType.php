@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Event;
 use App\Entity\GatheringComplement;
+use App\Entity\GatheringComplementIncluded;
+use App\Entity\GatheringComplementToBring;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -98,8 +100,8 @@ class EventType extends AbstractType
 
             // ->add('planner')
 
-            ->add('complementsIncluded', EntityType::class, [
-                'class'         => GatheringComplement::class,
+            ->add('gatheringComplementsIncluded', EntityType::class, [
+                'class'         => GatheringComplementIncluded::class,
                 'choice_label'  => function ($complement) {
                     return $complement->getIcon();
                 },
@@ -120,9 +122,8 @@ class EventType extends AbstractType
                 'mapped'        => false,
             ])
 
-            ->add('complementsToBring', EntityType::class, [
-                'mapped'        => false,
-                'class'         => GatheringComplement::class,
+            ->add('gatheringComplementsToBring', EntityType::class, [
+                'class'         => GatheringComplementToBring::class,
                 'choice_label'  => function ($complement) {
                     return $complement->getIcon();
                 },
@@ -140,6 +141,7 @@ class EventType extends AbstractType
                 'row_attr'      => ['class' => 'event-form-row event-form-row-what-to-bring'],
                 'expanded'      => true,
                 'multiple'      => true,
+                'mapped'        => false,
             ])
 
             ->add('submit', SubmitType::class, [

@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\GatheringComplement;
+use App\Entity\GatheringComplementIncluded;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method GatheringComplement|null find($id, $lockMode = null, $lockVersion = null)
- * @method GatheringComplement|null findOneBy(array $criteria, array $orderBy = null)
- * @method GatheringComplement[]    findAll()
- * @method GatheringComplement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method GatheringComplementIncluded|null find($id, $lockMode = null, $lockVersion = null)
+ * @method GatheringComplementIncluded|null findOneBy(array $criteria, array $orderBy = null)
+ * @method GatheringComplementIncluded[]    findAll()
+ * @method GatheringComplementIncluded[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class GatheringComplementRepository extends ServiceEntityRepository
+class GatheringComplementIncludedRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, GatheringComplement::class);
+        parent::__construct($registry, GatheringComplementIncluded::class);
     }
 
     // /**
-    //  * @return GatheringComplement[] Returns an array of GatheringComplement objects
+    //  * @return GatheringComplementIncluded[] Returns an array of GatheringComplementIncluded objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class GatheringComplementRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?GatheringComplement
+    public function findOneBySomeField($value): ?GatheringComplementIncluded
     {
         return $this->createQueryBuilder('g')
             ->andWhere('g.exampleField = :val')
