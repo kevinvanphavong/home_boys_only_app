@@ -14,33 +14,19 @@
     <img src="{{asset('build/images/las-vegas.jpg') }}" alt="">
 </div> #}
 
-<style>
-    .group-event-pictures {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-top: 20px;
-    }
-    .group-event-pictures img {
-        margin: 10px;
-        border: 3px solid lightgrey;
-        box-shadow: 0 0 10px lightgrey;
-        border-radius: 10px;
-    }
-</style>
-
 <div class="section-title-new-event section-80">
-    <h1 id="title-create-party">Start by creating your own party !</h1>
+    <h1 id="title-create-party">Commence par créer ta propre soirée !</h1>
     <div class="underline"></div>
-    <p>Then you can invite as many people as you wish for more fun</p>
+    <p>Après tu pourras inviter autant de monde que tu le souhaites</p>
     <br>
-    <h2>HOW TO BUILD A EVENT ?</h2>
+    <h2>COMMENT CRÉER UN ÉVÈNEMENT ?</h2>
     <ul>
     {% set var = [
-        "Fill the form for all the informations needed below",
-        "Give us some details about your gathering, so people can be so people can have a little teaser ;)",
-        "Add multiples pictures of where party will take place",
-        "Click on the button “Create my party”",
+        "Remplir toutes les informations nécessaires du formulaire en dessous",
+        "Donner des détails sur la soirée dans l'encadré 'Présentation', comme une jolie teaser ;)",
+        "Ajouter plusieurs photos de l'endroit où se passera la soirée",
+        "Choisir une seule photo dans pour être la bannière des présentation de la soirée",
+        "Appuyer sur le bouton “Créer ma soirée”",
     ] %}
     {% for i in 0.. ((var | length) - 1) %}
         <li>
@@ -157,49 +143,66 @@
 
 
     // --------------- START - showing images pre upload from the form
-    // let inputEventPictures = document.getElementById('event_eventPictures')
-    // let rowPictures = document.querySelector('.event-form-row-pictures')
-    // let blockPictures = document.createElement('div')
 
-    // blockPictures.classList.add('group-event-pictures')
+    let blockPictures = document.createElement('div')
+    blockPictures.classList.add('group-event-pictures')
 
-    // inputEventPictures.addEventListener('change', function() {
+    let rowPictures = document.querySelector('.event-form-row-pictures')
+    let inputEventPictures = document.getElementById('event_eventPictures')
 
-    //     blockPictures.innerHTML = "";
-    //     const files = inputEventPictures.files;
+    inputEventPictures.addEventListener('change', function() {
 
-    //     // check : limit to 5 files
-    //     // if upload more, only the 5 first will be set
-    //     if (inputEventPictures.files.length > 5) {
-    //         const dataTransfer = new DataTransfer();
+        blockPictures.innerHTML = "";
+        const files = inputEventPictures.files;
 
-    //         for (let index = 0; index < 5; index++) {
-    //             const file = files[index]
-    //             dataTransfer.items.add(file)
-    //         }
+        // check : limit to 5 files
+        // if upload more, only the 5 first will be set
+        if (inputEventPictures.files.length > 5) {
+            const dataTransfer = new DataTransfer();
 
-    //         inputEventPictures.files = dataTransfer.files
+            for (let index = 0; index < 5; index++) {
+                const file = files[index]
+                dataTransfer.items.add(file)
+            }
 
-    //         for (let i = 0; i < inputEventPictures.files.length; i++) {
-    //             const file = inputEventPictures.files[i];
-    //             let image = document.createElement('img')
-    //             image.src = URL.createObjectURL(file)
-    //             image.style.width = "150px"
-    //             image.style.height = "200px"
-    //             image.style.objectFit = "cover"
-
-    //             blockPictures.appendChild(image)
-    //         }
-
-    //         rowPictures.appendChild(blockPictures);
-
-    //     } else {
-    //         return;
-    //     }
-
-
-    // })
+            inputEventPictures.files = dataTransfer.files
+        }
     
+        for (let i = 0; i < inputEventPictures.files.length; i++) {
+            const file = inputEventPictures.files[i];
+            let image = document.createElement('img')
+            image.src = URL.createObjectURL(file)
+            image.alt = file.name
+
+            blockPictures.appendChild(image)
+        }
+
+        rowPictures.appendChild(blockPictures);
+
+    })
+
+// ------
+
+    let blockCover = document.createElement('div')
+    blockCover.classList.add('group-event-cover')
+
+    let rowCover = document.querySelector('.event-form-row-cover')  
+
+    let inputEventCover = document.getElementById('event_eventCover')
+    inputEventCover.addEventListener('change', function() {
+
+        blockCover.innerHTML = ""
+
+        const files = inputEventCover.files
+
+        let image = document.createElement('img')
+        image.src = URL.createObjectURL(files[0])
+
+        blockCover.appendChild(image)
+        rowCover.appendChild(blockCover)
+
+    })
+
     // --------------- END - showing images pre upload from the form
 </script>
 

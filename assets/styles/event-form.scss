@@ -80,6 +80,8 @@ label.material-icons.checked {
     background: lightgreen;
 }
 
+.event-form-row-pictures,
+.event-form-row-cover,
 .event-form-row-presentation,
 .event-form-row-whats-included,
 .event-form-row-what-to-bring {
@@ -102,9 +104,27 @@ label.material-icons.checked {
     flex-direction: column;
     margin: 10px;
 }
-// ---------- END - handling the event-form ----------
 
-
-.event-form-row-pictures {
-    width: 100%;
+.group-event-cover,
+.group-event-pictures {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
 }
+
+.group-event-cover img,
+.group-event-pictures img {
+    margin: 10px;
+    border: 3px solid lightgrey;
+    box-shadow: 0 0 10px lightgrey;
+    border-radius: 30px;
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+}
+.group-event-cover img {
+    height: 300px;
+    width: auto;
+}
+// ---------- END - handling the event-form ----------

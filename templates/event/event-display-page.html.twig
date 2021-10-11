@@ -1,0 +1,199 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Soirée n°
+	{{event.id}}
+	-
+	{{parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+	<style>
+
+		.header-img-bgc {
+			width: 100%;
+			height: 40vh;
+			object-fit: cover;
+		}
+		h1 + p {
+			font-size: 20px;
+			margin-top: 10px;
+		}
+
+
+/* --- */
+        nav {
+            z-index: 100;
+        }
+
+		.overlay-container {
+            position: fixed;
+			display: none;
+			width: 100vw;
+			height: 100vh;
+			background: rgba(100, 100, 100, 0.5);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+		}
+
+        .overlay-container img {
+            border: 3px solid lightgrey;
+			box-shadow: 0 0 4px lightgrey;
+			border-radius: 30px;
+        }
+
+        .overlay-btn-close {
+            position: absolute;
+            top: 50px;
+            right: 50px;
+            padding: 10px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: whitesmoke;
+            font-weight: bold;
+        }
+/* --- */
+
+		.section-event-images .grid-container {
+			width: 100%;
+			height: auto;
+			display: grid;
+			grid-template-columns: repeat(7, 1fr);
+			grid-template-rows: repeat(4, 1fr);
+			grid-gap: 10px;
+		}
+		.grid-item {
+			height: 300px;
+			width: auto;
+			border: 3px solid lightgrey;
+			box-shadow: 0 0 4px lightgrey;
+			border-radius: 30px;
+			overflow: hidden;
+		}
+
+		.grid-item-1 {
+			background: red;
+			grid-row-start: 1;
+			grid-row-end: 3;
+			grid-column-start: 1;
+			grid-column-end: 5;
+		}
+		.grid-item-2 {
+			background: blue;
+			grid-row-start: 1;
+			grid-row-end: 3;
+			grid-column-start: 5;
+			grid-column-end: 8;
+		}
+		.grid-item-3 {
+			background: orange;
+			grid-row-start: 3;
+			grid-row-end: 5;
+			grid-column-start: 1;
+			grid-column-end: 3;
+		}
+		.grid-item-4 {
+			background: pink;
+			grid-row-start: 3;
+			grid-row-end: 5;
+			grid-column-start: 3;
+			grid-column-end: 6;
+		}
+		.grid-item-5 {
+			background: grey;
+			grid-row-start: 3;
+			grid-row-end: 5;
+			grid-column-start: 6;
+			grid-column-end: 8;
+		}
+
+		.grid-item img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+        .section-separator {
+            width: 50%;
+            height: 10px;
+            background: whitesmoke;
+            border-radius: 30px;
+            border: 1px solid #E8E8E8;
+            box-shadow: 0 0 4px lightgrey;
+            margin: 50px auto;
+        }
+	</style>
+{% endblock %}
+
+
+{% block body %}
+
+	<div class="overlay-container">
+        <div class="overlay-close">
+	    	<button class="overlay-btn-close">X</button>
+        </div>
+		<img src="" alt="" class="overlay-picture">
+	</div>
+
+	<div>
+		<img class="header-img-bgc" src="{{asset('/uploads/eventCover/' ~ event.eventCover.name)}} " alt="">
+		<div class="section-80 section-header-title">
+			<h1>
+				Tu es en train de regarder l'evenement n°
+				{{event.id}}...
+			</h1>
+			<p>
+				Note Etoile (Moyenne Chiffré) -
+				{{event.planner.firstname ~ ' ' ~ event.planner.lastname }}
+				-
+				{{event.country ~ ', ' ~ event.city}}
+			</p>
+		</div>
+	</div>
+
+	<div class="section-80 section-event-images">
+		<div class="grid-container">
+			{% for picture in event.eventPictures %}
+				<div class="grid-item grid-item-{{ loop.index }}">
+					<img src="{{asset('/uploads/eventPictures/' ~ picture.name) }}" alt="">
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+    <div class="section-separator"><div>
+
+    <script>
+        let images = document.querySelectorAll('.grid-item img')
+        let overlayContainer = document.querySelector('.overlay-container')
+        let overlayBtnClose = document.querySelector('.overlay-btn-close')
+        let navbar = document.querySelector('nav')
+
+        // display Overlay once you click on one image
+        images.forEach(image => {
+            image.style.cursor = "pointer";
+            image.addEventListener('click', function(){
+                overlayContainer.style.display = "flex";
+                navbar.style.position = "absolute";
+                let blankImage = document.querySelector('.overlay-picture')
+                blankImage.src = image.src
+            })
+        });
+
+        // close overlay once you click on the "btn close" and "esc"
+        function closeOverlay() {
+            overlayContainer.style.display = "none";
+            navbar.style.position = "";
+        }
+
+        overlayBtnClose.addEventListener('click', closeOverlay)
+
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode === 27) {
+                closeOverlay
+            }
+        })
+
+    </script>
+{% endblock %}

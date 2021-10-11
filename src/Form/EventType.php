@@ -23,56 +23,56 @@ class EventType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label'          => 'Title of your event',
+                'label'          => 'Titre de l\'évènement',
                 'label_attr'     => ['class' => 'event-form-label'],
                 'attr'           => ['class' => 'event-form-input', 'placeholder' => 'HipHopCaribbeanSummerParty 2022'],
                 'row_attr'       => ['class' => 'event-form-row']
             ])
 
             ->add('startingDate', DateTimeType::class, [
-                'label'         => 'Start-date of your party',
+                'label'         => 'Début de la soirée',
                 'label_attr'    => ['class' => 'event-form-label'],
                 'attr'          => ['class' => 'event-form-input'],
                 'row_attr'      => ['class' => 'event-form-row']
             ])
 
             ->add('endingDate', DateTimeType::class, [
-                'label'         => 'End-date of your party',
+                'label'         => 'Fin de la soirée',
                 'label_attr'    => ['class' => 'event-form-label'],
                 'attr'          => ['class' => 'event-form-input'],
                 'row_attr'      => ['class' => 'event-form-row']
             ])
 
             ->add('entrancePrice', IntegerType::class, [
-                'label'         => 'Entrance price $€£',
+                'label'         => 'Prix d\'entrée $€£',
                 'label_attr'    => ['class' => 'event-form-label'],
                 'attr'          => ['class' => 'event-form-input'],
                 'row_attr'      => ['class' => 'event-form-row']
             ])
 
             ->add('presentation', TextareaType::class, [
-                'label'         => 'Presentation',
+                'label'         => 'Présentation',
                 'label_attr'    => ['class' => 'event-form-label'],
                 'attr'          => ['class' => 'event-form-input', 'placeholder' => 'Give a maximum informations to introduce and explain your party ;)'],
                 'row_attr'      => ['class' => 'event-form-row event-form-row-presentation']
             ])
 
             ->add('country', TextType::class, [
-                'label'         => 'Country',
+                'label'         => 'Pays',
                 'label_attr'    => ['class' => 'event-form-label'],
                 'attr'          => ['class' => 'event-form-input', 'placeholder' => 'France'],
                 'row_attr'      => ['class' => 'event-form-row']
             ])
 
             ->add('city', TextType::class, [
-                'label'         => 'City',
+                'label'         => 'Ville',
                 'label_attr'    => ['class' => 'event-form-label'],
                 'attr'          => ['class' => 'event-form-input', 'placeholder' => 'Paris'],
                 'row_attr'      => ['class' => 'event-form-row']
             ])
 
             ->add('address', TextType::class, [
-                'label'         => 'Address',
+                'label'         => 'Adresse postale',
                 'label_attr'    => ['class' => 'event-form-label'],
                 'attr'          => ['class' => 'event-form-input', 'placeholder' => '17 Boulevard des arômes'],
                 'row_attr'      => ['class' => 'event-form-row']
@@ -86,17 +86,18 @@ class EventType extends AbstractType
             // ])
 
             ->add('endOfRegistrations', DateTimeType::class, [
-                'label'         => 'End of regsitrations',
+                'label'         => 'Fin des inscription',
                 'label_attr'    => ['class' => 'event-form-label'],
                 'attr'          => ['class' => 'event-form-input'],
                 'row_attr'      => ['class' => 'event-form-row']
             ])
 
             ->add('limitedPlaces', IntegerType::class, [
-                'label'         => 'Limited places',
+                'label'         => 'Nombres de places limitées',
                 'label_attr'    => ['class' => 'event-form-label'],
                 'attr'          => ['class' => 'event-form-input'],
-                'row_attr'      => ['class' => 'event-form-row']
+                'row_attr'      => ['class' => 'event-form-row'],
+                'help'          => 'Choisir le nombre de places souhaités et disponibles aux personnes'
             ])
 
             // ->add('planner')

@@ -6,6 +6,7 @@ use App\Entity\Event;
 use App\Entity\EventCover;
 use App\Entity\EventPicture;
 use App\Form\EventType;
+use App\Repository\EventRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,8 +23,6 @@ class EventController extends AbstractController
         $event =  new Event();
         $eventForm = $this->createForm(EventType::class, $event);
         $eventForm->handleRequest($request);
-
-        // dd($eventForm, $request);
         
         if ($eventForm->isSubmitted() && $eventForm->isValid()) {
 
@@ -52,7 +51,7 @@ class EventController extends AbstractController
             $coverName = md5(uniqid()) . '.' . $eventCover->guessExtension();
             $eventCover->move($this->getParameter('event_cover'), $coverName);
             $newEventCover = new EventCover();
-            $newEventCover->setName($imageName);
+            $newEventCover->setName($coverName);
             $event->setEventCover($newEventCover);
 
             $event->setPlanner($userRepository->find(51));
@@ -65,8 +64,34 @@ class EventController extends AbstractController
         }
         
         return $this->render('event/event-creation-page.html.twig', [
-            'controller_name' => 'EventController',
             'eventForm' => $eventForm->createView()
         ]);
     }
+
+    /**
+     * @Route("/event/display/{id}/{title}", name="display-event", methods={"GET"})
+     */
+    public function displayEvent(Event $event): Response
+    {        
+        return $this->render('event/event-display-page.html.twig', [
+            'event' => $event,
+        ]);
+    }
 }
+    // /**
+    //  * @Route("/event/edition/{id}/{title}/", name="edition-event")
+    //  */
+    // public function showEvent(Request $request, UserRepository $userRepository): Response
+    // {
+
+    //     return;
+    // }
+    
+    // /**
+    //  * @Route("/event/suppression/{id}/{title}/", name="suppression-event")
+    //  */
+    // public function showEvent(Request $request, UserRepository $userRepository): Response
+    // {
+    //     return;
+    // }
+
