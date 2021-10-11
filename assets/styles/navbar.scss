@@ -1,25 +1,17 @@
 @import 'app.scss';
 
-.navbar-logo-app,
-.navbar-logo-user {
-    height: fit-content;
-}
-
 .block-navbar {
     background: linear-gradient(180deg, $primary-red-tr 0%, $primary-orange-tr 100%);
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 30px 50px;
-    position: absolute;
-    top: 0;
-    z-index: 10;
     box-shadow: $box-shadow;
 }
 
 .group-btn-party {
     display: flex;
-    height: fit-content;
     border-radius: $radius;
     box-shadow: $box-shadow
 }
@@ -31,8 +23,8 @@
         border-top: $border-3;
         border-bottom: $border-3;
         background: $white;
-        padding: 10px 50px;
-        cursor: pointer;
+        padding: 10px 0px;
+        vertical-align: middle;
     }
     .btn-finding-party {
         border-top-left-radius: $radius;
@@ -55,16 +47,15 @@
     }
 }
 
-
 // ---------- menu navbar ------------
 .menu-user {
     display: none;
     width: fit-content;
     background-color: $white;
     padding: 20px 30px;
-    margin-top: 10px;
+    margin-top: 5px;
     border: $border-3;
-    border-radius: $radius;
+    border-radius: $radius - 10px;
     box-shadow: $box-shadow;
     position: absolute;
     z-index: 20;
@@ -78,8 +69,4 @@
 
 .active {
     display: block;
-}
-
-.btn-menu-user {
-    cursor: pointer;
 }

@@ -8,14 +8,26 @@
 
 
 {% block body %}
-<style>
 
-
-</style>
-
+{# 
 <div class="header-new-event">
     <img src="{{asset('build/images/las-vegas.jpg') }}" alt="">
-</div>
+</div> #}
+
+<style>
+    .group-event-pictures {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+    .group-event-pictures img {
+        margin: 10px;
+        border: 3px solid lightgrey;
+        box-shadow: 0 0 10px lightgrey;
+        border-radius: 10px;
+    }
+</style>
 
 <div class="section-title-new-event section-80">
     <h1 id="title-create-party">Start by creating your own party !</h1>
@@ -26,9 +38,9 @@
     <ul>
     {% set var = [
         "Fill the form for all the informations needed below",
+        "Give us some details about your gathering, so people can be so people can have a little teaser ;)",
+        "Add multiples pictures of where party will take place",
         "Click on the button “Create my party”",
-        "Give a presentation of your gathering, so people can be more enthousiasm",
-        "Add multiples pictures of the place where the party will take place",
     ] %}
     {% for i in 0.. ((var | length) - 1) %}
         <li>
@@ -48,7 +60,7 @@
 </div>
 
 <div class="section-80">
-    {{ include('form/event-form.html.twig') }}
+    {{ include('form/form-event.html.twig') }}
 </div>
 
 <script>
@@ -142,6 +154,53 @@
     }
 
     // -------------- END - handling the display SVG icon
+
+
+    // --------------- START - showing images pre upload from the form
+    // let inputEventPictures = document.getElementById('event_eventPictures')
+    // let rowPictures = document.querySelector('.event-form-row-pictures')
+    // let blockPictures = document.createElement('div')
+
+    // blockPictures.classList.add('group-event-pictures')
+
+    // inputEventPictures.addEventListener('change', function() {
+
+    //     blockPictures.innerHTML = "";
+    //     const files = inputEventPictures.files;
+
+    //     // check : limit to 5 files
+    //     // if upload more, only the 5 first will be set
+    //     if (inputEventPictures.files.length > 5) {
+    //         const dataTransfer = new DataTransfer();
+
+    //         for (let index = 0; index < 5; index++) {
+    //             const file = files[index]
+    //             dataTransfer.items.add(file)
+    //         }
+
+    //         inputEventPictures.files = dataTransfer.files
+
+    //         for (let i = 0; i < inputEventPictures.files.length; i++) {
+    //             const file = inputEventPictures.files[i];
+    //             let image = document.createElement('img')
+    //             image.src = URL.createObjectURL(file)
+    //             image.style.width = "150px"
+    //             image.style.height = "200px"
+    //             image.style.objectFit = "cover"
+
+    //             blockPictures.appendChild(image)
+    //         }
+
+    //         rowPictures.appendChild(blockPictures);
+
+    //     } else {
+    //         return;
+    //     }
+
+
+    // })
+    
+    // --------------- END - showing images pre upload from the form
 </script>
 
 

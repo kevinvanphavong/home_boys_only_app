@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\EventPicture;
 use App\Form\EventType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class EventController extends AbstractController
 {
     /**
-     * @Route("/event/new-event", name="event-new")
+     * @Route("/event/creation-new-party", name="creation-new-party")
      */
     public function newEvent(Request $request, UserRepository $userRepository): Response
     {
@@ -22,7 +23,6 @@ class EventController extends AbstractController
         $eventForm->handleRequest($request);
         
         if ($eventForm->isSubmitted() && $eventForm->isValid()) {
-
 
             $complements1 = $eventForm->get('gatheringComplementsIncluded')->getData();
             foreach($complements1 as $complement) {
@@ -34,16 +34,26 @@ class EventController extends AbstractController
                 $event->addGatheringComplementsToBring($complement);
             }
 
+            $eventPictures = $eventForm->get('eventPictures')->getData();
+            foreach ($eventPictures as $image) {
+                $imageName = md5(uniqid()) . '.' . $image->guessExtension();
+                $image->move($this->getParameter('event_pictures'), $imageName);
+                $newEventPicture = new EventPicture();
+                $newEventPicture->setName($imageName);
+                $event->addEventPicture($newEventPicture);
+            }
+
+
             $event->setPlanner($userRepository->find(51));
             
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($event);
             $entityManager->flush();
 
-            return $this->redirectToRoute('event-new');
+            return $this->redirectToRoute('homepage');
         }
         
-        return $this->render('event/new-event.html.twig', [
+        return $this->render('event/event-creation-page.html.twig', [
             'controller_name' => 'EventController',
             'eventForm' => $eventForm->createView()
         ]);

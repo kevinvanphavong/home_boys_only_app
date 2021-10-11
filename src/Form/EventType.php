@@ -9,6 +9,7 @@ use App\Entity\GatheringComplementToBring;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -142,6 +143,17 @@ class EventType extends AbstractType
                 'expanded'      => true,
                 'multiple'      => true,
                 'mapped'        => false,
+            ])
+
+            ->add('eventPictures', FileType::class, [
+                'multiple'      => true,
+                'required'      => true,
+                'mapped'        => false,
+                'required'      => false,
+                'label'         => 'Add pictures here',
+                'label_attr'    => ['class' => 'event-form-label'],
+                'attr'          => ['class' => 'event-form-input'],
+                'row_attr'      => ['class' => 'event-form-row event-form-row-pictures'],
             ])
 
             ->add('submit', SubmitType::class, [

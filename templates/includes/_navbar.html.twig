@@ -4,21 +4,8 @@
 
 <nav class="block-navbar">
 
-    <div class="navbar-logo-user">
-        <p class="btn-menu-user" onclick="showUserMenu()">LOGO-USER</p>
-        <div class="menu-user">
-            <ul>
-                <li>LOGIN</li>
-                <li>REGISTRATION</li>
-                <li>MY ACCOUNT</li>
-                <li>WISHLIST EVENTS</li>
-                <li>ALL YOUR PARTIES</li>
-                <hr>
-                <li>LOGOUT</li>
-            </ul>
-        </div>
+    <div>
     </div>
-
 
     <div class="group-btn-party">
         <div class="btn-party btn-finding-party">
@@ -30,15 +17,65 @@
         </div>
         
         <div class="btn-party btn-creating-party">
-            <a href="{{ path('event-new') }}">Let's create a party</a>
+            <a href="{{ path('creation-new-party') }}">Let's create a party</a>
         </div>
     </div>
 
-    <div class="navbar-logo-app">
-        LOGO-APP
+    <div class="navbar-logo-user">
+        <div class="logo-user material-icons" onclick="showUserMenu()">
+            account_circle
+        </div>
+        <div class="menu-user">
+            <ul>
+                <li>
+                    <a href=" {{path('app_login')}}">LOGIN</a>
+                </li>
+                <li>REGISTRATION</li>
+                <li>MY ACCOUNT</li>
+                <li>WISHLIST EVENTS</li>
+                <li>ALL YOUR PARTIES</li>
+                <hr>
+                <li>LOGOUT</li>
+            </ul>
+        </div>
     </div>
-
 </nav>
+
+<style>
+
+.logo-user {
+    font-size: 50px;
+    color: whitesmoke;
+    cursor: pointer;
+    display: flex;
+    text-shadow: 0px 0px 4px grey;
+    border: 2px solid lightgrey;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.logo-user:hover {
+    transform: scale(1.1);
+}
+
+.menu-user {
+    color: black;
+}
+ 
+.btn-party {
+    max-width: 300px;
+    width: 300px;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+
+.menu-user {
+    top: 100px;
+    right: 3%;
+}
+
+</style>
 
 
 <script>

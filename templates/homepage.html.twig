@@ -37,7 +37,6 @@
                         {{ party.endingDate | date('Y-m-d H:i a') }}
                     {% endif %}
                     </p>
-                    {# <p>{{ party.presentation}}</p> #}
                 </div>
             {% endfor %}
         </div>
@@ -290,9 +289,6 @@
 <style>
     .enveloppe {
         position: relative;
-    }
-
-    .enveloppe {
         width: 100%;
         z-index: -10;
     }
@@ -512,9 +508,8 @@ const enveloppeImg = document.querySelector('.enveloppe img');
 
 window.addEventListener('scroll', function() {
     let value = window.scrollY;
-    let basicValue = 300;
 
-    enveloppe.style.top = value*0.2 + "px"
+    enveloppe.style.top = value*0.15 + "px"
 })
 </script>
 

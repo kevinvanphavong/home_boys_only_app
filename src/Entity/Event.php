@@ -6,6 +6,7 @@ use App\Repository\EventRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
@@ -90,11 +91,17 @@ class Event
      */
     private $gatheringComplementsToBring;
 
+    /**
+     * @ORM\OneToMany(targetEntity=EventPicture::class, mappedBy="event", cascade={"persist"})
+     */
+    private $eventPictures;
+
     public function __construct()
     {
         $this->relatedComments = new ArrayCollection();
         $this->gatheringComplementsIncluded = new ArrayCollection();
         $this->gatheringComplementsToBring = new ArrayCollection();
+        $this->eventPictures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -313,6 +320,36 @@ class Event
     {
         if ($this->gatheringComplementsToBring->removeElement($gatheringComplementsToBring)) {
             $gatheringComplementsToBring->removeEventsWithComplementsToBring($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EventPicture[]
+     */
+    public function getEventPictures(): Collection
+    {
+        return $this->eventPictures;
+    }
+
+    public function addEventPicture(EventPicture $eventPicture): self
+    {
+        if (!$this->eventPictures->contains($eventPicture)) {
+            $this->eventPictures[] = $eventPicture;
+            $eventPicture->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventPicture(EventPicture $eventPicture): self
+    {
+        if ($this->eventPictures->removeElement($eventPicture)) {
+            // set the owning side to null (unless already changed)
+            if ($eventPicture->getEvent() === $this) {
+                $eventPicture->setEvent(null);
+            }
         }
 
         return $this;
