@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\EventCover;
 use App\Entity\EventPicture;
 use App\Form\EventType;
 use App\Repository\UserRepository;
@@ -21,6 +22,8 @@ class EventController extends AbstractController
         $event =  new Event();
         $eventForm = $this->createForm(EventType::class, $event);
         $eventForm->handleRequest($request);
+
+        // dd($eventForm, $request);
         
         if ($eventForm->isSubmitted() && $eventForm->isValid()) {
 
@@ -34,6 +37,7 @@ class EventController extends AbstractController
                 $event->addGatheringComplementsToBring($complement);
             }
 
+            // handling each image uploaded for eventPictures
             $eventPictures = $eventForm->get('eventPictures')->getData();
             foreach ($eventPictures as $image) {
                 $imageName = md5(uniqid()) . '.' . $image->guessExtension();
@@ -42,7 +46,14 @@ class EventController extends AbstractController
                 $newEventPicture->setName($imageName);
                 $event->addEventPicture($newEventPicture);
             }
-
+            
+            // handling one image uploaded for eventCover
+            $eventCover = $eventForm->get('eventCover')->getData();
+            $coverName = md5(uniqid()) . '.' . $eventCover->guessExtension();
+            $eventCover->move($this->getParameter('event_cover'), $coverName);
+            $newEventCover = new EventCover();
+            $newEventCover->setName($imageName);
+            $event->setEventCover($newEventCover);
 
             $event->setPlanner($userRepository->find(51));
             

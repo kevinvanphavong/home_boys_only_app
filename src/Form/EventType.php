@@ -156,6 +156,17 @@ class EventType extends AbstractType
                 'row_attr'      => ['class' => 'event-form-row event-form-row-pictures'],
             ])
 
+            ->add('eventCover', FileType::class, [
+                'multiple'      => false,
+                'required'      => true,
+                'mapped'        => false,
+                'required'      => false,
+                'label'         => 'Choose a picture as cover',
+                'label_attr'    => ['class' => 'event-form-label'],
+                'attr'          => ['class' => 'event-form-input'],
+                'row_attr'      => ['class' => 'event-form-row event-form-row-cover'],
+            ])
+
             ->add('submit', SubmitType::class, [
                 'label'         => 'Save it',        
                 'attr'          => ['class' => 'btn btn-success'],

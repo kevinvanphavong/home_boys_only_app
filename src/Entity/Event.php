@@ -96,6 +96,11 @@ class Event
      */
     private $eventPictures;
 
+    /**
+     * @ORM\OneToOne(targetEntity=EventCover::class, mappedBy="event", cascade={"persist", "remove"})
+     */
+    private $eventCover;
+
     public function __construct()
     {
         $this->relatedComments = new ArrayCollection();
@@ -351,6 +356,23 @@ class Event
                 $eventPicture->setEvent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEventCover(): ?EventCover
+    {
+        return $this->eventCover;
+    }
+
+    public function setEventCover(EventCover $eventCover): self
+    {
+        // set the owning side of the relation if necessary
+        if ($eventCover->getEvent() !== $this) {
+            $eventCover->setEvent($this);
+        }
+
+        $this->eventCover = $eventCover;
 
         return $this;
     }
