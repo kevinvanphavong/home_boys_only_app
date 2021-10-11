@@ -20,40 +20,40 @@
 		}
 
 
-/* --- */
-        nav {
-            z-index: 100;
-        }
+		/* --- */
+		nav {
+			z-index: 100;
+		}
 
 		.overlay-container {
-            position: fixed;
+			position: fixed;
 			display: none;
 			width: 100vw;
 			height: 100vh;
 			background: rgba(100, 100, 100, 0.5);
-            z-index: 200;
-            justify-content: center;
-            align-items: center;
+			z-index: 200;
+			justify-content: center;
+			align-items: center;
 		}
 
-        .overlay-container img {
-            border: 3px solid lightgrey;
+		.overlay-container img {
+			border: 3px solid lightgrey;
 			box-shadow: 0 0 4px lightgrey;
 			border-radius: 30px;
-        }
+		}
 
-        .overlay-btn-close {
-            position: absolute;
-            top: 50px;
-            right: 50px;
-            padding: 10px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: whitesmoke;
-            font-weight: bold;
-        }
-/* --- */
+		.overlay-btn-close {
+			position: absolute;
+			top: 50px;
+			right: 50px;
+			padding: 10px;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			background: whitesmoke;
+			font-weight: bold;
+		}
+		/* --- */
 
 		.section-event-images .grid-container {
 			width: 100%;
@@ -114,45 +114,171 @@
 			object-fit: cover;
 		}
 
-        .section-separator {
-            width: 50%;
-            height: 10px;
-            background: whitesmoke;
-            border-radius: 30px;
-            border: 1px solid #E8E8E8;
-            box-shadow: 0 0 4px lightgrey;
-            margin: 50px auto;
-        }
+		.section-separator {
+			width: 50%;
+			height: 6px;
+			background: whitesmoke;
+			border-radius: 30px;
+			border: 1px solid #E8E8E8;
+			box-shadow: 0 0 4px lightgrey;
+			margin: 50px auto;
+		}
+
+
+		/* ----- section event planner info */
+
+		.section-event-planner-blocks {
+			display: grid;
+			grid-template-columns: repeat(7, 1fr);
+			grid-template-rows: repeat(1, 1fr);
+			grid-gap: 10px;
+		}
+
+		.event-planner-infos-1 {
+			grid-column-start: 1;
+			grid-column-end: 4;
+			padding-right: 20px;
+		}
+
+		.event-planner-infos-2 {
+			grid-column-start: 4;
+			grid-column-end: 6;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.event-planner-infos-3 {
+			grid-column-start: 6;
+			grid-column-end: 8;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		img.event-planner-picture-profile {
+			min-width: 200px;
+			height: 200px;
+			border-radius: 50%;
+			border: 3px solid lightgrey;
+			box-shadow: 0 0 4px lightgrey;
+			object-fit: cover;
+		}
+
+		.event-planner-infos-primary,
+		.event-planner-infos-actions {
+			display: flex;
+		}
+
+		.event-planner-infos-primary div {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			text-align: center
+		}
+
+		.event-planner-infos-actions {
+			margin-top: 40px;
+			justify-content: space-between;
+		}
+
+		.event-planner-infos-actions div {
+			display: flex;
+			padding: 10px;
+			box-shadow: 0 0 4px lightgrey;
+			border-radius: 5px;
+			background: linear-gradient(180deg, red 0%, orange 100%);
+			cursor: pointer;
+            color: whitesmoke;
+		}
+
+		.event-planner-infos-actions div span:not(:first-child) {
+			align-self: center;
+			margin-left: 5px;
+		}
+
+		.event-planner-infos-2 div,
+		.event-planner-infos-3 div {
+			display: flex;
+			width: 100%;
+		}
+
+		.event-planner-infos-2 div p,
+		.event-planner-infos-3 div p {
+			align-self: center;
+			margin: 0 10px;
+		}
+
+		/* ------ */
+		p.material-icons {
+			font-size: 32px;
+			padding: 5px;
+			border-radius: 5px;
+			background: lightgrey;
+			box-shadow: 0 0 4px lightgrey;
+		}
+
+		span.material-icons {
+			font-size: 32px;
+		}
+
+
+		/* ----- section event complements */
+
+		.block-event-complements-included,
+		.block-event-complements-to-bring {
+			width: 100%;
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		.block-event-complements-included .event-complement-included,
+		.block-event-complements-to-bring .event-complement-to-bring {
+			margin: 0 auto;
+			text-align: center;
+		}
+
+		.block-event-complements-included .event-complement-included .material-icons,
+		.block-event-complements-to-bring .event-complement-to-bring .material-icons {
+			font-size: 50px;
+			padding: 20px;
+			background: transparent;
+			border-radius: 30px;
+			border: 1px solid lightgrey;
+			box-shadow: 0 4px 4px lightgrey;
+		}
 	</style>
 {% endblock %}
 
 
 {% block body %}
-
 	<div class="overlay-container">
-        <div class="overlay-close">
-	    	<button class="overlay-btn-close">X</button>
-        </div>
+		<div class="overlay-close">
+			<button class="overlay-btn-close">X</button>
+		</div>
 		<img src="" alt="" class="overlay-picture">
 	</div>
 
-	<div>
+	<header>
+    {% if event.eventCover %}
 		<img class="header-img-bgc" src="{{asset('/uploads/eventCover/' ~ event.eventCover.name)}} " alt="">
+    {% endif %}
 		<div class="section-80 section-header-title">
 			<h1>
-				Tu es en train de regarder l'evenement n°
-				{{event.id}}...
+				{{event.title }}
 			</h1>
 			<p>
-				Note Etoile (Moyenne Chiffré) -
+				Etoile (Moyenne) -
 				{{event.planner.firstname ~ ' ' ~ event.planner.lastname }}
 				-
 				{{event.country ~ ', ' ~ event.city}}
 			</p>
 		</div>
-	</div>
+	</header>
 
-	<div class="section-80 section-event-images">
+	<div class="section-event-images section-80">
 		<div class="grid-container">
 			{% for picture in event.eventPictures %}
 				<div class="grid-item grid-item-{{ loop.index }}">
@@ -162,38 +288,155 @@
 		</div>
 	</div>
 
-    <div class="section-separator"><div>
+	<div class="section-event-planner section-80">
+		<h2>Soirée organisée par :
+		</h2>
+		<br>
 
-    <script>
-        let images = document.querySelectorAll('.grid-item img')
-        let overlayContainer = document.querySelector('.overlay-container')
-        let overlayBtnClose = document.querySelector('.overlay-btn-close')
-        let navbar = document.querySelector('nav')
+		<div class="section-event-planner-blocks">
+			<div class="event-planner-infos event-planner-infos-1">
+				<div class="event-planner-infos-primary">
+					<img src="{{asset('/build/images/thumbnail-profile.jpg') }}" alt="" class="event-planner-picture-profile">
+					<div>
+						<h5>Kevin Vanphavong</h5>
+						<br>
+						<p>etoiles etoiles etoiles</p>
+					</div>
+				</div>
+				<div class="event-planner-infos-actions">
+					<div>
+						<span class="material-icons">person_add</span>
+						<span>Friend</span>
+					</div>
+					<div>
+						<span class="material-icons">account_circle</span>
+						<span>Profile</p>
+					</span>
+				</div>
+				<div>
+					<span class="material-icons">chat</span>
+					<span>Message</span>
+				</div>
+			</div>
+		</div>
 
-        // display Overlay once you click on one image
-        images.forEach(image => {
-            image.style.cursor = "pointer";
-            image.addEventListener('click', function(){
-                overlayContainer.style.display = "flex";
-                navbar.style.position = "absolute";
-                let blankImage = document.querySelector('.overlay-picture')
-                blankImage.src = image.src
-            })
-        });
+		<div class="event-planner-infos event-planner-infos-2">
+			<div>
+				<p class="material-icons">flag</p>
+				<p>{{event.city ~ ', ' ~ event.country | upper }}</p>
+			</div>
+			<div>
+				<p class="material-icons">event_available</p>
+				<p>
+                {{ event.startingDate | date('d/m/Y') }}
+					<br>
+                    {{ event.startingDate | date('H:i') }}
+				</p>
+			</div>
+			<div>
+				<p class="material-icons">event_busy</p>
+				<p>
+                {{ event.endingDate | date('d/m/Y') }}
+					<br>
+                {{ event.endingDate | date('H:i') }}
+				</p>
+			</div>
+		</div>
 
-        // close overlay once you click on the "btn close" and "esc"
-        function closeOverlay() {
-            overlayContainer.style.display = "none";
-            navbar.style.position = "";
-        }
+		<div class="event-planner-infos event-planner-infos-3">
+			<div>
+				<p class="material-icons">paid</p>
+                {% if event.entrancePrice > 0 %}
+				    <p>{{ event.entrancePrice }}€ prix d'entrée</p>
+                {% else %}
+				    <p>Entrée gratuite</p>
+                {% endif %}
+			</div>
+			<div>
+				<p class="material-icons">local_activity</p>
+                <p>{{ event.limitedPlaces }} places disponibles</p>
+			</div>
+			<div>
+				<p class="material-icons">volunteer_activism</p>
+				<p>60 personnes intéressés par la soirée</p>
+			</div>
+		</div>
+	</div>
+</div>
 
-        overlayBtnClose.addEventListener('click', closeOverlay)
+<div class="section-separator"></div>
 
-        document.addEventListener('keydown', function(e) {
-            if (e.keyCode === 27) {
-                closeOverlay
-            }
+<div class="section-event-included section-80">
+	<h2>What's included :</h2>
+	<br>
+	<div class="block-event-complements-included">
+		{% for complement in event.gatheringComplementsIncluded %}
+			<div class="event-complement-included">
+				<p>{{complement.name }}</p>
+				<p class="material-icons">{{complement.icon}}</p>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+<div class="section-event-to-bring section-80">
+	<h2>What's do you need to bring :</h2>
+	<br>
+	<div class="block-event-complements-to-bring">
+		{% for complement in event.gatheringComplementsToBring %}
+			<div class="event-complement-to-bring">
+				<p>{{complement.name }}</p>
+				<p class="material-icons">{{complement.icon}}</p>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+<div class="section-separator"></div>
+
+<div class="section-event-description section-80">
+	<h2>Présentation de la soirée :</h2>
+	<br>
+	<p>{{event.presentation }}</p>
+</div>
+
+<div class="section-separator"></div>
+
+<div class="section-event-all-guests section-80">
+	<h2>Les invités présents :</h2>
+	<br>
+	<p>{{event.presentation }}</p>
+</div>
+
+
+<script>
+	let images = document.querySelectorAll('.grid-item img')
+    let overlayContainer = document.querySelector('.overlay-container')
+    let overlayBtnClose = document.querySelector('.overlay-btn-close')
+    let navbar = document.querySelector('nav')
+
+    // display Overlay once you click on one image
+    images.forEach(image => {
+        image.style.cursor = "pointer";
+        image.addEventListener('click', function () {
+            overlayContainer.style.display = "flex";
+            navbar.style.position = "absolute";
+            let blankImage = document.querySelector('.overlay-picture')
+            blankImage.src = image.src
         })
+    });
 
-    </script>
-{% endblock %}
+    // close overlay once you click on the "btn close" and "esc"
+    function closeOverlay() {
+        overlayContainer.style.display = "none";
+        navbar.style.position = "";
+    }
+
+    overlayBtnClose.addEventListener('click', closeOverlay)
+
+    document.addEventListener('keydown', function(e) {
+        if (e.keyCode === 27) {
+            closeOverlay()
+        }
+    })
+</script>{% endblock %}
