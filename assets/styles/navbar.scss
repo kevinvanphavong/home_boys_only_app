@@ -6,46 +6,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 50px;
+    padding: 20px 50px;
     box-shadow: $box-shadow;
 }
 
-.group-btn-party {
-    display: flex;
-    border-radius: $radius;
-    box-shadow: $box-shadow
-}
 
-.group-btn-party {
-    .btn-finding-party,
-    .btn-creating-party,
-    .circle-navbar {
-        border-top: $border-3;
-        border-bottom: $border-3;
-        background: $white;
-        padding: 10px 0px;
-        vertical-align: middle;
-    }
-    .btn-finding-party {
-        border-top-left-radius: $radius;
-        border-bottom-left-radius: $radius;
-    }
-    .btn-creating-party {
-        border-top-right-radius: $radius;
-        border-bottom-right-radius: $radius;
-    }
-}
-
-.group-btn-party .circle-navbar {
-    padding: 0px;
-    .circle {
-        height: 50px;
-        width: 50px;
-        border-radius: 50%;
-        background: linear-gradient(180deg, $primary-red 0%, $primary-orange 100%);
-        border: $border-3;
-    }
-}
 
 // ---------- menu navbar ------------
 .menu-user {

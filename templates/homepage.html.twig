@@ -27,7 +27,7 @@
 
         <div class="block-upcoming-event-card slide-active">
             {% for party in events1 %}
-                <div class="event-card event-card-{{ loop.index }}">
+                <a href="{{ path('display-event', {id: party.id, title:party.title}) }}" class="event-card event-card-{{ loop.index }}">
                     <h3>{{ party.id ~ ' - ' ~  party.title }}</h3>
                     <h4>{{party.city }}</h4>
                     <p>{{ party.startingDate | date("d-m-Y") }}</p>
@@ -38,13 +38,13 @@
                         {{ party.endingDate | date('Y-m-d H:i a') }}
                     {% endif %}
                     </p>
-                </div>
+                </a>
             {% endfor %}
         </div>
 
         <div class="block-upcoming-event-card">
             {% for party in events2 %}
-                <div class="event-card event-card-{{ loop.index }}">
+                <a class="event-card event-card-{{ loop.index }}">
                     <h3>{{ party.id ~ ' - ' ~  party.title }}</h3>
                     <h4>{{party.city }}</h4>
                     <p>{{ party.startingDate | date("d-m-Y") }}</p>
@@ -57,7 +57,7 @@
                         {% endif %}
                     </p>
                     {# <p>{{ party.presentation}}</p> #}
-                </div>
+                </a>
             {% endfor %}
         </div>
 
@@ -79,7 +79,7 @@
 
         <div class="block-past-event-card slide-active">
             {% for party in events4 %}
-                <div class="event-card event-card-{{ loop.index }}">
+                <a class="event-card event-card-{{ loop.index }}">
                     <h3>{{ party.id ~ ' - ' ~  party.title }}</h3>
                     <h4>{{ party.city }}</h4>
                     <p>{{ party.startingDate | date("d-m-Y") }}</p>
@@ -92,13 +92,13 @@
                         {% endif %}
                     </p>
                     {# <p>{{ party.presentation}}</p> #}
-                </div>
+                </a>
             {% endfor %}
         </div>
 
         <div class="block-past-event-card">
             {% for party in events3 %}
-                <div class="event-card event-card-{{ loop.index }}">
+                <a class="event-card event-card-{{ loop.index }}">
                     <h3>{{party.id ~ ' - ' ~ party.title }}</h3>
                     <h4>{{party.city }}</h4>
                     <p>{{ party.startingDate | date("d-m-Y") }}</p>
@@ -111,7 +111,7 @@
                         {% endif %}
                     </p>
                     {# <p>{{ party.presentation}}</p> #}
-                </div>
+                </a>
             {% endfor %}
         </div>
 
