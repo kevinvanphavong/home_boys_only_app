@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -42,58 +43,64 @@ class UserType extends AbstractType
 
             // ->add('roles')
             ->add('firstname', TextType::class, [
-                'label' => 'Firstname',
+                'label' => 'Prénom',
                 'label_attr' => ['class' => 'user-form-label'],
                 'attr' => ['class' => 'user-form-input', 'placeholder' => 'John'],
                 'row_attr' => ['class' => 'user-form-row']
             ])
 
             ->add('lastname', TextType::class, [
-                'label' => 'Lastname',
+                'label' => 'Nom',
                 'label_attr' => ['class' => 'user-form-label'],
                 'attr' => ['class' => 'user-form-input', 'placeholder' => 'Doe'],
                 'row_attr' => ['class' => 'user-form-row']
             ])
 
             ->add('birthdate', DateType::class, [
-                'label' => 'Birthdate',
+                'label' => 'Date de naissance',
                 'label_attr' => ['class' => 'user-form-label'],
-                'row_attr' => ['class' => 'user-form-row']
+                'row_attr' => ['class' => 'user-form-row'],
+                'widget' => 'single_text',
+                // this is actually the default format for single_text
+                'format' => 'yyyy-MM-dd',
             ])
 
             ->add('phone', TextType::class, [
-                'label' => 'Phone number',
+                'label' => 'Numéro de téléphone',
                 'label_attr' => ['class' => 'user-form-label'],
-                'attr' => ['class' => 'user-form-input', 'placeholder' => '+33 645953115'],
+                'attr' => ['class' => 'user-form-input', 'placeholder' => '0645953115'],
                 'row_attr' => ['class' => 'user-form-row']
             ])
 
             ->add('presentation', TextareaType::class, [
+                'label'     => 'Présentation de soi',
                 'label_attr' => ['class' => 'user-form-label'],
-                'attr' => ['class' => 'user-form-input', 'placeholder' => 'Describe yourself so people can get to know you ...'],
+                'attr' => ['class' => 'user-form-input', 'placeholder' => 'Decris toi en quelques mots pour qu\'on apprenne à te connaître'],
                 'row_attr' => ['class' => 'user-form-row user-form-row-self-presentation']
             ])
 
             ->add('agreeTerms', CheckboxType::class, [
-                'label' => 'Agree with the terms',
+                'label' => 'Veuillez à accepter nos conditions d\'utilisations',
                 'label_attr' => ['class' => 'user-form-label'],
                 'attr' => ['class' => 'user-form-input'],
                 'row_attr' => ['class' => 'user-form-row user-form-row-agree-terms'],
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Veuillez accepter les termines de conditions générales',
                     ]),
                 ]
             ])
 
-            ->add('password', PasswordType::class, [
+            // ->add('password', PasswordType::class, [
+            ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
+                'label'     => 'Mot de passe',
                 'row_attr' => ['class' => 'user-form-row row-password'],
                 'mapped' => false,
                 'label_attr' => ['class' => 'user-form-label'],
-                'attr' => ['class' => 'user-form-input', 'placeholder' => '***********'],
+                'attr' => ['class' => 'user-form-input', 'placeholder' => '***********', 'autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -105,6 +112,11 @@ class UserType extends AbstractType
                         'max' => 4096,
                     ]),
                 ]
+            ])
+
+            ->add('submit', SubmitType::class, [
+                'label'         => 'Save it',
+                'attr'          => ['class' => 'btn-submit-user-form']
             ]);
     }
 

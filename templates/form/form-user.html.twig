@@ -7,7 +7,7 @@
 
         <div class="user-form-group">
             {{form_row(userForm.email) }}
-            {{form_row(userForm.password) }}
+            {{form_row(userForm.plainPassword) }}
         </div>
     
         <div class="user-form-group">
@@ -21,6 +21,7 @@
         <div class="user-form-group">
             {{form_row(userForm.agreeTerms) }}
         </div>
-        <button class="btn-submit-user-form" type="submit">CREATE YOUR PROFILE</button>
+        {{form_row(userForm.submit, { 'label': 'CRÉER MON PROFIL' }) }}
+
     {{ form_end(userForm) }}
 {% endblock %}

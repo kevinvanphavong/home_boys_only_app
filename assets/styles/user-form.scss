@@ -1,5 +1,9 @@
 @import 'app.scss';
 
+header p {
+    font-size: $h1p;
+}
+
 .user-form-group {
     margin: 30px 0px;
     display: flex;
@@ -12,7 +16,7 @@
 
 input.user-form-input,
 #user_presentation,
-#user_birthdate select {
+#user_birthdate {
     padding: 10px 20px;
     border-radius: 30px;
     border: $border-1;
@@ -34,7 +38,7 @@ input.user-form-input,
     padding-bottom: 40px;
 }
 
-.user-form-label {
+.user-form-label:not(:last-child) {
     margin: 0px 0px 10px 5px;
 }
 
@@ -44,12 +48,6 @@ input.user-form-input,
     justify-content: flex-end
 }
 
-#user_birthdate {
-    display: flex;
-}
-#user_birthdate select {
-    width: 100%;
-}
 #user_agreeTerms {
     transform: translateY(3px);
     margin-right: 10px;
