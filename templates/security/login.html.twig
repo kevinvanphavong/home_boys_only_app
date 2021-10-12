@@ -1,42 +1,96 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Log in!
+{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <style>
+        label {
+            margin-bottom: 5px;
+        }
+        button, input {
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: 1px solid lightgrey;
+            background: whitesmoke;
+            box-shadow: 0 4px 4px lightgrey;
+        }
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+        .email-row, .password-row {
+            display: flex;
+            flex-direction: column;
+        }
+        .material-icons {
+            vertical-align: bottom;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        .login-btn-submit {
+            background: linear-gradient(180deg, red 0%, orange 100%);
+            color: whitesmoke;
+        }
+    </style>
+	<div class="section-80">
+		<form method="post">
+			{% if error %}
+				<p class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+			{% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+			{% if app.user %}
+				<div class="mb-3">
+					You are logged in as
+					{{ app.user.username }},
+					<a href="{{ path('app_logout') }}">Logout</a>
+				</div>
+			{% endif %}
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+			<h1>Connexion</h1>
+            <br>
+            <div class="email-row">
+                <label for="inputEmail">Email</label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" autocomplete="email" placeholder="Good Morning" required autofocus>
+            </div>
+            <br>
+            <div class="password-row">
+                <label for="inputPassword">Mot de passe <span class="material-icons eye-icon">visibility_off</span></label>
+                <input type="password" name="password" id="inputPassword" autocomplete="current-password" placeholder="Bonjour" required>
+            </div>
 
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <br>
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
+			{#
+			        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+			        See https://symfony.com/doc/current/security/remember_me.html
+			
+			        <div class="checkbox mb-3">
+			            <label>
+			                <input type="checkbox" name="_remember_me"> Remember me
+			            </label>
+			        </div>
+			    #}
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+			<button type="submit" class="login-btn-submit">
+				Se connecter
+			</button>
+		</form>
+	</div>
+
+    <script>
+        let eye = document.querySelector('.eye-icon')
+        let inputPassword = document.getElementById('inputPassword')
+
+        const showPassword = function() {
+            eye.innerHTML = "visibility"
+            inputPassword.setAttribute('type', 'text')
+        }
+
+        const unshowPassword = function() {
+            eye.innerHTML = "visibility_off"
+            inputPassword.setAttribute('type', 'password')
+        }
+
+        eye.addEventListener('mouseenter', showPassword)
+        eye.addEventListener('mouseleave', unshowPassword)
+    </script>
 {% endblock %}

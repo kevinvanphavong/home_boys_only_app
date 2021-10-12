@@ -7,249 +7,7 @@
 {% endblock %}
 
 {% block stylesheets %}
-	<style>
-
-		.header-img-bgc {
-			width: 100%;
-			height: 40vh;
-			object-fit: cover;
-		}
-		h1 + p {
-			font-size: 20px;
-			margin-top: 10px;
-		}
-
-
-		/* --- */
-		nav {
-			z-index: 100;
-		}
-
-		.overlay-container {
-			position: fixed;
-			display: none;
-			width: 100vw;
-			height: 100vh;
-			background: rgba(100, 100, 100, 0.5);
-			z-index: 200;
-			justify-content: center;
-			align-items: center;
-		}
-
-		.overlay-container img {
-			border: 3px solid lightgrey;
-			box-shadow: 0 0 4px lightgrey;
-			border-radius: 30px;
-		}
-
-		.overlay-btn-close {
-			position: absolute;
-			top: 50px;
-			right: 50px;
-			padding: 10px;
-			width: 50px;
-			height: 50px;
-			border-radius: 50%;
-			background: whitesmoke;
-			font-weight: bold;
-		}
-		/* --- */
-
-		.section-event-images .grid-container {
-			width: 100%;
-			height: auto;
-			display: grid;
-			grid-template-columns: repeat(7, 1fr);
-			grid-template-rows: repeat(4, 1fr);
-			grid-gap: 10px;
-		}
-		.grid-item {
-			height: 300px;
-			width: auto;
-			border: 3px solid lightgrey;
-			box-shadow: 0 0 4px lightgrey;
-			border-radius: 30px;
-			overflow: hidden;
-		}
-
-		.grid-item-1 {
-			background: red;
-			grid-row-start: 1;
-			grid-row-end: 3;
-			grid-column-start: 1;
-			grid-column-end: 5;
-		}
-		.grid-item-2 {
-			background: blue;
-			grid-row-start: 1;
-			grid-row-end: 3;
-			grid-column-start: 5;
-			grid-column-end: 8;
-		}
-		.grid-item-3 {
-			background: orange;
-			grid-row-start: 3;
-			grid-row-end: 5;
-			grid-column-start: 1;
-			grid-column-end: 3;
-		}
-		.grid-item-4 {
-			background: pink;
-			grid-row-start: 3;
-			grid-row-end: 5;
-			grid-column-start: 3;
-			grid-column-end: 6;
-		}
-		.grid-item-5 {
-			background: grey;
-			grid-row-start: 3;
-			grid-row-end: 5;
-			grid-column-start: 6;
-			grid-column-end: 8;
-		}
-
-		.grid-item img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-		}
-
-		.section-separator {
-			width: 50%;
-			height: 6px;
-			background: whitesmoke;
-			border-radius: 30px;
-			border: 1px solid #E8E8E8;
-			box-shadow: 0 0 4px lightgrey;
-			margin: 50px auto;
-		}
-
-
-		/* ----- section event planner info */
-
-		.section-event-planner-blocks {
-			display: grid;
-			grid-template-columns: repeat(7, 1fr);
-			grid-template-rows: repeat(1, 1fr);
-			grid-gap: 10px;
-		}
-
-		.event-planner-infos-1 {
-			grid-column-start: 1;
-			grid-column-end: 4;
-			padding-right: 20px;
-		}
-
-		.event-planner-infos-2 {
-			grid-column-start: 4;
-			grid-column-end: 6;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			align-items: center;
-		}
-		.event-planner-infos-3 {
-			grid-column-start: 6;
-			grid-column-end: 8;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			align-items: center;
-		}
-
-		img.event-planner-picture-profile {
-			min-width: 200px;
-			height: 200px;
-			border-radius: 50%;
-			border: 3px solid lightgrey;
-			box-shadow: 0 0 4px lightgrey;
-			object-fit: cover;
-		}
-
-		.event-planner-infos-primary,
-		.event-planner-infos-actions {
-			display: flex;
-		}
-
-		.event-planner-infos-primary div {
-			width: 100%;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			text-align: center
-		}
-
-		.event-planner-infos-actions {
-			margin-top: 40px;
-			justify-content: space-between;
-		}
-
-		.event-planner-infos-actions div {
-			display: flex;
-			padding: 10px;
-			box-shadow: 0 0 4px lightgrey;
-			border-radius: 5px;
-			background: linear-gradient(180deg, red 0%, orange 100%);
-			cursor: pointer;
-            color: whitesmoke;
-		}
-
-		.event-planner-infos-actions div span:not(:first-child) {
-			align-self: center;
-			margin-left: 5px;
-		}
-
-		.event-planner-infos-2 div,
-		.event-planner-infos-3 div {
-			display: flex;
-			width: 100%;
-		}
-
-		.event-planner-infos-2 div p,
-		.event-planner-infos-3 div p {
-			align-self: center;
-			margin: 0 10px;
-		}
-
-		/* ------ */
-		p.material-icons {
-			font-size: 32px;
-			padding: 5px;
-			border-radius: 5px;
-			background: lightgrey;
-			box-shadow: 0 0 4px lightgrey;
-		}
-
-		span.material-icons {
-			font-size: 32px;
-		}
-
-
-		/* ----- section event complements */
-
-		.block-event-complements-included,
-		.block-event-complements-to-bring {
-			width: 100%;
-			display: flex;
-			flex-wrap: wrap;
-		}
-
-		.block-event-complements-included .event-complement-included,
-		.block-event-complements-to-bring .event-complement-to-bring {
-			margin: 0 auto;
-			text-align: center;
-		}
-
-		.block-event-complements-included .event-complement-included .material-icons,
-		.block-event-complements-to-bring .event-complement-to-bring .material-icons {
-			font-size: 50px;
-			padding: 20px;
-			background: transparent;
-			border-radius: 30px;
-			border: 1px solid lightgrey;
-			box-shadow: 0 4px 4px lightgrey;
-		}
-	</style>
+	{{ encore_entry_link_tags('event-display-scss') }}
 {% endblock %}
 
 
@@ -280,11 +38,19 @@
 
 	<div class="section-event-images section-80">
 		<div class="grid-container">
+		{% if (event.eventPictures | length) == 0 %}
+			{% for i in 1..5 %}				
+				<div class="grid-item grid-item-{{ loop.index }}">
+					
+				</div>
+			{% endfor %}
+		{% else %}
 			{% for picture in event.eventPictures %}
 				<div class="grid-item grid-item-{{ loop.index }}">
 					<img src="{{asset('/uploads/eventPictures/' ~ picture.name) }}" alt="">
 				</div>
 			{% endfor %}
+		{% endif %}
 		</div>
 	</div>
 

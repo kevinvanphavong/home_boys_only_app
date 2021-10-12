@@ -7,63 +7,6 @@
     <div>
     </div>
 
-    <style>
-        .group-btn-navbar {
-            width: 50%;
-            border: 1px solid lightgrey;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.3);
-            background: whitesmoke;
-            border-radius: 30px;
-            display: flex;
-            justify-content: space-evenly;
-        }
-
-        .group-btn-navbar:hover {
-            animation: shadowing 0.5s;
-        }
-        .group-btn-navbar:hover a {
-            animation: sursaut 0.5s;
-        }
-
-        @keyframes sursaut {
-            from {
-                transform: translateY(0px)
-            }
-            50% {
-                transform: translateY(-5px)
-            }
-            to {
-                transform: translate(0px)
-            }
-        }
-
-        @keyframes shadowing {
-            from {
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.3);
-            }
-            50% {
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 -3px 15px rgba(0, 0, 0, 0.3);
-            }
-            to {
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.3);
-            }
-        }
-
-        .group-btn-navbar .circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            box-shadow: 0 0 4px rgba(0, 0, 0, 0.3), inset 0 0 4px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(red 0%, orange 100%)
-        }
-
-        .group-btn-navbar a {
-            align-self: center;
-            text-align: center;
-            width: 45%;
-        }
-
-    </style>
 
     <div class="group-btn-navbar">
         <a href="{{ path('homepage') }}">Let's find a party</a>
@@ -74,64 +17,40 @@
     </div>
 
     <div class="navbar-logo-user">
-        <div class="logo-user material-icons" onclick="showUserMenu()">
+        <div class="logo-user material-icons">
             account_circle
         </div>
         <div class="menu-user">
             <ul>
-                <li>
-                    <a href=" {{path('app_login')}}">LOGIN</a>
-                </li>
-                <li>REGISTRATION</li>
-                <li>MY ACCOUNT</li>
-                <li>WISHLIST EVENTS</li>
-                <li>ALL YOUR PARTIES</li>
+            {% if app.user %}
+                <li>MON COMPTE</li>
+                <li>WISHLIST DE SOIRÉES</li>
+                <li>TOUS MES ÉVÈNEMENTS</li>
                 <hr>
-                <li>LOGOUT</li>
+                <li>
+                    <a href="{{ path('app_logout')}}">SE DECONNECTER</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{{ path('app_login')}}">SE CONNECTER</a>
+                </li>
+                <li>S'INSCRIRE</li>
+            {% endif %}
             </ul>
         </div>
     </div>
 </nav>
 
-<style>
-
-.logo-user {
-    font-size: 50px;
-    color: whitesmoke;
-    cursor: pointer;
-    display: flex;
-    text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
-    border-radius: 50%;
-    transition: 0.5s;
-}
-
-.logo-user:hover {
-    text-shadow: 0px 0px 15px rgba(0,0,0,0.3);
-    transform: scale(1.1);
-}
-
-.menu-user {
-    top: 100px;
-    right: 3%;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.3);
-    border: 0px solid lightgrey;
-}
- 
-.btn-party {
-    max-width: 300px;
-    width: 300px;
-    display: flex;
-    align-items:center;
-    justify-content: center;
-}
-
-</style>
-
 
 <script>
     let userMenu = document.querySelector('.menu-user')
+    let userLogo = document.querySelector('.logo-user')
 
     function showUserMenu () {
         userMenu.classList.toggle('active');
     }
+
+    userLogo.addEventListener('click', showUserMenu)
+
+// --------
 </script>

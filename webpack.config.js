@@ -34,12 +34,13 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('app-js', './assets/app.js')
-    .addEntry('app-scss', './assets/styles/app.scss')
-    .addEntry('homepage-scss', './assets/styles/homepage.scss')
-    .addEntry('navbar-scss', './assets/styles/navbar.scss')
-    .addEntry('user-form-scss', './assets/styles/user-form.scss')
-    .addEntry('event-form-scss', './assets/styles/event-form.scss')
+    .addEntry('app-js',             './assets/app.js')
+    .addEntry('app-scss',           './assets/styles/app.scss')
+    .addEntry('homepage-scss',      './assets/styles/homepage.scss')
+    .addEntry('navbar-scss',        './assets/styles/navbar.scss')
+    .addEntry('user-form-scss',     './assets/styles/user-form.scss')
+    .addEntry('event-form-scss',    './assets/styles/event-form.scss')
+    .addEntry('event-display-scss', './assets/styles/event-display.scss')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

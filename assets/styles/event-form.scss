@@ -1,17 +1,17 @@
 @import 'app.scss';
 
 // ---------- START - handling the event-form ----------
-.header-new-event {
-    width: 100%;
-    box-shadow: 0px 4px 4px lightgrey;
-    display: flex;
-    flex-direction: column;
-}
-.header-new-event img {
-    width: 100%;
-    height: 60vh;
-    object-fit: cover;
-}
+// .header-new-event {
+//     width: 100%;
+//     box-shadow: 0px 4px 4px lightgrey;
+//     display: flex;
+//     flex-direction: column;
+// }
+// .header-new-event img {
+//     width: 100%;
+//     height: 60vh;
+//     object-fit: cover;
+// }
 
 .underline {
     width: 50%;
@@ -74,6 +74,7 @@ label.material-icons {
     box-shadow: 0px 4px 4px lightgrey;
     border-radius: 30px;
     cursor: pointer;
+    margin-top: 5px;
 }
 
 label.material-icons.checked {
@@ -116,9 +117,9 @@ label.material-icons.checked {
 .group-event-cover img,
 .group-event-pictures img {
     margin: 10px;
-    border: 3px solid lightgrey;
-    box-shadow: 0 0 10px lightgrey;
-    border-radius: 30px;
+    border: $border-1;
+    box-shadow: $box-shadow;
+    border-radius: $radius;
     object-fit: cover;
     width: 150px;
     height: 150px;

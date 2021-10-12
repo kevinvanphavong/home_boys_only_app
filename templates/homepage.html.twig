@@ -6,22 +6,11 @@
 
 {% block body %}
 
-<style>
-.event-card {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.1);
-    border: 0px solid lightgrey;
-}
-.event-card:hover {
-    box-shadow: 0 0px 20px 4px rgba(0, 0, 0, 0.25), inset 0 0 20px rgba(0, 0, 0, 0.1);
-}
-</style>
-
-<header>
+<div>
     <div class="header-homepage-block">
         <img class="header-homepage-img" src="{{ asset('build/images/hbo-background-header-homepage.jpg') }}" alt=""/>
     </div>
-</header>
-<a href="{{ path('display-event', {id: event.id, title: event.title}) }}">Hello</a>
+</div>
 
 <section class="section-upcoming-parties section-80">
     <h2>UPCOMING PARTIES</h2>
@@ -298,23 +287,8 @@
     </div>
 </section>
 
-<style>
-    .enveloppe {
-        position: relative;
-        width: 100%;
-        z-index: -10;
-    }
-
-    .enveloppe img {
-        position: absolute;
-        width: 100%;
-        object-fit: cover;
-        box-shadow: 0px -4px 10px lightgrey, 0px 4px 10px darkgrey;
-    }
-</style>
 
 <script>
-
 // ------------- START - carousel upcoming parties 
 const arrowLeft = document.querySelectorAll('button.btn-carousel-left')
 const arrowRight = document.querySelectorAll('button.btn-carousel-right')
