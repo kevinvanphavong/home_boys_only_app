@@ -16,11 +16,10 @@ class HomepageController extends AbstractController
     public function index(EventRepository $events, CommentRepository $comments): Response
     {
         return $this->render('homepage.html.twig', [
-            'events2' => $events->findBy([], [], 5, 12),
-            'events1' => $events->findBy([], [], 5, 17),
+            'events1' => $events->findBy([], [], 5, 0),
+            'events2' => $events->findBy([], [], 5, 5),
             'events3' => $events->findBy([], [], 5, 10),
             'events4' => $events->findBy([], [], 5, 15),
-            'event' => $events->find(110),
             'comments' => $comments->findBy([], [], 5),
         ]);
     }

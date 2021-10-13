@@ -31,13 +31,15 @@ class GatheringComplementsFixtures extends Fixture
             $complement->setName(ucfirst($key));
             $complement->setIcon($value);
             $manager->persist($complement);
+            $this->addReference('complement_included_' . $key, $complement);
         }
-
+        
         foreach ($this->complements as $key => $value) {
             $complement = new GatheringComplementToBring();
             $complement->setName(ucfirst($key));
             $complement->setIcon($value);
             $manager->persist($complement);
+            $this->addReference('complement_to_bring_' . $key, $complement);
         }
 
         $manager->flush();

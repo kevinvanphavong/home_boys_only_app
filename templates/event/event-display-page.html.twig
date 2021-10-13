@@ -21,7 +21,9 @@
 
 	<header>
     {% if event.eventCover %}
-		<img class="header-img-bgc" src="{{asset('/uploads/eventCover/' ~ event.eventCover.name)}} " alt="">
+		{# <img class="header-img-bgc" src="{{asset('/uploads/eventCover/' ~ event.eventCover.name)}} " alt=""> #}
+		{# // test avec photo de couverture pour fixtures, dans public #}
+		<img class="header-img-bgc" src="{{asset('/build/images/' ~ event.eventCover.name)}} " alt="">
     {% endif %}
 		<div class="section-80 section-header-title">
 			<h1>
@@ -47,7 +49,9 @@
 		{% else %}
 			{% for picture in event.eventPictures %}
 				<div class="grid-item grid-item-{{ loop.index }}">
-					<img src="{{asset('/uploads/eventPictures/' ~ picture.name) }}" alt="">
+					{# <img src="{{asset('/uploads/eventPictures/' ~ picture.name) }}" alt=""> #}
+					{# // test avec fixtures cherchant les photos du public #}
+					<img src="{{asset('/build/images/' ~ picture.name) }}" alt="">
 				</div>
 			{% endfor %}
 		{% endif %}
@@ -55,8 +59,8 @@
 	</div>
 
 	<div class="section-event-planner section-80">
-		<h2>Soirée organisée par :
-		</h2>
+		<h2>Soirée organisée par :</h2>
+		<br>
 		<br>
 
 		<div class="section-event-planner-blocks">

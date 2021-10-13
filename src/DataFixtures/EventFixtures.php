@@ -21,6 +21,48 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Faker\Factory::create('fr_FR');
 
+        for ($index = 21; $index < 26; $index++) { 
+            $event = new Event;
+            $event->setTitle('Hip Hop Winter Break 2021');
+            $event->setStartingDate(new DateTime('2020-10-17 20:00:00'));
+            $event->setEndingDate(new DateTime('2020-10-18 04:00:00'));
+            $event->setEndOfRegistrations(new DateTime('2020-10-17 18:00:00'));
+            $event->setPlanner($this->getReference('planner_1'));
+            $event->setCountry('France');
+            $event->setCity('Lyon');
+            $event->setAddress('47 rue du professeur patel');
+            $event->setPresentation($faker->text(400));
+            $event->setLimitedPlaces(20);
+            $event->setEntrancePrice(10);
+
+            // gérer event pictures
+            
+            // gérer event cover
+            
+            $event->addGatheringComplementsIncluded(
+                $this->getReference('complement_included_food')
+            );
+            $event->addGatheringComplementsIncluded(
+                $this->getReference('complement_included_drink')
+            );
+            $event->addGatheringComplementsIncluded(
+                $this->getReference('complement_included_music')
+            );
+
+            $event->addGatheringComplementsToBring(
+                $this->getReference('complement_to_bring_decoration')
+            );
+            $event->addGatheringComplementsToBring(
+                $this->getReference('complement_to_bring_good-vibes')
+            );
+            $event->addGatheringComplementsToBring(
+                $this->getReference('complement_to_bring_humour')
+            );
+
+            $manager->persist($event);
+            $this->addReference('event_' . $index, $event);
+        }
+
         for ($i = 1; $i <= 20; $i++) {
             $event = new Event;
             $event->setTitle($faker->word(10));
