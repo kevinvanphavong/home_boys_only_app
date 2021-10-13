@@ -25,17 +25,28 @@ class AdminUserController extends AbstractController
     }
     
     /**
-     * @Route("/admin/my-profile", name="admin_profile_user")
+     * @Route("/admin/user/my-profile", name="admin_user_profile")
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        return $this->render('admin_user/profile-user.html.twig', [
-            'controller_name' => 'AdminUserController',
+        $user = $this->getUser();
+
+        $userForm = $this->createForm(UserType::class, $user);
+        $userForm->handleRequest($request);
+
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
+
+            return $this->redirectToRoute('admin_user_profile');
+            
+        }
+
+        return $this->render('admin_user/user-profile.html.twig', [
+            'userForm' => $userForm->createView(),
         ]);
     }
 
     /**
-     * @Route("/admin/new-user", name="admin_new_user")
+     * @Route("/user/registration", name="user_registration")
      * @param Request $request
      * @return Response
      */
@@ -89,7 +100,7 @@ class AdminUserController extends AbstractController
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('admin_user/new-user.html.twig', [
+        return $this->render('admin_user/user-registration.html.twig', [
             'userForm'  =>  $userForm->createView(),
             'user'  =>  $user,
         ]);

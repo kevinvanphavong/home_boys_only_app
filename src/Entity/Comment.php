@@ -23,7 +23,7 @@ class Comment
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ownComments")
+     * @ORM\ManyToOne(targetEntity=Partygoer::class, inversedBy="ownComments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
@@ -56,12 +56,12 @@ class Comment
         return $this;
     }
 
-    public function getAuthor(): ?User
+    public function getAuthor(): ?Partygoer
     {
         return $this->author;
     }
 
-    public function setAuthor(?User $author): self
+    public function setAuthor(?Partygoer $author): self
     {
         $this->author = $author;
 

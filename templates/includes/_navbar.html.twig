@@ -22,7 +22,9 @@
         <div class="menu-user">
             <ul>
             {% if app.user %}
-                <li>MON COMPTE</li>
+                <li>
+                    <a href="{{ path('admin_user_profile')}}">MON COMPTE</a>
+                </li>
                 <li>WISHLIST DE SOIRÉES</li>
                 <li>TOUS MES ÉVÈNEMENTS</li>
                 <hr>
@@ -34,7 +36,7 @@
                     <a href="{{ path('app_login')}}">SE CONNECTER</a>
                 </li>
                 <li>
-                    <a href="{{path('admin_new_user') }}">
+                    <a href="{{path('user_registration') }}">
                         S'INSCRIRE 
                     </a>        
                 </li>

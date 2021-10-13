@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Partygoer;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -22,21 +23,28 @@ class UserFixtures extends Fixture
         $faker = Faker\Factory::create('fr_FR');
 
         for ($i = 1; $i <= 10; $i++) {
+            $partygoer = new Partygoer();
             $user = new User();
-            $user->setFirstname($faker->firstName());
-            $user->setLastname($faker->lastName());
-            $user->setBirthdate($faker->dateTime());
-            $user->setEmail('user' . $i . '@hbo.com');
-            $user->setPhone('0645953115');
+
+            $partygoer->setUser($user);
+            $partygoer->setFirstname($faker->firstName());
+            $partygoer->setLastname($faker->lastName());
+            $partygoer->setBirthdate($faker->dateTime());
+            $partygoer->setPhone('0645953115');
+            $partygoer->setPresentation($faker->text(300));
+            
+            $user->setPartygoer($partygoer);
             $user->setRoles(['ROLE_USER']);
-            $user->setPresentation($faker->text(300));
+            $user->setEmail('user' . $i . '@hbo.com');
             $user->setPassword($this->encoder->encodePassword(
                 $user,
                 'user'
             ));
+
+            $manager->persist($partygoer);
             $manager->persist($user);
 
-            $this->addReference('planner_' . $i, $user);
+            $this->addReference('planner_' . $i, $partygoer);
         }
 
         $manager->flush();

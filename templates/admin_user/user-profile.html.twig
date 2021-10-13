@@ -1,0 +1,55 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Create your profile - HOME BOYS ONLY{% endblock %}
+
+{% block body %}
+
+<style>
+.underline {
+    width: 50%;
+    height: 5px;
+    background: linear-gradient(90deg, red 0%, orange 100%);
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.material-icons {
+    vertical-align: bottom;
+    margin-right: 5px;
+}
+</style>
+
+<section class="section-80 admin-user-infos">
+    <h1 class="title-account-user">Bienvenue sur votre compte personnel</h1>
+    <div class="underline"></div>
+    
+    <br>
+
+    <p>
+        {{app.user.partygoer.firstname ~ ' ' ~ app.user.partygoer.lastname }},
+        A partir de votre espace utilisateur, si tu le souhaites tu peux :
+    </p>
+    <ul>
+        <li><span class="material-icons">star</span> Revoir les soirées auxquelles tu as participés</li>
+        <li><span class="material-icons">star</span>Accéder aux soirées de ta wishlist</li>
+        <li><span class="material-icons">star</span>Compléter et modifier tes informations personnelles</li>
+        <li><span class="material-icons">star</span>Discuter avec les autres personnes</li>
+        <li><span class="material-icons">star</span>Consulter tes notifications sur la soirées et invitations en cours</li>
+    </ul>
+
+    <br>
+
+    <div class="admin-user-infos-content">
+        {{ include('form/form-user.html.twig', {'button_label': 'MODIFIER MON PROFIL'}) }}
+    </div>
+</section>
+
+<script>
+    const title = document.getElementById('title-account-user')
+    const underline = document.querySelector('.underline')
+    const body = document.querySelector('body')
+
+    underline.style.width = title.offsetWidth - title.offsetTop + "px";
+</script>
+
+{% endblock %}

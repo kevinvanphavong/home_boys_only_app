@@ -21,7 +21,7 @@
         <div class="user-form-group">
             {{form_row(userForm.agreeTerms) }}
         </div>
-        {{form_row(userForm.submit, { 'label': 'CRÉER MON PROFIL' }) }}
 
+        <button class="btn-submit-user-form">{{ button_label|default('CRÉER MON PROFIL') }}</button>
     {{ form_end(userForm) }}
 {% endblock %}

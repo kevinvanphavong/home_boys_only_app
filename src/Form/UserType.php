@@ -114,10 +114,11 @@ class UserType extends AbstractType
                 ]
             ])
 
-            ->add('submit', SubmitType::class, [
-                'label'         => 'Save it',
-                'attr'          => ['class' => 'btn-submit-user-form']
-            ]);
+            // ->add('submit', SubmitType::class, [
+            //     'label'         => 'Save it',
+            //     'attr'          => ['class' => 'btn-submit-user-form']
+            // ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

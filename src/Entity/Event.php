@@ -36,7 +36,7 @@ class Event
     private $endingDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="createdEvents")
+     * @ORM\ManyToOne(targetEntity=Partygoer::class, inversedBy="createdEvents")
      * @ORM\JoinColumn(nullable=false)
      */
     private $planner;
@@ -150,12 +150,12 @@ class Event
         return $this;
     }
 
-    public function getPlanner(): ?User
+    public function getPlanner(): ?Partygoer
     {
         return $this->planner;
     }
 
-    public function setPlanner(?User $planner): self
+    public function setPlanner(?Partygoer $planner): self
     {
         $this->planner = $planner;
 

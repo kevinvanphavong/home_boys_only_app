@@ -40,52 +40,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $password;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $firstname;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $lastname;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $birthdate;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $phone;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $presentation;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="planner")
-     */
-    private $createdEvents;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="author")
-     */
-    private $ownComments;
 
     /**
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
 
-    public function __construct()
-    {
-        $this->createdEvents = new ArrayCollection();
-        $this->ownComments = new ArrayCollection();
-    }
+    /**
+     * @ORM\OneToOne(targetEntity=Partygoer::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $partygoer;
 
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -175,126 +141,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
-
-    public function setFirstname(string $firstname): self
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    public function getLastname(): ?string
-    {
-        return $this->lastname;
-    }
-
-    public function setLastname(string $lastname): self
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    public function getBirthdate(): ?\DateTimeInterface
-    {
-        return $this->birthdate;
-    }
-
-    public function setBirthdate(\DateTimeInterface $birthdate): self
-    {
-        $this->birthdate = $birthdate;
-
-        return $this;
-    }
-
-    public function getPhone(): ?string
-    {
-        return $this->phone;
-    }
-
-    public function setPhone(string $phone): self
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
-    public function getPresentation(): ?string
-    {
-        return $this->presentation;
-    }
-
-    public function setPresentation(string $presentation): self
-    {
-        $this->presentation = $presentation;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Event[]
-     */
-    public function getCreatedEvents(): Collection
-    {
-        return $this->createdEvents;
-    }
-
-    public function addCreatedEvent(Event $createdEvent): self
-    {
-        if (!$this->createdEvents->contains($createdEvent)) {
-            $this->createdEvents[] = $createdEvent;
-            $createdEvent->setPlanner($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCreatedEvent(Event $createdEvent): self
-    {
-        if ($this->createdEvents->removeElement($createdEvent)) {
-            // set the owning side to null (unless already changed)
-            if ($createdEvent->getPlanner() === $this) {
-                $createdEvent->setPlanner(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Comment[]
-     */
-    public function getOwnComments(): Collection
-    {
-        return $this->ownComments;
-    }
-
-    public function addOwnComment(Comment $ownComment): self
-    {
-        if (!$this->ownComments->contains($ownComment)) {
-            $this->ownComments[] = $ownComment;
-            $ownComment->setAuthor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOwnComment(Comment $ownComment): self
-    {
-        if ($this->ownComments->removeElement($ownComment)) {
-            // set the owning side to null (unless already changed)
-            if ($ownComment->getAuthor() === $this) {
-                $ownComment->setAuthor(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function isVerified(): bool
     {
         return $this->isVerified;
@@ -303,6 +149,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getPartygoer(): ?Partygoer
+    {
+        return $this->partygoer;
+    }
+
+    public function setPartygoer(Partygoer $partygoer): self
+    {
+        // set the owning side of the relation if necessary
+        if ($partygoer->getUser() !== $this) {
+            $partygoer->setUser($this);
+        }
+
+        $this->partygoer = $partygoer;
 
         return $this;
     }
