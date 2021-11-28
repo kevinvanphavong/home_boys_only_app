@@ -309,15 +309,14 @@ h2 + p {
     padding: 40px;
     height: auto;
     width: 60%;
-    border-radius: 30px;
+    border-radius: $radius-10;
     background: linear-gradient(180deg, $primary-red 0%, $primary-orange 100%);
-    border: $border-05;
     color: $white;
     box-shadow: $box-shadow
 }
 .part-common-img {
     width: 40%;
-    border-radius: $radius;
+    border-radius: $radius-10;
     display: flex;
     align-items: center;
 }
