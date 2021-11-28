@@ -1,55 +1,67 @@
 {% block stylesheets %}
-	{{ encore_entry_link_tags('navbar-scss') }}
+	{# {{ encore_entry_link_tags('navbar-scss') }} #}
 {% endblock %}
 
-<nav class="block-navbar">
-
-    <div class="logo-blank">
+<nav class="navbar-block">
+    <div class="nav-logo-part">
+        <img class="logo-img" src="{{ asset('build/images/logo.png') }}" alt="">
+        <div class="group-letters">
+            <p>L</p>
+            <p>W</p>
+            <p>K</p>
+            <p>Y</p>
+        </div>
     </div>
-    
-    <div class="group-btn-navbar">
-        <a href="{{ path('homepage') }}">Let's find a party</a>
 
+    <div class="nav-actions-part">
+        <a href="{{ path('homepage') }}">🔎 Chercher une soirée  🎉</a>
         <div class="circle"></div>
-        
-        <a href="{{ path('creation-new-party') }}">Let's create a party</a>
+        <a href="{{ path('creation-new-party') }}">🛠 Organiser une soirée  🎉️</a>
     </div>
 
-    <div class="navbar-logo-user">
-        <div class="logo-user material-icons">
+    <div class="nav-user-part">
+    <div class="icons icon-user material-icons">
             account_circle
+        </div>
+        <div class="icons material-icons">
+            notifications
+        </div>
+        <div class="icons material-icons">
+            forum
         </div>
         <div class="menu-user">
             <ul>
-            {% if app.user %}
-                <li>
-                    <a href="{{ path('admin_user_profile')}}">MON COMPTE</a>
-                </li>
-                <li>WISHLIST DE SOIRÉES</li>
-                <li>TOUS MES ÉVÈNEMENTS</li>
-                <hr>
-                <li>
-                    <a href="{{ path('app_logout')}}">SE DECONNECTER</a>
-                </li>
-            {% else %}
-                <li>
-                    <a href="{{ path('app_login')}}">SE CONNECTER</a>
-                </li>
-                <li>
-                    <a href="{{path('user_registration') }}">
-                        S'INSCRIRE 
-                    </a>        
-                </li>
-            {% endif %}
+                {% if app.user %}
+                    <li>
+                        <a href="{{ path('admin_user_profile')}}">MON COMPTE</a>
+                    </li>
+                    <li>WISHLIST DE SOIRÉES</li>
+                    <li>TOUS MES ÉVÈNEMENTS</li>
+                    <hr>
+                    <li>
+                        <a href="{{ path('app_logout')}}">SE DECONNECTER</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ path('app_login')}}">SE CONNECTER</a>
+                    </li>
+                    <li>
+                        <a href="{{path('user_registration') }}">
+                            S'INSCRIRE
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
 </nav>
 
 
+
+
 <script>
     let userMenu = document.querySelector('.menu-user')
-    let userLogo = document.querySelector('.logo-user')
+    let userLogo = document.querySelector('.icon-user')
 
     function showUserMenu () {
         userMenu.classList.toggle('active');
