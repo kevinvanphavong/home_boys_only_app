@@ -1,5 +1,5 @@
 {% block stylesheets %}
-	{# {{ encore_entry_link_tags('navbar-scss') }} #}
+	{{ encore_entry_link_tags('navbar-scss') }}
 {% endblock %}
 
 <nav class="navbar-block">
@@ -19,15 +19,21 @@
         <a href="{{ path('creation-new-party') }}">🛠 Organiser une soirée  🎉️</a>
     </div>
 
+    <style>
+    .circle {
+        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+    }
+    </style>
+
     <div class="nav-user-part">
-    <div class="icons icon-user material-icons">
-            account_circle
+        <div class="icons material-icons">
+            <div>forum</div>
         </div>
         <div class="icons material-icons">
-            notifications
+            <div>notifications</div>
         </div>
-        <div class="icons material-icons">
-            forum
+        <div class="icons icon-user material-icons">
+            <div>account_circle</div>
         </div>
         <div class="menu-user">
             <ul>
@@ -55,8 +61,6 @@
         </div>
     </div>
 </nav>
-
-
 
 
 <script>
