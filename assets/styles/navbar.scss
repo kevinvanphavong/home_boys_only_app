@@ -32,13 +32,14 @@
 .nav-actions-part {
     display: flex;
     align-items: center;
+    width: 60%;
+    justify-content: space-evenly;
     background: $white;
-    // height: fit-content;
     border-radius: $radius;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
 }
 .nav-actions-part a {
-    margin: 0px 50px;
+    // margin: 0px 20px;
     font-size: 16px;
 }
 .circle {
@@ -148,5 +149,9 @@
 
     .menu-user-icon .material-icons:nth-child(even) {
         background: #e3e3e3;
+    }
+
+    .nav-actions-part {
+        width: 90%;
     }
 }
