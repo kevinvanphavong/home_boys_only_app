@@ -226,8 +226,8 @@ h2 + p {
 }
 
 .recent-comments-cards {
-    margin: 20px 0px 0px 0px;
-    padding: 0px 0px 100px 0px;
+    margin: 50px 0px 0px 0px;
+    padding: 0px 0px 50px 0px;
     height: 500px;
     position: relative;
     display: flex;
@@ -239,9 +239,8 @@ h2 + p {
     border-radius: $radius;
     background: $white;
     box-shadow: $box-shadow;
-    height: 250px;
     position: absolute;
-    padding: 20px;
+    padding: 40px;
     filter: blur(2px);
 }
 
@@ -270,13 +269,9 @@ h2 + p {
     display: flex;
 }
 
-.comment-author-part h4 {
-    align-self: center;
-}
-
 .comment-author-part img {
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     margin-right: 10px;
     object-fit: cover;
@@ -415,6 +410,7 @@ h2 + p {
 .enveloppe img {
     position: absolute;
     width: 100%;
+    height: 1000px;
     object-fit: cover;
     box-shadow: 0px -4px 10px lightgrey, 0px 4px 10px darkgrey;
 }
@@ -434,5 +430,39 @@ h2 + p {
         height: 240px;
         width: 45%;
         min-width: 350px;
+    }
+
+    .comment-author-part img {
+        width: 65px;
+        min-width: 65px;
+        height: 65px;
+    }
+
+    .introduction-blocks,
+    .introduction-blocks:nth-child(2n) {
+        flex-direction: column;
+    }
+
+    .part-common-content {
+        width: 100%;
+    }
+
+    .part-common-img {
+        width: 100%;
+        padding: 0px 50px;
+        align-items: center;
+    }
+    .transform-left,
+    .transform-right {
+        transform: translate(0px, -20px);
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .comments-card {
+        padding: 20px;
+    }
+    .comments-card:not(.comment-active) {
+        display: none;
     }
 }

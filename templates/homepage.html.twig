@@ -299,7 +299,7 @@
                 </div>
             </div>
         {% endfor %}
-        <div class="comments-card">
+        <div class="comments-card comment-active">
             {% for comment in comments %}
                 <div class="comment-card-content {% if loop.index == 1 %}comment-active{% endif %} ">
                     <div class="comment-author-part">
@@ -442,39 +442,9 @@
     </div>
 </section>
 
-<style>
-{# media screen under 500px #}
-
-
-/* for the introduction hbo part */
-/* .introduction-blocks,
-.introduction-blocks:nth-child(2n) {
-    flex-direction: column;
-}
-
-.part-common-content {
-    width: 100%;
-}
-
-.part-common-img {
-    width: 100%;
-    padding: 0px 50px;
-    align-items: center;
-}
-.transform-left,
-.transform-right {
-    transform: translate(0px, -20px);
-} */
-/* for the introduction hbo part */
-
-
-
-</style>
-
 
 <script>
 // ------------- START - carousel upcoming parties 
-
 const arrowLeft = document.querySelectorAll('button.btn-carousel-left')
 const arrowRight = document.querySelectorAll('button.btn-carousel-right')
 
@@ -629,11 +599,20 @@ let counter = 1
 let moreHeight = 30
 commentsCards[(commentsCards.length) - 1].style.filter = "blur(0px)";
 
- commentsCards.forEach(card => {
-    card.style.width = (95 - (counter * 10)) + '%'
-    card.style.height = card.offsetHeight + (counter * moreHeight) + "px"
-    counter++
- });
+if (window.matchMedia("(max-width: 500px)").matches) {
+    commentsCards.forEach(card => {
+        card.style.width = 95 + '%'
+        card.style.height = card.offsetHeight + (counter * moreHeight) + "px"
+        counter++
+    });
+} else {
+    commentsCards.forEach(card => {
+        card.style.width = (95 - (counter * 10)) + '%'
+        card.style.height = card.offsetHeight + (counter * moreHeight) + "px"
+        counter++
+    });
+}
+
 
 const cardsContent = document.querySelectorAll('.comment-card-content');
 const cardsLength = cardsContent.length;
