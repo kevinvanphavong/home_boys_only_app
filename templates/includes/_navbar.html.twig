@@ -89,5 +89,10 @@
 
     userLogo.addEventListener('click', showUserMenu)
 
+    if (window.matchMedia("(max-width: 700px)").matches) {
+        buttonsActionsNavbar = document.querySelectorAll('.nav-actions-part a')
+        buttonsActionsNavbar[0].innerText = '🎉 🔎'
+        buttonsActionsNavbar[1].innerText = '🎉 🛠'
+    }
 // --------
 </script>
