@@ -8,15 +8,13 @@
 
 
 {% block body %}
-
-{# 
 <div class="header-new-event">
     <img src="{{asset('build/images/las-vegas.jpg') }}" alt="">
-</div> #}
+</div>
 
 <div class="section-title-new-event section-80">
-    <h1 id="title-create-party">Commence par créer ta propre soirée !</h1>
-    <div class="underline"></div>
+    <h1 id="title-create-party" class="title-create-party">Commence par créer ta propre soirée !</h1>
+    <br>
     <p>Après tu pourras inviter autant de monde que tu le souhaites</p>
     <br>
     <h2>COMMENT CRÉER UN ÉVÈNEMENT ?</h2>
@@ -45,10 +43,7 @@
 
 <script>
     const title = document.getElementById('title-create-party')
-    const underline = document.querySelector('.underline')
     const body = document.querySelector('body')
-
-    underline.style.width = title.offsetWidth - title.offsetTop + "px";
 
     // -------------- START - handling the display SVG icon
     const inputsWhatsIncluded = document.querySelectorAll('#event_gatheringComplementsIncluded input')

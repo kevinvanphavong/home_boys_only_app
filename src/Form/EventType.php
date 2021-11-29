@@ -6,6 +6,7 @@ use App\Entity\Event;
 use App\Entity\GatheringComplement;
 use App\Entity\GatheringComplementIncluded;
 use App\Entity\GatheringComplementToBring;
+use DateTime;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -32,15 +33,21 @@ class EventType extends AbstractType
             ->add('startingDate', DateTimeType::class, [
                 'label'         => 'Début de la soirée',
                 'label_attr'    => ['class' => 'event-form-label'],
-                'attr'          => ['class' => 'event-form-input'],
-                'row_attr'      => ['class' => 'event-form-row']
+                'attr'          => ['class' =>'event-form-input'],
+                'row_attr'      => ['class' => 'event-form-row'],
+                'placeholder' => [
+                    'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
+                ],
             ])
 
             ->add('endingDate', DateTimeType::class, [
                 'label'         => 'Fin de la soirée',
                 'label_attr'    => ['class' => 'event-form-label'],
                 'attr'          => ['class' => 'event-form-input'],
-                'row_attr'      => ['class' => 'event-form-row']
+                'row_attr'      => ['class' => 'event-form-row'],
+                'placeholder' => [
+                    'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
+                ],
             ])
 
             ->add('entrancePrice', IntegerType::class, [
@@ -53,7 +60,7 @@ class EventType extends AbstractType
             ->add('presentation', TextareaType::class, [
                 'label'         => 'Présentation',
                 'label_attr'    => ['class' => 'event-form-label'],
-                'attr'          => ['class' => 'event-form-input', 'placeholder' => 'Give a maximum informations to introduce and explain your party ;)'],
+                'attr'          => ['class' => 'event-form-input', 'placeholder' => 'Donne nous un maximum d\'infos pour présenter et nous expliquer ta soirée ;)'],
                 'row_attr'      => ['class' => 'event-form-row event-form-row-presentation']
             ])
 
@@ -89,7 +96,10 @@ class EventType extends AbstractType
                 'label'         => 'Fin des inscription',
                 'label_attr'    => ['class' => 'event-form-label'],
                 'attr'          => ['class' => 'event-form-input'],
-                'row_attr'      => ['class' => 'event-form-row']
+                'row_attr'      => ['class' => 'event-form-row'],
+                'placeholder' => [
+                    'year' => 'Année', 'month' => 'Mois', 'day' => 'Jour',
+                ],
             ])
 
             ->add('limitedPlaces', IntegerType::class, [
@@ -97,7 +107,7 @@ class EventType extends AbstractType
                 'label_attr'    => ['class' => 'event-form-label'],
                 'attr'          => ['class' => 'event-form-input'],
                 'row_attr'      => ['class' => 'event-form-row'],
-                'help'          => 'Choisir le nombre de places souhaités et disponibles aux personnes'
+                // 'help'          => 'Choisir le nombre de places souhaités et disponibles aux personnes'
             ])
 
             // ->add('planner')
@@ -115,7 +125,7 @@ class EventType extends AbstractType
                         'title'  =>  $complement->getName(),
                     ];
                 },
-                'label'         => 'What\'s included',
+                'label'         => 'Ce qui est inclus',
                 'label_attr'    => ['class' => 'event-form-label'],
                 'attr'          => ['class' => 'event-form-input'],
                 'row_attr'      => ['class' => 'event-form-row event-form-row-whats-included'],
@@ -137,7 +147,7 @@ class EventType extends AbstractType
                         'title'  =>  $complement->getName(),
                     ];
                 },
-                'label'         => 'What to bring',
+                'label'         => 'Ce que tu peux apporter',
                 'label_attr'    => ['class' => 'event-form-label'],
                 'attr'          => ['class' => 'event-form-input'],
                 'row_attr'      => ['class' => 'event-form-row event-form-row-what-to-bring'],
@@ -151,7 +161,7 @@ class EventType extends AbstractType
                 'required'      => true,
                 'mapped'        => false,
                 'required'      => false,
-                'label'         => 'Add pictures here',
+                'label'         => 'Ajouter plus de photos',
                 'label_attr'    => ['class' => 'event-form-label'],
                 'attr'          => ['class' => 'event-form-input'],
                 'row_attr'      => ['class' => 'event-form-row event-form-row-pictures'],
@@ -162,7 +172,7 @@ class EventType extends AbstractType
                 'required'      => true,
                 'mapped'        => false,
                 'required'      => false,
-                'label'         => 'Choose a picture as cover',
+                'label'         => 'Ajoute une image de présentation',
                 'label_attr'    => ['class' => 'event-form-label'],
                 'attr'          => ['class' => 'event-form-input'],
                 'row_attr'      => ['class' => 'event-form-row event-form-row-cover'],
