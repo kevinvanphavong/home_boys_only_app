@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Partygoer;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -42,42 +44,6 @@ class UserType extends AbstractType
             ])
 
             // ->add('roles')
-            ->add('firstname', TextType::class, [
-                'label' => 'Prénom',
-                'label_attr' => ['class' => 'user-form-label'],
-                'attr' => ['class' => 'user-form-input', 'placeholder' => 'John'],
-                'row_attr' => ['class' => 'user-form-row']
-            ])
-
-            ->add('lastname', TextType::class, [
-                'label' => 'Nom',
-                'label_attr' => ['class' => 'user-form-label'],
-                'attr' => ['class' => 'user-form-input', 'placeholder' => 'Doe'],
-                'row_attr' => ['class' => 'user-form-row']
-            ])
-
-            ->add('birthdate', DateType::class, [
-                'label' => 'Date de naissance',
-                'label_attr' => ['class' => 'user-form-label'],
-                'row_attr' => ['class' => 'user-form-row'],
-                'widget' => 'single_text',
-                // this is actually the default format for single_text
-                'format' => 'yyyy-MM-dd',
-            ])
-
-            ->add('phone', TextType::class, [
-                'label' => 'Numéro de téléphone',
-                'label_attr' => ['class' => 'user-form-label'],
-                'attr' => ['class' => 'user-form-input', 'placeholder' => '0645953115'],
-                'row_attr' => ['class' => 'user-form-row']
-            ])
-
-            ->add('presentation', TextareaType::class, [
-                'label'     => 'Présentation de soi',
-                'label_attr' => ['class' => 'user-form-label'],
-                'attr' => ['class' => 'user-form-input', 'placeholder' => 'Decris toi en quelques mots pour qu\'on apprenne à te connaître'],
-                'row_attr' => ['class' => 'user-form-row user-form-row-self-presentation']
-            ])
 
             ->add('agreeTerms', CheckboxType::class, [
                 'label' => 'Veuillez à accepter nos conditions d\'utilisations',

@@ -31,17 +31,17 @@ class AdminUserController extends AbstractController
     {
         $user = $this->getUser();
 
-        $userForm = $this->createForm(UserType::class, $user);
-        $userForm->handleRequest($request);
+        // $userForm = $this->createForm(UserType::class, $user);
+        // $userForm->handleRequest($request);
 
-        if ($userForm->isSubmitted() && $userForm->isValid()) {
+        // if ($userForm->isSubmitted() && $userForm->isValid()) {
 
-            return $this->redirectToRoute('admin_user_profile');
+        //     return $this->redirectToRoute('admin_user_profile');
             
-        }
+        // }
 
         return $this->render('admin_user/user-profile.html.twig', [
-            'userForm' => $userForm->createView(),
+            // 'userForm' => $userForm->createView(),
         ]);
     }
 
@@ -71,18 +71,18 @@ class AdminUserController extends AbstractController
 
 
             // traitement du mot de passe
-            $user->setPassword(
-                $userPasswordHasherInterface->hashPassword(
-                    $user,
-                    $userForm->get('plainPassword')->getData()
-                )
-            );
+            // $user->setPassword(
+            //     $userPasswordHasherInterface->hashPassword(
+            //         $user,
+            //         $userForm->get('plainPassword')->getData()
+            //     )
+            // );
             
-            $user->setRoles(["ROLE_USER"]);
+            // $user->setRoles(["ROLE_USER"]);
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            // $entityManager = $this->getDoctrine()->getManager();
+            // $entityManager->persist($user);
+            // $entityManager->flush();
 
             // generate a signed url and email it to the user
             // $this->emailVerifier->sendEmailConfirmation(

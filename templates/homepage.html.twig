@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block body %}
-
 <div>
     <div class="header-homepage-block">
         <img class="header-homepage-img" src="{{ asset('build/images/hbo-background-header-homepage.jpg') }}" alt=""/>
@@ -25,43 +24,8 @@
             <img class="arrow-carousel" src="{{ asset('build/images/arrow-carousel.png') }}" alt="">
         </button>
 
-        <style>
-        .event-card {
-            position: relative;
-        }
-
-        .event-card .event-card-content {
-            position: relative;
-            z-index: 5;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .event-card:not(.event-card.event-card-1) div h3 {
-            font-size: 22px;
-        }
-
-        .event-card:not(.event-card.event-card-1) div h4 {
-            font-size: 20px;
-        }
-        
-        .event-cover-card-cover {
-            position: absolute;
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            border-radius: 30px;
-            opacity: 0.5;
-            z-index: 1;
-        }
-        </style>
-
         <div class="block-upcoming-event-card slide-active">
-            {% for party in events1 %}
+            {% for party in upcomingEvents1 %}
                 <a href="{{ path('display-event', {id: party.id, title:party.title}) }}" class="event-card event-card-{{ loop.index }}">
                     <img class="event-cover-card-cover" src="{{ asset('/build/images/' ~ party.eventCover.name) }}" alt="">
                     <div class="event-card-content">
@@ -85,20 +49,88 @@
         </div>
 
         <div class="block-upcoming-event-card">
-            {% for party in events2 %}
+            {% for party in upcomingEvents2 %}
                 <a href="{{ path('display-event', {id: party.id, title:party.title}) }}" class="event-card event-card-{{ loop.index }}">
-                    <h3>{{ party.title }}</h3>
-                    <h4>{{party.city }}</h4>
-                    <p>{{ party.startingDate | date("d-m-Y") }}</p>
-                    <p>{{ party.startingDate | date("h:i a") }}
-                        -
-                        {% if (party.startingDate | date_modify("+1day") | date("Y-m-d")) == (party.endingDate | date("Y-m-d")) %}
-                            {{ party.endingDate | date('H:i a') }}
-                        {% else %}
-                            {{ party.endingDate | date('Y-m-d H:i a') }}
-                        {% endif %}
-                    </p>
-                    {# <p>{{ party.presentation}}</p> #}
+                    {% if party.eventCover is not null %}
+                        <img class="event-cover-card-cover" src="{{ asset('/build/images/' ~ party.eventCover.name) }}" alt="">
+                    {% endif %}
+                    <div class="event-card-content">
+                        <div>
+                            <h3>{{ party.title }}</h3>
+                            <h4>📍
+                                {{party.city }}</h4>
+                        </div>
+                        <div>
+                            <p>🗓
+                                {{ party.startingDate | date("d-m-Y") }}</p>
+                            <p>{{ party.startingDate | date("h:i a") }}
+                                -
+                                {% if (party.startingDate | date_modify("+1day") | date("Y-m-d")) == (party.endingDate | date("Y-m-d")) %}
+                                    {{ party.endingDate | date('H:i a') }}
+                                {% else %}
+                                    {{ party.endingDate | date('Y-m-d H:i a') }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
+        <div class="block-upcoming-event-card">
+            {% for party in upcomingEvents3 %}
+                <a href="{{ path('display-event', {id: party.id, title:party.title}) }}" class="event-card event-card-{{ loop.index }}">
+                    {% if party.eventCover is not null %}
+                        <img class="event-cover-card-cover" src="{{ asset('/build/images/' ~ party.eventCover.name) }}" alt="">
+                    {% endif %}
+                    <div class="event-card-content">
+                        <div>
+                            <h3>{{ party.title }}</h3>
+                            <h4>📍
+                                {{party.city }}</h4>
+                        </div>
+                        <div>
+                            <p>🗓
+                                {{ party.startingDate | date("d-m-Y") }}</p>
+                            <p>{{ party.startingDate | date("h:i a") }}
+                                -
+                                {% if (party.startingDate | date_modify("+1day") | date("Y-m-d")) == (party.endingDate | date("Y-m-d")) %}
+                                    {{ party.endingDate | date('H:i a') }}
+                                {% else %}
+                                    {{ party.endingDate | date('Y-m-d H:i a') }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
+        <div class="block-upcoming-event-card">
+            {% for party in upcomingEvents4 %}
+                <a href="{{ path('display-event', {id: party.id, title:party.title}) }}" class="event-card event-card-{{ loop.index }}">
+                    {% if party.eventCover is not null %}
+                        <img class="event-cover-card-cover" src="{{ asset('/build/images/' ~ party.eventCover.name) }}" alt="">
+                    {% endif %}
+                    <div class="event-card-content">
+                        <div>
+                            <h3>{{ party.title }}</h3>
+                            <h4>📍
+                                {{party.city }}</h4>
+                        </div>
+                        <div>
+                            <p>🗓
+                                {{ party.startingDate | date("d-m-Y") }}</p>
+                            <p>{{ party.startingDate | date("h:i a") }}
+                                -
+                                {% if (party.startingDate | date_modify("+1day") | date("Y-m-d")) == (party.endingDate | date("Y-m-d")) %}
+                                    {{ party.endingDate | date('H:i a') }}
+                                {% else %}
+                                    {{ party.endingDate | date('Y-m-d H:i a') }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
                 </a>
             {% endfor %}
         </div>
@@ -120,39 +152,117 @@
         </button>
 
         <div class="block-past-event-card slide-active">
-            {% for party in events4 %}
+            {% for party in pastEvents1 %}
                 <a href="{{ path('display-event', {id: party.id, title:party.title}) }}" class="event-card event-card-{{ loop.index }}">
-                    <h3>{{ party.title }}</h3>
-                    <h4>{{ party.city }}</h4>
-                    <p>{{ party.startingDate | date("d-m-Y") }}</p>
-                    <p>{{ party.startingDate | date("h:i a") }}
-                        -
-                        {% if (party.startingDate | date_modify("+1day") | date("Y-m-d")) == (party.endingDate | date("Y-m-d")) %}
-                            {{ party.endingDate | date('H:i a') }}
-                        {% else %}
-                            {{ party.endingDate | date('Y-m-d H:i a') }}
-                        {% endif %}
-                    </p>
-                    {# <p>{{ party.presentation}}</p> #}
+                    {% if party.eventCover is not null %}
+                        <img class="event-cover-card-cover" src="{{ asset('/build/images/' ~ party.eventCover.name) }}" alt="">
+                    {% endif %}
+                    <div class="event-card-content">
+                        <div>
+                            <h3>{{ party.title }}</h3>
+                            <h4>📍
+                                {{party.city }}</h4>
+                        </div>
+                        <div>
+                            <p>🗓
+                                {{ party.startingDate | date("d-m-Y") }}</p>
+                            <p>{{ party.startingDate | date("h:i a") }}
+                                -
+                                {% if (party.startingDate | date_modify("+1day") | date("Y-m-d")) == (party.endingDate | date("Y-m-d")) %}
+                                    {{ party.endingDate | date('H:i a') }}
+                                {% else %}
+                                    {{ party.endingDate | date('Y-m-d H:i a') }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
                 </a>
             {% endfor %}
         </div>
 
         <div class="block-past-event-card">
-            {% for party in events3 %}
-                    <a href="{{ path('display-event', {id: party.id, title:party.title}) }}" class="event-card event-card-{{ loop.index }}">
-                    <h3>{{ party.title }}</h3>
-                    <h4>{{party.city }}</h4>
-                    <p>{{ party.startingDate | date("d-m-Y") }}</p>
-                    <p>{{ party.startingDate | date("h:i a") }}
-                        -
-                        {% if (party.startingDate | date_modify("+1day") | date("Y-m-d")) == (party.endingDate | date("Y-m-d")) %}
-                            {{ party.endingDate | date('H:i a') }}
-                        {% else %}
-                            {{ party.endingDate | date('Y-m-d H:i a') }}
-                        {% endif %}
-                    </p>
-                    {# <p>{{ party.presentation}}</p> #}
+            {% for party in pastEvents2 %}
+                <a href="{{ path('display-event', {id: party.id, title:party.title}) }}" class="event-card event-card-{{ loop.index }}">
+                    {% if party.eventCover is not null %}
+                        <img class="event-cover-card-cover" src="{{ asset('/build/images/' ~ party.eventCover.name) }}" alt="">
+                    {% endif %}
+                    <div class="event-card-content">
+                        <div>
+                            <h3>{{ party.title }}</h3>
+                            <h4>📍
+                                {{party.city }}</h4>
+                        </div>
+                        <div>
+                            <p>🗓
+                                {{ party.startingDate | date("d-m-Y") }}</p>
+                            <p>{{ party.startingDate | date("h:i a") }}
+                                -
+                                {% if (party.startingDate | date_modify("+1day") | date("Y-m-d")) == (party.endingDate | date("Y-m-d")) %}
+                                    {{ party.endingDate | date('H:i a') }}
+                                {% else %}
+                                    {{ party.endingDate | date('Y-m-d H:i a') }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
+        <div class="block-past-event-card">
+            {% for party in pastEvents3 %}
+                <a href="{{ path('display-event', {id: party.id, title:party.title}) }}" class="event-card event-card-{{ loop.index }}">
+                    {% if party.eventCover is not null %}
+                        <img class="event-cover-card-cover" src="{{ asset('/build/images/' ~ party.eventCover.name) }}" alt="">
+                    {% endif %}
+                    <div class="event-card-content">
+                        <div>
+                            <h3>{{ party.title }}</h3>
+                            <h4>📍
+                                {{party.city }}</h4>
+                        </div>
+                        <div>
+                            <p>🗓
+                                {{ party.startingDate | date("d-m-Y") }}</p>
+                            <p>{{ party.startingDate | date("h:i a") }}
+                                -
+                                {% if (party.startingDate | date_modify("+1day") | date("Y-m-d")) == (party.endingDate | date("Y-m-d")) %}
+                                    {{ party.endingDate | date('H:i a') }}
+                                {% else %}
+                                    {{ party.endingDate | date('Y-m-d H:i a') }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+
+        <div class="block-past-event-card">
+            {% for party in pastEvents4 %}
+                <a href="{{ path('display-event', {id: party.id, title:party.title}) }}" class="event-card event-card-{{ loop.index }}">
+                    {% if party.eventCover is not null %}
+                        <img class="event-cover-card-cover" src="{{ asset('/build/images/' ~ party.eventCover.name) }}" alt="">
+                    {% endif %}
+                    <div class="event-card-content">
+                        <div>
+                            <h3>{{ party.title }}</h3>
+                            <h4>📍
+                                {{party.city }}</h4>
+                        </div>
+                        <div>
+                            <p>🗓
+                                {{ party.startingDate | date("d-m-Y") }}</p>
+                            <p>{{ party.startingDate | date("h:i a") }}
+                                -
+                                {% if (party.startingDate | date_modify("+1day") | date("Y-m-d")) == (party.endingDate | date("Y-m-d")) %}
+                                    {{ party.endingDate | date('H:i a') }}
+                                {% else %}
+                                    {{ party.endingDate | date('Y-m-d H:i a') }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
                 </a>
             {% endfor %}
         </div>
@@ -192,8 +302,11 @@
         <div class="commments-card">
             {% for comment in comments %}
                 <div class="comment-card-content {% if loop.index == 1 %}comment-active{% endif %} ">
-                    <h4>{{ comment.author.firstname ~ ' ' ~ comment.author.lastname }}</h4>
-                    <p>{{ comment.date | date('Y-m-d h:i a') }}</p>
+                    <div class="comment-author-part">
+                        <img src="{{ asset('build/images/thumbnail-profile.jpg') }}" alt="">
+                        <h4>{{ comment.author.firstname ~ ' ' ~ comment.author.lastname }}</h4>
+                    </div>
+                    <p class="comment-date">{{ comment.date | date('d-m-Y h:i') }}</p>
                     <p>{{ comment.content }}</p>
                 </div>
             {% endfor %}
@@ -329,9 +442,33 @@
     </div>
 </section>
 
+<style>
+{# media screen under 500px #}
+.introduction-blocks,
+.introduction-blocks:nth-child(2n) {
+    flex-direction: column;
+}
+
+.part-common-content {
+    width: 100%;
+}
+
+.part-common-img {
+    width: 100%;
+    padding: 0px 50px;
+    align-items: center;
+}
+.transform-left,
+.transform-right {
+    transform: translate(0px, -20px);
+}
+
+</style>
+
 
 <script>
 // ------------- START - carousel upcoming parties 
+
 const arrowLeft = document.querySelectorAll('button.btn-carousel-left')
 const arrowRight = document.querySelectorAll('button.btn-carousel-right')
 

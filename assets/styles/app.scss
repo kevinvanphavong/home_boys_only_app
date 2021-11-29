@@ -31,6 +31,17 @@ select {
     list-style: none;
 }
 
+body {
+    background-color: $white;
+    box-shadow: inset 0px 0px 10px rgba($black, 0.5);
+    padding-bottom: 50px;
+    overflow-x: hidden;
+}
+
+.material-icons {
+    margin: 0px;
+}
+
 h1 {
     font-size: 36px;
 }
@@ -55,4 +66,10 @@ a:hover {
 .section-80 {
     width: 75%;
     margin: 50px auto;
+}
+
+@media screen and (max-width: 1000px) {
+    .section-80 {
+        width: 90%;
+    }
 }

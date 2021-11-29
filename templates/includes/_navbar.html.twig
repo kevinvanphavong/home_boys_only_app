@@ -19,11 +19,6 @@
         <a href="{{ path('creation-new-party') }}">🛠 Organiser une soirée  🎉️</a>
     </div>
 
-    <style>
-    .circle {
-        box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
-    }
-    </style>
 
     <div class="nav-user-part">
         <div class="icons material-icons">
@@ -62,6 +57,33 @@
     </div>
 </nav>
 
+{% block body %}{% endblock %}
+
+<style>
+
+
+</style>
+<div class="menu-responsive">
+    <div class="menu-user-admin">
+    	<p>MES MESSAGES</p>
+    	<p>MES NOTIFICATIONS</p>
+    	<p>MES INFORMATIONS PERSONNELLES</p>
+    	<p>MES SOIRÉES À ORGANISER</p>
+    	<p>MA FAVLIST - INVITATIONS</p>
+    	<p>MES DERNIÈRES SOIRÉES</p>
+    </div>
+    <div class="menu-user-icon">
+        <div class="material-icons">
+            <div>forum</div>
+        </div>
+        <div class="material-icons">
+            <div>notifications</div>
+        </div>
+        <div class="material-icons">
+            <div>account_circle</div>
+        </div>
+    </div>
+</div>
 
 <script>
     let userMenu = document.querySelector('.menu-user')
