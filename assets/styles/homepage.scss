@@ -72,10 +72,6 @@ h2 + p {
     height: 240px;
 }
 
-.event-card:not(.event-card.event-card-1) div h3 {
-    font-size: 22px;
-}
-
 .event-card:not(.event-card.event-card-1) div h4 {
     font-size: 20px;
 }
@@ -423,5 +419,16 @@ h2 + p {
 
 
 @media screen and (max-width: 500px) {
+    .block-upcoming-event-card.slide-active,
+    .block-past-event-card.slide-active {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 
+    .event-card {
+        height: 240px;
+        width: 45%;
+        min-width: 350px;
+    }
 }
