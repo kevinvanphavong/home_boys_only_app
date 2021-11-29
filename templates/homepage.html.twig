@@ -290,7 +290,7 @@
 
     <div class="recent-comments-cards">
         {% for i in 0..3 %}
-            <div class="commments-card">
+            <div class="comments-card">
                 <div class="blur">
                     <h4>Lorem ipsum dolor</h4>
                     <p>Lorem ipsum dolor sit amet.</p>
@@ -299,14 +299,14 @@
                 </div>
             </div>
         {% endfor %}
-        <div class="commments-card">
+        <div class="comments-card">
             {% for comment in comments %}
                 <div class="comment-card-content {% if loop.index == 1 %}comment-active{% endif %} ">
                     <div class="comment-author-part">
                         <img src="{{ asset('build/images/thumbnail-profile.jpg') }}" alt="">
                         <h4>{{ comment.author.firstname ~ ' ' ~ comment.author.lastname }}</h4>
                     </div>
-                    <p class="comment-date">{{ comment.date | date('d-m-Y h:i') }}</p>
+                    <p class="comment-date">{{ comment.date | date('d-m-Y') }}</p>
                     <p>{{ comment.content }}</p>
                 </div>
             {% endfor %}
@@ -447,7 +447,7 @@
 
 
 /* for the introduction hbo part */
-.introduction-blocks,
+/* .introduction-blocks,
 .introduction-blocks:nth-child(2n) {
     flex-direction: column;
 }
@@ -464,8 +464,10 @@
 .transform-left,
 .transform-right {
     transform: translate(0px, -20px);
-}
+} */
 /* for the introduction hbo part */
+
+
 
 </style>
 
@@ -621,14 +623,14 @@ arrowLeft[1].addEventListener('click', oldSlide);
 
 
 // ------------- START - carousel recents comments
-const commentsCards = document.querySelectorAll('.commments-card')
+const commentsCards = document.querySelectorAll('.comments-card')
 let nbCards = commentsCards.length
 let counter = 1
 let moreHeight = 30
 commentsCards[(commentsCards.length) - 1].style.filter = "blur(0px)";
 
  commentsCards.forEach(card => {
-    card.style.width = (80 - (counter * 10)) + '%'
+    card.style.width = (95 - (counter * 10)) + '%'
     card.style.height = card.offsetHeight + (counter * moreHeight) + "px"
     counter++
  });
