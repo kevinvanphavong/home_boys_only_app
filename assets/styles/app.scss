@@ -43,23 +43,24 @@ body {
 }
 
 h1 {
-    font-size: 36px;
+    font-size: $text-size + 20px;
 }
 h2 {
-    font-size: 30px;
+    font-size: $text-size + 14px ;
 }
 h3 {
-    font-size: 26px;
+    font-size: $text-size + 8px ;
 }
 h4 {
-    font-size: 22px;
+    font-size: $text-size + 4px;
 }
 p,
 ul li {
-    font-size: 16px;
+    font-size: $text-size;
 }
 a,
 a:hover {
+    font-size: $text-size;
     color: $black;
 }
 

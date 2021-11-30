@@ -5,6 +5,7 @@
     width: 100%;
     height: 300px;
     object-fit: cover;
+    box-shadow: $box-shadow;
 }
 
 select, input, textarea {

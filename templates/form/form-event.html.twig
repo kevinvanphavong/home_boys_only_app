@@ -43,5 +43,8 @@
 	<div class="event-form-group">
 		{{form_row(eventForm.eventPictures) }}
 	</div>
+
+	<button class="btn-submit-event-form btn btn-success">{{ button_label|default('Enregistrer') }}</button>
+
 	{{ form_end(eventForm) }}
 {% endblock %}
