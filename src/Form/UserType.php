@@ -79,11 +79,6 @@ class UserType extends AbstractType
                     ]),
                 ]
             ])
-
-            // ->add('submit', SubmitType::class, [
-            //     'label'         => 'Save it',
-            //     'attr'          => ['class' => 'btn-submit-user-form']
-            // ])
             ;
     }
 

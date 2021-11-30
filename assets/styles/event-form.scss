@@ -12,10 +12,6 @@ select, input, textarea {
     background: $white;
 }
 
-.title-create-party {
-    text-decoration: underline $primary-red 5px;
-}
-
 .section-title-new-event ul li {
     margin: 10px 0px;
 }
@@ -25,9 +21,9 @@ input.event-form-input,
 textarea.event-form-input,
 .event-form-input select {
     padding: 10px 20px;
-    border-radius: 30px;
+    border-radius: $radius;
     border: $border-1;
-    box-shadow: 0px 4px 4px lightgrey;
+    box-shadow: $box-shadow;
 }
 
 .event-form-row {
@@ -63,15 +59,15 @@ label.material-icons {
     font-size: 50px;
     padding: 20px;
     border: $border-1;
-    box-shadow: 0px 4px 4px lightgrey;
-    border-radius: 30px;
+    box-shadow: $box-shadow;
+    border-radius: $radius;
     cursor: pointer;
     margin-top: 5px;
     width: fit-content;
 }
 
 label.material-icons.checked {
-    background: lightgreen;
+    background: green;
 }
 
 .event-form-row-pictures,

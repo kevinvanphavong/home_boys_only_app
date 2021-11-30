@@ -18,7 +18,7 @@ input.user-form-input,
 #user_presentation,
 #user_birthdate {
     padding: 10px 20px;
-    border-radius: 30px;
+    border-radius: $radius;
     border: $border-1;
     box-shadow: $box-shadow;
 }
@@ -34,8 +34,7 @@ input.user-form-input,
     min-height: 300px;
 }
 .user-form-row-profile-picture input {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding: 40px 0px;
 }
 
 .user-form-label:not(:last-child) {
@@ -53,20 +52,61 @@ input.user-form-input,
     margin-right: 10px;
 }
 
+.login-btn-submit,
 .btn-submit-user-form {
     text-align: center;
     color: $white;
-    margin: 0px auto;
     padding: 10px 20px;
-    border: $border-1;
     border-radius: $radius;
+    border: none;
     box-shadow: $box-shadow;
     background: linear-gradient(180deg, $primary-red 0%, $primary-orange 100%);
-    vertical-align: center;
-    align-self: center;
     cursor: pointer;
 }
+
+.login-btn-submit:hover
 .btn-submit-user-form:hover {
     transform: scale(1.05);
     transition: 0.4s;
 }
+
+// start - LOGIN page 
+    .password-row label,
+    .email-row label {
+        margin-bottom: 5px;
+    }
+
+    .password-row input,
+    .email-row input {
+        padding: 10px 20px;
+        border-radius: $radius;
+        border: $border-1;
+        background: $white;
+        box-shadow: $box-shadow;
+    }
+
+    .email-row,
+    .password-row {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .material-icons.eye-icon{
+        vertical-align: bottom;
+        cursor: pointer;
+    }
+// end LOGIN PAGE    
+
+// start ADMIN PROFILE PAGE
+    .material-icons.star{
+        font-size: 32px;
+        margin: 0px 5px 0px 0px;
+        vertical-align: bottom;
+        color: green;
+    }
+    .admin-user-infos ul li {
+        display: flex;
+        align-items: center;
+        margin: 0px 0px 10px 0px;
+    }
+// end ADMIN PROFILE PAGE
