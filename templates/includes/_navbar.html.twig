@@ -34,21 +34,21 @@
             <ul>
                 {% if app.user %}
                     <li>
-                        <a href="{{ path('admin_user_profile')}}">MON COMPTE</a>
+                        <a href="{{ path('admin_user_profile')}}">Mon compte</a>
                     </li>
-                    <li>WISHLIST DE SOIRÉES</li>
-                    <li>TOUS MES ÉVÈNEMENTS</li>
+                    <li>Wishlist des soirées</li>
+                    <li>Tous mes évènements</li>
                     <hr>
                     <li>
-                        <a href="{{ path('app_logout')}}">SE DECONNECTER</a>
+                        <a href="{{ path('app_logout')}}">Se déconnecter</a>
                     </li>
                 {% else %}
                     <li>
-                        <a href="{{ path('app_login')}}">SE CONNECTER</a>
+                        <a href="{{ path('app_login')}}">Se connecter</a>
                     </li>
                     <li>
                         <a href="{{path('user_registration') }}">
-                            S'INSCRIRE
+                            S'inscrire
                         </a>
                     </li>
                 {% endif %}

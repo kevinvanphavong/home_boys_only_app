@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Create your profile - HOME BOYS ONLY{% endblock %}
+{% block title %}Créer votre profil - LOWKEY{% endblock %}
 
 {% block body %}
 
@@ -26,8 +26,7 @@
     <br>
 
     <p>
-        {# {{app.user.partygoer.firstname ~ ' ' ~ app.user.partygoer.lastname }}, #}
-        A partir de votre espace utilisateur, si tu le souhaites tu peux :
+        {{app.user.partygoer.firstname ~ ' ' ~ app.user.partygoer.lastname }}, à partir de votre espace utilisateur, si tu le souhaites tu peux :
     </p>
     <ul>
         <li><span class="material-icons">star</span> Revoir les soirées auxquelles tu as participés</li>
@@ -40,7 +39,8 @@
     <br>
 
     <div class="admin-user-infos-content">
-        {# {{ include('form/form-user.html.twig', {'button_label': 'MODIFIER MON PROFIL'}) }} #}
+        {# {{ include('form/form-user.html.twig', {'button_label': 'E'}) }} #}
+        {{ include('form/form-user.html.twig') }}
     </div>
 </section>
 

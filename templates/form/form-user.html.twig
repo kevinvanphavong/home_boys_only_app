@@ -1,27 +1,17 @@
 {% block userForm %}
     {{ form_start(userForm, {'attr': {'id': 'user-form'}}) }}
-        {# <div class="user-form-group">
-            {{form_row(userForm.firstname) }}
-            {{form_row(userForm.lastname) }}
-        </div> #}
-
         <div class="user-form-group">
             {{form_row(userForm.email) }}
+        </div>
+        
+        <div class="user-form-group">
             {{form_row(userForm.plainPassword) }}
         </div>
     
-        {# <div class="user-form-group">
-            {{form_row(userForm.birthdate) }}
-            {{form_row(userForm.phone) }}
-        </div> #}
-
-        {# <div class="user-form-group">
-            {{form_row(userForm.presentation) }}
-        </div> #}
         <div class="user-form-group">
             {{form_row(userForm.agreeTerms) }}
         </div>
 
-        <button class="btn-submit-user-form">{{ button_label|default('CRÉER MON PROFIL') }}</button>
+        <button class="btn-submit-user-form btn btn-success">{{ button_label|default('Enregistrer') }}</button>
     {{ form_end(userForm) }}
 {% endblock %}

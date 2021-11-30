@@ -31,8 +31,8 @@ class AdminUserController extends AbstractController
     {
         $user = $this->getUser();
 
-        // $userForm = $this->createForm(UserType::class, $user);
-        // $userForm->handleRequest($request);
+        $userForm = $this->createForm(UserType::class, $user);
+        $userForm->handleRequest($request);
 
         // if ($userForm->isSubmitted() && $userForm->isValid()) {
 
@@ -41,7 +41,7 @@ class AdminUserController extends AbstractController
         // }
 
         return $this->render('admin_user/user-profile.html.twig', [
-            // 'userForm' => $userForm->createView(),
+            'userForm' => $userForm->createView(),
         ]);
     }
 

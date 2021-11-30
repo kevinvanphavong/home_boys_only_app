@@ -24,7 +24,7 @@ input.user-form-input,
 }
 
 .user-form-row {
-    width: 48%;
+    width: 100%;
 }
 .user-form-row-self-presentation,
 .user-form-row-profile-picture {
@@ -54,7 +54,6 @@ input.user-form-input,
 }
 
 .btn-submit-user-form {
-    width: 50%;
     text-align: center;
     color: $white;
     margin: 0px auto;
