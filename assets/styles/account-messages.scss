@@ -1,0 +1,41 @@
+@import 'app.scss';
+
+.header h1 {
+    letter-spacing: 5px;
+    text-align: center;
+}
+.section-messages {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.message-card {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background: whitesmoke;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    margin: 0 0 10px 0;
+}
+
+.message-contact-picture {
+    width: 65px;
+    height: 65px;
+    border-radius: 10px;
+    background: grey;
+    margin: 10px;
+}
+
+.message-conversation {
+    height: 100px;
+    padding: 10px;
+    background: red;
+}
+
+@media screen and (max-width: 1000px) {
+    .section-messages {
+        width: 80%;
+    }
+}

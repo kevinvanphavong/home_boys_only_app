@@ -1,0 +1,56 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Mes messages{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('account-messages-scss') }}
+    <style>
+.message-header {
+    display: flex;
+    justify-content: flex-start;
+    align-content: stretch;
+}
+
+.message-primary-infos {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.message-event-infos {
+    display: flex;
+    justify-content: space-between;
+}
+
+    </style>
+{% endblock %}
+
+{% block body %}
+<section class="section-80 header">
+    <h1>MES MESSAGES</h1>
+</section>
+
+<section class="section-messages">
+    {% for i in 0..10 %}
+        <div class="message-card">
+            <div class="message-header">
+
+                <div>
+                    <img class="message-contact-picture"/>
+                </div>
+                
+                <div class="message-primary-infos">
+                    <p class="message-contact-name">Kevin Vanphavong</p>
+                    <div class="message-event-infos">
+                        <p class="message-event-title">Hip Hop Summer Caribbean Party 202{{ i }}</p>
+                        <p class="message-event-date">17-10-202{{ i }}</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="message-conversation"></div>
+        </div>
+    {% endfor %}
+</section>
+{% endblock %}
