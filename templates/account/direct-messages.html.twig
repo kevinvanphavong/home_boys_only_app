@@ -4,26 +4,6 @@
 
 {% block stylesheets %}
 	{{ encore_entry_link_tags('account-messages-scss') }}
-    <style>
-.message-header {
-    display: flex;
-    justify-content: flex-start;
-    align-content: stretch;
-}
-
-.message-primary-infos {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.message-event-infos {
-    display: flex;
-    justify-content: space-between;
-}
-
-    </style>
 {% endblock %}
 
 {% block body %}
@@ -33,7 +13,7 @@
 
 <section class="section-messages">
     {% for i in 0..10 %}
-        <div class="message-card">
+        <div class="message-card button-display-conv" data-id={{ i }}>
             <div class="message-header">
 
                 <div>
@@ -49,7 +29,18 @@
                 </div>
 
             </div>
-            <div class="message-conversation"></div>
+            <div class="message-conversation">
+                <div class="messages">
+                    {# boucler sur une div.message pour display tous les messages #}
+                </div>
+                <div class="message-block-form">
+                    <form action="" class="message-form">
+                        {# <textarea name="" id="" ></textarea> #}
+                        <input type="text">
+                        <button class="btn btn-success">Envoyer</button>
+                    </form>
+                </div>
+            </div>
         </div>
     {% endfor %}
 </section>

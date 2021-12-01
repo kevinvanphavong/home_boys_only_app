@@ -116,11 +116,13 @@
         padding: 0px 20px;
         width: 100%;
     }
-    .menu-user-admin p {
+    .menu-user-admin a {
         padding: 20px;
         white-space: nowrap;
+        text-decoration: none;
+        color: $white;
     }
-    .menu-user-admin p:hover {
+    .menu-user-admin a:hover {
         background: -webkit-linear-gradient(180deg, $primary-red, $primary-orange);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
