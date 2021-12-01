@@ -14,52 +14,13 @@
 {% block body %}
 <section class="section-80 header">
     <h1>MES MESSAGES</h1>
-    <p>{{ partygoer.firstname ~ ' ' ~ partygoer.lastname }}</p>
+    <br>
+    <p>Vous pouvez consulter vos différentes conversations ici :</p>
+    <ul>
+        <li>- avec les organisateurs des soirées</li>
+        <li>- avec les invités qui souhaitent venir à votre soirée !</li>
+    </ul>
 </section>
-
-<style>
-
-.message-conversation {
-    display: block;
-}
-
-.message {
-    margin: 20px;
-    display: flex;
-}
-
-.bubble-message {
-    padding: 10px 20px;
-    border-radius: 20px;
-    width: fit-content;
-    max-width: 75%;
-}
-
-.bubble-message p:last-child {
-    text-align: end;
-}
-
-.author-side {
-    justify-content: end;
-}
-
-.recipient-side {
-    justify-content: start;
-}
-
-.author-message {
-    background: lightgrey;
-    color: rgba(0, 0, 0, 0.75);
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-}
-.recipient-message {
-    background: darkgrey;
-    color: rgba(255, 255, 255, 0.75);
-}
-
-</style>
 
 <section class="section-messages">
     {% for conv in convs %}
