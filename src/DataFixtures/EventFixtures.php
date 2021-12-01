@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Event;
-use DateInterval;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -65,7 +64,7 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
 
         for ($i = 1; $i <= 20; $i++) {
             $event = new Event;
-            $event->setTitle($faker->word(10));
+            $event->setTitle(ucfirst($faker->word(10)));
             $event->setStartingDate(new DateTime('2020-10-17 20:00:00'));
             $event->setEndingDate(new DateTime('2020-10-18 04:00:00'));
             $event->setPlanner($this->getReference('planner_1'));

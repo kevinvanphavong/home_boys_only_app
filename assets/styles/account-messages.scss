@@ -26,7 +26,7 @@
     height: 65px;
     border-radius: 10px;
     background: grey;
-    margin: 10px;
+    margin: 0 0 10px 0;
 }
 
 .message-header {
@@ -40,6 +40,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    padding: 0px 10px;
 }
 
 .message-event-infos {
@@ -50,7 +51,10 @@
 .messages {
     width: 100%;
     min-height: 200px;
-    background: orangered;
+    max-height: 400px;
+    background: $black;
+    border-radius: $radius-10;
+    box-shadow: inset 0 0 10px whitesmoke;
     margin: 0 0 10px 0;
 }
 
@@ -70,21 +74,61 @@
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.message-conversation {
-    display: none;
-}
+// .message-conversation {
+//     display: none;
+// }
 
 .button-display-conv:hover .message-conversation {
     display: block;
 }
 
+.bubble-message {
+    padding: 10px 20px;
+    border-radius: 20px;
+    width: fit-content;
+    max-width: 75%;
+}
+
+.bubble-message p:last-child {
+    text-align: end;
+}
+
+.author-side {
+    justify-content: end;
+}
+
+.recipient-side {
+    justify-content: start;
+}
+
+.author-message {
+    background: lightgrey;
+    color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+.recipient-message {
+    background: darkgrey;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+
+
 @media screen and (max-width: 1000px) {
     .section-messages {
-        width: 80%;
+        width: 90%;
     }
 }
 
 @media screen and (max-width: 500px) {
+    .section-messages {
+        width: 100%;
+    }
+    .message-card {
+        border-radius: 0;
+        padding: 20px;
+    }
     .message-form {
         flex-direction: column;
     }

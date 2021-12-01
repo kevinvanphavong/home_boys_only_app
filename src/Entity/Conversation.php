@@ -20,13 +20,13 @@ class Conversation
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Partygoer::class, inversedBy="conversations")
+     * @ORM\ManyToOne(targetEntity=Partygoer::class, inversedBy="conversationsAsPlanner")
      * @ORM\JoinColumn(nullable=false)
      */
     private $userPlanner;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Partygoer::class)
+     * @ORM\ManyToOne(targetEntity=Partygoer::class, inversedBy="conversationsAsGuest")
      * @ORM\JoinColumn(nullable=false)
      */
     private $userGuest;

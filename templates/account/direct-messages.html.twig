@@ -4,16 +4,66 @@
 
 {% block stylesheets %}
 	{{ encore_entry_link_tags('account-messages-scss') }}
+    <style>
+    .messages {
+        overflow: scroll;
+    }
+    </style>
 {% endblock %}
 
 {% block body %}
 <section class="section-80 header">
     <h1>MES MESSAGES</h1>
+    <p>{{ partygoer.firstname ~ ' ' ~ partygoer.lastname }}</p>
 </section>
 
+<style>
+
+.message-conversation {
+    display: block;
+}
+
+.message {
+    margin: 20px;
+    display: flex;
+}
+
+.bubble-message {
+    padding: 10px 20px;
+    border-radius: 20px;
+    width: fit-content;
+    max-width: 75%;
+}
+
+.bubble-message p:last-child {
+    text-align: end;
+}
+
+.author-side {
+    justify-content: end;
+}
+
+.recipient-side {
+    justify-content: start;
+}
+
+.author-message {
+    background: lightgrey;
+    color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+.recipient-message {
+    background: darkgrey;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+</style>
+
 <section class="section-messages">
-    {% for i in 0..10 %}
-        <div class="message-card button-display-conv" data-id={{ i }}>
+    {% for conv in convs %}
+        <div class="message-card button-display-conv">
             <div class="message-header">
 
                 <div>
@@ -21,10 +71,16 @@
                 </div>
                 
                 <div class="message-primary-infos">
-                    <p class="message-contact-name">Kevin Vanphavong</p>
+                    <p class="message-contact-name">
+                        {% if partygoer.id == conv.userPlanner.id %}
+                            {{conv.userGuest.firstname ~ ' ' ~ conv.userGuest.lastname }}
+                        {% else %}
+                            {{conv.userPlanner.firstname ~ ' ' ~ conv.userPlanner.lastname }}
+                        {% endif %}
+                    </p>
                     <div class="message-event-infos">
-                        <p class="message-event-title">Hip Hop Summer Caribbean Party 202{{ i }}</p>
-                        <p class="message-event-date">17-10-202{{ i }}</p>
+                        <p class="message-event-title">{{ conv.party.title }}</p>
+                        <p class="message-event-date">{{ conv.party.startingDate | date('d-m-Y') }}</p>
                     </div>
                 </div>
 
@@ -32,10 +88,24 @@
             <div class="message-conversation">
                 <div class="messages">
                     {# boucler sur une div.message pour display tous les messages #}
+                    {% for message in conv.messages %}
+                        {% if message.author.id == partygoer.id %}
+                                {% set sidePart = 'author-side' %}
+                                {% set messagePart = 'author-message' %}
+                        {% else %}
+                                {% set sidePart = 'recipient-side' %}
+                                {% set messagePart = 'recipient-message' %}
+                        {% endif %}
+                            <div class="message {{ sidePart }}">
+                                <div class="bubble-message {{ messagePart }}">
+                                    <p>{{ message.content }}</p>
+                                    <p>{{ message.createdAt | date('d-m-Y H:i')}}</p>
+                                </div>
+                            </div>
+                    {% endfor %}
                 </div>
                 <div class="message-block-form">
                     <form action="" class="message-form">
-                        {# <textarea name="" id="" ></textarea> #}
                         <input type="text">
                         <button class="btn btn-success">Envoyer</button>
                     </form>

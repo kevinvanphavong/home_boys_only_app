@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\ConversationRepository;
+use App\Repository\MessageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,8 +28,15 @@ class AccountUserController extends AbstractController
     /**
      * @Route("my-account/direct-messages", name="my_account_direct_messages")
      */
-    public function getNotificationsPage(): Response
+    public function getDirectMessagesPage(ConversationRepository $conversationRepository): Response
     {
-        return $this->render('account/direct-messages.html.twig');
+        $partygoer = $this->getUser()->getPartygoer();
+
+        $convs = $conversationRepository->findAllTheConversation($partygoer);
+
+        return $this->render('account/direct-messages.html.twig', [
+            'partygoer' => $partygoer,
+            'convs' => $convs,
+        ]);
     }
 }

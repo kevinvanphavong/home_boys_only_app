@@ -63,7 +63,12 @@ class Partygoer
     /**
      * @ORM\OneToMany(targetEntity=Conversation::class, mappedBy="userPlanner")
      */
-    private $conversations;
+    private $conversationsAsPlanner;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Conversation::class, mappedBy="userGuest")
+     */
+    private $conversationsAsGuest;
 
     /**
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="author")
@@ -167,7 +172,7 @@ class Partygoer
     {
         if (!$this->createdEvents->contains($createdEvent)) {
             $this->createdEvents[] = $createdEvent;
-            $createdEvent->setOrganizer($this);
+            $createdEvent->setPlanner($this);
         }
 
         return $this;
@@ -177,8 +182,8 @@ class Partygoer
     {
         if ($this->createdEvents->removeElement($createdEvent)) {
             // set the owning side to null (unless already changed)
-            if ($createdEvent->getOrganizer() === $this) {
-                $createdEvent->setOrganizer(null);
+            if ($createdEvent->getPlanner() === $this) {
+                $createdEvent->setPlanner(null);
             }
         }
 
@@ -218,24 +223,54 @@ class Partygoer
     /**
      * @return Collection|Conversation[]
      */
-    public function getConversations(): Collection
+    public function getConversationsAsPlanner(): Collection
     {
-        return $this->conversations;
+        return $this->conversationsAsPlanner;
     }
 
-    public function addConversation(Conversation $conversation): self
+    public function addConversationAsPlanner(Conversation $conversation): self
     {
-        if (!$this->conversations->contains($conversation)) {
-            $this->conversations[] = $conversation;
+        if (!$this->conversationsAsPlanner->contains($conversation)) {
+            $this->conversationsAsPlanner[] = $conversation;
             $conversation->setUserPlanner($this);
         }
 
         return $this;
     }
 
-    public function removeConversation(Conversation $conversation): self
+    public function removeConversationAsPlanner(Conversation $conversation): self
     {
-        if ($this->conversations->removeElement($conversation)) {
+        if ($this->conversationsAsPlanner->removeElement($conversation)) {
+            // set the owning side to null (unless already changed)
+            if ($conversation->getUserPlanner() === $this) {
+                $conversation->setUserPlanner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Conversation[]
+     */
+    public function getConversationsAsGuest(): Collection
+    {
+        return $this->conversationsAsGuest;
+    }
+
+    public function addConversationAsGuest(Conversation $conversation): self
+    {
+        if (!$this->conversationsAsGuest->contains($conversation)) {
+            $this->conversationsAsGuest[] = $conversation;
+            $conversation->setUserPlanner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversationAsGuest(Conversation $conversation): self
+    {
+        if ($this->conversationsAsGuest->removeElement($conversation)) {
             // set the owning side to null (unless already changed)
             if ($conversation->getUserPlanner() === $this) {
                 $conversation->setUserPlanner(null);

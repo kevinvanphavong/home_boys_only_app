@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Conversation;
+use App\Entity\Partygoer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,6 +18,18 @@ class ConversationRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Conversation::class);
+    }
+
+    public function findAllTheConversation(Partygoer $partygoer)
+    {
+        $id = $partygoer->getId();
+
+        return $this->createQueryBuilder('c')
+            ->where('c.userPlanner = :id')
+            ->orWhere('c.userGuest = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
     }
 
     // /**
