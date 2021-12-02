@@ -2,12 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Conversation;
+use App\Entity\Message;
+use App\Entity\Partygoer;
 use App\Repository\ConversationRepository;
-use App\Repository\MessageRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class AccountUserController extends AbstractController
 {
@@ -30,13 +34,56 @@ class AccountUserController extends AbstractController
      */
     public function getDirectMessagesPage(ConversationRepository $conversationRepository): Response
     {
-        $partygoer = $this->getUser()->getPartygoer();
+        $user = $this->getUser();
 
-        $convs = $conversationRepository->findAllTheConversation($partygoer);
+        $convs = $conversationRepository->findAllTheConversation($user->getPartygoer());
 
         return $this->render('account/direct-messages.html.twig', [
-            'partygoer' => $partygoer,
+            'user' => $user,
             'convs' => $convs,
         ]);
+    }
+
+    /**
+     * @Route("/send-message/{authorId}/{convId}", name="send_message", methods={"GET", "POST"})
+     * @ParamConverter("author", options={"id" = "authorId"})
+     * @ParamConverter("conversation", options={"id" = "convId"})
+     */
+    public function sendMessage(Request $request, Partygoer $author, Conversation $conversation)
+    {
+        $messageContent = $request->getContent();
+
+        if($conversation->getUserGuest() == $author){
+            $recipient = $conversation->getUserPlanner();
+        } else {
+            $recipient = $conversation->getUserGuest();
+        }
+        
+        if($request && $messageContent){
+            $dateTime = new DateTime();
+            $message = new Message();
+            $message->setAuthor($author);
+            $message->setRecipient($recipient);
+            $message->setContent($messageContent);
+            $message->setCreatedAt($dateTime);
+            $message->setSendAt($dateTime);
+            $message->setConversation($conversation);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($message);
+            $entityManager->flush();
+
+            return $this->json([
+                'messageContent' => $messageContent,
+                'recipientFirstname' => $recipient->getFirstname(),
+                'recipientLastname' => $recipient->getLastname(),
+                'messageSendAt' => $dateTime->format('d-m-Y H:i')
+            ]);
+        } else {
+            return $this->json([
+                '500' => "La requête n'a pas été récupéré",
+            ]);
+        }
+
     }
 }

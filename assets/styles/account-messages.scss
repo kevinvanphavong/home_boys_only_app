@@ -18,7 +18,6 @@
     background: whitesmoke;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
     margin: 0 0 10px 0;
-    cursor: pointer;
 }
 
 .message-contact-picture {
@@ -56,6 +55,7 @@
     border-radius: $radius-10;
     box-shadow: inset 0 0 10px whitesmoke;
     margin: 0 0 10px 0;
+    overflow: scroll;
 }
 
 .message-form {
@@ -74,17 +74,34 @@
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-// .message-conversation {
-//     display: none;
-// }
+.message-conversation {
+    display: none;
+}
 
-.button-display-conv:hover .message-conversation {
-    display: block;
+.expand {
+    align-self: start;
+    border-radius: 50%;
+    color: whitesmoke;
+    background: black;
+    cursor: pointer;
+}
+
+.expand-btn {
+    background: linear-gradient(to right, red, orange);
+    box-shadow: inset 0 0 4px grey;
 }
 
 .message {
     margin: 20px;
     display: flex;
+}
+
+.btn:hover {
+    font-size: 16px;
+}
+
+.toggle-display {
+    display: block;
 }
 
 .bubble-message {

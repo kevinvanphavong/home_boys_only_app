@@ -5,8 +5,8 @@
 {% block stylesheets %}
 	{{ encore_entry_link_tags('account-messages-scss') }}
     <style>
-    .messages {
-        overflow: scroll;
+    .message-date {
+        font-size: 10px;
     }
     </style>
 {% endblock %}
@@ -24,16 +24,15 @@
 
 <section class="section-messages">
     {% for conv in convs %}
-        <div class="message-card button-display-conv">
+        <div class="message-card">
             <div class="message-header">
-
                 <div>
                     <img class="message-contact-picture"/>
                 </div>
                 
                 <div class="message-primary-infos">
                     <p class="message-contact-name">
-                        {% if partygoer.id == conv.userPlanner.id %}
+                        {% if user.id == conv.userPlanner.id %}
                             {{conv.userGuest.firstname ~ ' ' ~ conv.userGuest.lastname }}
                         {% else %}
                             {{conv.userPlanner.firstname ~ ' ' ~ conv.userPlanner.lastname }}
@@ -44,13 +43,13 @@
                         <p class="message-event-date">{{ conv.party.startingDate | date('d-m-Y') }}</p>
                     </div>
                 </div>
-
+                <div class="material-icons expand button-display-conv">expand_more</div>
             </div>
             <div class="message-conversation">
                 <div class="messages">
                     {# boucler sur une div.message pour display tous les messages #}
                     {% for message in conv.messages %}
-                        {% if message.author.id == partygoer.id %}
+                        {% if message.author.id == user.id %}
                                 {% set sidePart = 'author-side' %}
                                 {% set messagePart = 'author-message' %}
                         {% else %}
@@ -60,19 +59,106 @@
                             <div class="message {{ sidePart }}">
                                 <div class="bubble-message {{ messagePart }}">
                                     <p>{{ message.content }}</p>
-                                    <p>{{ message.createdAt | date('d-m-Y H:i')}}</p>
+                                    <p class="message-date">{{ message.createdAt | date('d-m-Y H:i')}}</p>
                                 </div>
                             </div>
                     {% endfor %}
                 </div>
                 <div class="message-block-form">
-                    <form action="" class="message-form">
+                    <div class="message-form">
                         <input type="text">
-                        <button class="btn btn-success">Envoyer</button>
-                    </form>
+                        <a href="{{ path('send_message', {'authorId': user.id, 'convId': conv.id}) }}" class="btn btn-success send-message">Envoyer</a>
+                    </div>
                 </div>
             </div>
         </div>
     {% endfor %}
 </section>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+    // -------- Send new message and Display it
+    let sendButtons = document.querySelectorAll('.send-message')
+
+    function sendNewMessage(button, messageContent){
+        fetch(button.href, {
+            method: "POST",
+            headers: {
+            'X-Requested-With': "XMLHttpRequest",
+            'Content-Type': "application/json" 
+        },
+            body: messageContent, 
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(res) {
+            displayNewMessage(button, res);            
+        });
+    }
+
+    function displayNewMessage(button, res){
+        let divMessage = createMessageToDisplay(res);
+        let messageContainer = button.parentElement.parentElement.parentElement.firstElementChild
+
+        messageContainer.append(divMessage)
+        messageContainer.scroll(0, 1000, 'smooth');
+        button.previousElementSibling.value = "";
+    }
+
+    function createMessageToDisplay(res){
+        let divMessage = document.createElement('div')
+        let bubbleMessage = document.createElement('div')
+        let messageContent = document.createElement('p')
+        let messageDate = document.createElement('p')
+
+        divMessage.classList.add('message', 'author-side')
+        bubbleMessage.classList.add('bubble-message', 'author-message')
+        messageContent.textContent = res['messageContent']
+        messageDate.textContent = res['messageSendAt']
+        messageDate.classList.add('message-date')
+
+        bubbleMessage.append(messageContent)
+        bubbleMessage.append(messageDate)
+        divMessage.append(bubbleMessage);
+
+        return divMessage;
+    }
+
+    sendButtons.forEach(button => {
+        button.addEventListener('click', function(event){
+            event.preventDefault();
+            // get the input value
+            let messageContent = this.previousElementSibling.value
+            sendNewMessage(button, messageContent);
+        })
+    });
+
+
+    // -------- Display conversation part w/ all messages
+    let displayMessagesButtons = document.querySelectorAll('.button-display-conv')
+
+    displayMessagesButtons.forEach(button => {
+        button.addEventListener('click', function(){
+
+            let conversation = button.parentElement.nextElementSibling;
+            let blockMessages = conversation.querySelector('.messages');
+
+            if(conversation.classList.contains("toggle-display")){
+                conversation.classList.remove("toggle-display");
+                button.textContent = "expand_more";
+                button.classList.remove('expand-btn')
+            } else {
+                conversation.classList.add("toggle-display");
+                button.textContent = "expand_less";
+                button.classList.add('expand-btn')
+            }
+
+            blockMessages.scroll(0, 1000, 'smooth');
+        })
+    });
+
+</script>
 {% endblock %}
