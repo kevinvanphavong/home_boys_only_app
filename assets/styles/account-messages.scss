@@ -15,15 +15,15 @@
     width: 100%;
     padding: 10px;
     border-radius: 10px;
-    background: whitesmoke;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    background: $white;
+    box-shadow: $box-shadow;
     margin: 0 0 10px 0;
 }
 
 .message-contact-picture {
     width: 65px;
     height: 65px;
-    border-radius: 10px;
+    border-radius: $radius-10;
     background: grey;
     margin: 0 0 10px 0;
 }
@@ -70,7 +70,7 @@
     margin: 0 20px 0 0;
     padding: 10px 20px;
     border: none;
-    border-radius: 30px;
+    border-radius: $radius;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -81,14 +81,14 @@
 .expand {
     align-self: start;
     border-radius: 50%;
-    color: whitesmoke;
-    background: black;
+    color: $white;
+    background: $black;
     cursor: pointer;
 }
 
 .expand-btn {
-    background: linear-gradient(to right, red, orange);
-    box-shadow: inset 0 0 4px grey;
+    background: linear-gradient(to right, $primary-red, $primary-orange);
+    box-shadow: inset $box-shadow;
 }
 
 .message {
@@ -96,8 +96,8 @@
     display: flex;
 }
 
-.btn:hover {
-    font-size: 16px;
+.btn {
+    font-size: $text-size;
 }
 
 .toggle-display {
@@ -106,7 +106,7 @@
 
 .bubble-message {
     padding: 10px 20px;
-    border-radius: 20px;
+    border-radius: $radius-20;
     width: fit-content;
     max-width: 75%;
 }
@@ -125,17 +125,22 @@
 
 .author-message {
     background: lightgrey;
-    color: rgba(0, 0, 0, 0.75);
+    color: rgba($black, 0.75);
     display: flex;
     flex-direction: column;
     justify-content: end;
 }
 .recipient-message {
     background: darkgrey;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba($white, 0.75);
 }
-
-
+.message-date {
+    font-size: $text-size - 4px;
+}
+.message-planner-and-toggler {
+    display: flex;
+    justify-content: space-between;
+}
 
 @media screen and (max-width: 1000px) {
     .section-messages {

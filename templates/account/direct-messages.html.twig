@@ -4,11 +4,6 @@
 
 {% block stylesheets %}
 	{{ encore_entry_link_tags('account-messages-scss') }}
-    <style>
-    .message-date {
-        font-size: 10px;
-    }
-    </style>
 {% endblock %}
 
 {% block body %}
@@ -31,19 +26,21 @@
                 </div>
                 
                 <div class="message-primary-infos">
-                    <p class="message-contact-name">
-                        {% if user.id == conv.userPlanner.id %}
-                            {{conv.userGuest.firstname ~ ' ' ~ conv.userGuest.lastname }}
-                        {% else %}
-                            {{conv.userPlanner.firstname ~ ' ' ~ conv.userPlanner.lastname }}
-                        {% endif %}
-                    </p>
+                    <div class="message-planner-and-toggler">
+                        <p class="message-contact-name">
+                            {% if user.id == conv.userPlanner.id %}
+                                {{conv.userGuest.firstname ~ ' ' ~ conv.userGuest.lastname }}
+                            {% else %}
+                                {{conv.userPlanner.firstname ~ ' ' ~ conv.userPlanner.lastname }}
+                            {% endif %}
+                        </p>
+                        <div class="material-icons expand button-display-conv">expand_more</div>
+                    </div>
                     <div class="message-event-infos">
                         <p class="message-event-title">{{ conv.party.title }}</p>
                         <p class="message-event-date">{{ conv.party.startingDate | date('d-m-Y') }}</p>
                     </div>
                 </div>
-                <div class="material-icons expand button-display-conv">expand_more</div>
             </div>
             <div class="message-conversation">
                 <div class="messages">
@@ -95,7 +92,11 @@
             return response.json();
         })
         .then(function(res) {
-            displayNewMessage(button, res);            
+            if(res['500']) {
+                // TODO : do something if you don't receive data or messageContent was blank
+            } else {
+                displayNewMessage(button, res);            
+            }
         });
     }
 
@@ -143,7 +144,7 @@
     displayMessagesButtons.forEach(button => {
         button.addEventListener('click', function(){
 
-            let conversation = button.parentElement.nextElementSibling;
+            let conversation = button.parentElement.parentElement.parentElement.nextElementSibling;
             let blockMessages = conversation.querySelector('.messages');
 
             if(conversation.classList.contains("toggle-display")){
