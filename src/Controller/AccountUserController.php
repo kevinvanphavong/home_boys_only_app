@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
+/**
+ * @Route("my-account", name="my_account")
+ */
 class AccountUserController extends AbstractController
 {
     // my-account/party/creation
@@ -30,7 +33,7 @@ class AccountUserController extends AbstractController
     // my-account/last-events           (page des dernières soirées)
 
     /**
-     * @Route("my-account/direct-messages", name="my_account_direct_messages")
+     * @Route("/direct-messages", name="_direct_messages")
      */
     public function getDirectMessagesPage(ConversationRepository $conversationRepository): Response
     {
@@ -45,7 +48,7 @@ class AccountUserController extends AbstractController
     }
 
     /**
-     * @Route("/send-message/{authorId}/{convId}", name="send_message", methods={"GET", "POST"})
+     * @Route("/send-message/{authorId}/{convId}", name="_send_message", methods={"GET", "POST"})
      * @ParamConverter("author", options={"id" = "authorId"})
      * @ParamConverter("conversation", options={"id" = "convId"})
      */

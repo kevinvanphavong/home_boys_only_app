@@ -21,12 +21,14 @@
 
 
     <div class="nav-user-part">
-        <div class="icons material-icons">
-            <div>forum</div>
-        </div>
-        <div class="icons material-icons">
-            <div>notifications</div>
-        </div>
+        <a href="{{ path('my_account_direct_messages') }}">
+            <div class="icons material-icons">
+                <div>forum</div>
+            </div>
+        </a>
+            <div class="icons material-icons">
+                <div>notifications</div>
+            </div>
         <div class="icons icon-user material-icons">
             <div>account_circle</div>
         </div>
@@ -64,9 +66,9 @@
     	<a href="{{ path('admin_user_profile')}}">MES DERNIÈRES SOIRÉES</a>
     </div>
     <div class="menu-user-icon">
-        <div class="material-icons">
+        <a class="material-icons" href="{{ path('my_account_direct_messages') }}">
             <div>forum</div>
-        </div>
+        </a>
         <div class="material-icons">
             <div>notifications</div>
         </div>
