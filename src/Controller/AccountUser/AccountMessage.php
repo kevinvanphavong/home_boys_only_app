@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\AccountUser;
 
 use App\Entity\Conversation;
 use App\Entity\Message;
@@ -16,7 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 /**
  * @Route("my-account", name="my_account")
  */
-class AccountUserController extends AbstractController
+class AccountMessage extends AbstractController
 {
     // my-account/party/creation
     // my-account/party/edition/{event.id}/{event.name}
@@ -41,7 +41,7 @@ class AccountUserController extends AbstractController
 
         $convs = $conversationRepository->findAllTheConversation($user->getPartygoer());
 
-        return $this->render('account/direct-messages.html.twig', [
+        return $this->render('account_user/direct-messages.html.twig', [
             'user' => $user,
             'convs' => $convs,
         ]);
