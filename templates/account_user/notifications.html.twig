@@ -4,6 +4,33 @@
 
 {% block stylesheets %}
 	{{ encore_entry_link_tags('account-notifications-scss') }}
+
+	<style>
+	.notification-header {
+		display: flex;
+	}
+
+	.notification-div-picture {
+		display: flex;
+		align-items: center;
+	}
+	.notification-party-picture {
+		height: 65px;
+		border-radius: 5px;
+	}
+	.notification-infos {
+		margin: 0 0 0 10px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		width: 100%;
+	}
+
+	.notification-event-infos {
+		display: flex;
+		justify-content: space-between;
+	}
+	</style>
 {% endblock %}
 
 {% block body %}
@@ -17,14 +44,16 @@
 	{% for notification in notificationsAsGuest %}
 		<div class="notification-card">
 			<div class="notification-header">
-				<div>
-                    <img class="notification-party-picture"/>
+				<div class="notification-div-picture">
+                    {# <img src="{{ asset('/build/uploads/eventCover/' ~ notification.event.eventCover.name ) }}" class="notification-party-picture"/> #}
+					{# // test avec photo de couverture pour fixtures, dans public #}
+					<img class="notification-party-picture" src="{{asset('/build/images/' ~ notification.event.eventCover.name)}} " alt="">
                 </div>
 
 				<div class="notification-infos">
 					<div class="notification-event-infos">
 						<p>{{ notification.event.title }}</p>
-						<p>{{ notification.createdAt | date('d-m-Y H:i') }}</p>
+						<p>{{ notification.event.startingDate | date('d-m-Y') }}</p>
 					</div>
 					<div class="notification-content">
 						<p>L'organisateur {{ notification.author.firstname ~ ' ' ~ notification.author.lastname }}
@@ -32,8 +61,6 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="notification-btn-actions"></div>
 		</div>
 	{% endfor %}
 </section>

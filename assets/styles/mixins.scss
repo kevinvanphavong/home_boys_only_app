@@ -1,0 +1,15 @@
+@mixin account-element-card {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background: $white;
+    box-shadow: $box-shadow;
+    margin: 10px 0;
+}
+
+@mixin section-account-user {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}

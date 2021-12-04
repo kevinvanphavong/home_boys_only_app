@@ -1,14 +1,12 @@
 @import 'app.scss';
+@import 'mixins.scss';
 
 .header h1 {
     letter-spacing: 5px;
     text-align: center;
 }
 .section-messages {
-    width: 80%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
+    @include section-account-user;
 }
 
 .message-card {
