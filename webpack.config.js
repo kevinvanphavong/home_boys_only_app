@@ -36,12 +36,13 @@ Encore
      */
     .addEntry('app-js',             './assets/app.js')
     .addEntry('app-scss',           './assets/styles/app.scss')
-    // .addEntry('homepage-scss',      './assets/styles/homepage.scss')
+    .addEntry('homepage-scss',      './assets/styles/homepage.scss')
     .addEntry('navbar-scss',        './assets/styles/navbar.scss')
-    // .addEntry('user-form-scss',     './assets/styles/user-form.scss')
-    // .addEntry('event-form-scss',    './assets/styles/event-form.scss')
-    // .addEntry('event-display-scss', './assets/styles/event-display.scss')
+    .addEntry('user-form-scss',     './assets/styles/user-form.scss')
+    .addEntry('event-form-scss',    './assets/styles/event-form.scss')
+    .addEntry('event-display-scss', './assets/styles/event-display.scss')
     .addEntry('account-messages-scss', './assets/styles/account-messages.scss')
+    .addEntry('account-notifications-scss', './assets/styles/account-notifications.scss')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

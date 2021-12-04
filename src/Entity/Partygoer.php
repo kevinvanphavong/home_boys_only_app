@@ -75,12 +75,23 @@ class Partygoer
      */
     private $messages;
 
+    // /**
+    //  * @ORM\OneToMany(targetEntity=Notification::class, mappedBy="author")
+    //  */
+    // private $notificationsAsPlanner;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Notification::class, mappedBy="recipient")
+     */
+    private $notificationsAsGuest;
+
     public function __construct()
     {
         $this->createdEvents = new ArrayCollection();
         $this->ownComments = new ArrayCollection();
         $this->conversations = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->notificationsAsGuest = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -304,6 +315,36 @@ class Partygoer
             // set the owning side to null (unless already changed)
             if ($message->getAuthor() === $this) {
                 $message->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Notification[]
+     */
+    public function getNotificationsAsGuest(): Collection
+    {
+        return $this->notificationsAsGuest;
+    }
+
+    public function addNotificationsAsGuest(Notification $notificationsAsGuest): self
+    {
+        if (!$this->notificationsAsGuest->contains($notificationsAsGuest)) {
+            $this->notificationsAsGuest[] = $notificationsAsGuest;
+            $notificationsAsGuest->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotificationsAsGuest(Notification $notificationsAsGuest): self
+    {
+        if ($this->notificationsAsGuest->removeElement($notificationsAsGuest)) {
+            // set the owning side to null (unless already changed)
+            if ($notificationsAsGuest->getAuthor() === $this) {
+                $notificationsAsGuest->setAuthor(null);
             }
         }
 
