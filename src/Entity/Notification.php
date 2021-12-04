@@ -34,6 +34,12 @@ class Notification
      */
     private $recipient;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Event::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $event;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +77,18 @@ class Notification
     public function setRecipient(?Partygoer $recipient): self
     {
         $this->recipient = $recipient;
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
 
         return $this;
     }

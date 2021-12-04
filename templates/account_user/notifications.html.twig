@@ -12,6 +12,31 @@
 	<br>
 	<p>Vous pouvez consulter vos différentes notifications reçues ici</p>
 </section>
+
+<section class="section-notifications">
+	{% for notification in notificationsAsGuest %}
+		<div class="notification-card">
+			<div class="notification-header">
+				<div>
+                    <img class="notification-party-picture"/>
+                </div>
+
+				<div class="notification-infos">
+					<div class="notification-event-infos">
+						<p>{{ notification.event.title }}</p>
+						<p>{{ notification.createdAt | date('d-m-Y H:i') }}</p>
+					</div>
+					<div class="notification-content">
+						<p>L'organisateur {{ notification.author.firstname ~ ' ' ~ notification.author.lastname }}
+						a accépté votre demande d'invitation</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="notification-btn-actions"></div>
+		</div>
+	{% endfor %}
+</section>
 {% endblock %}
 
 
