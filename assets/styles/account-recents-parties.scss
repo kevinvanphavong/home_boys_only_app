@@ -1,0 +1,10 @@
+@import 'app.scss';
+@import 'mixins.scss';
+
+.header h1 {
+    letter-spacing: 5px;
+    text-align: center;
+}
+.section-recents-parties {
+    @include section-account-user;
+}
