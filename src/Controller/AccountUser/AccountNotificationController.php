@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 /**
  * @Route("my-account", name="my_account")
  */
-class AccountNotification extends AbstractController
+class AccountNotificationController extends AbstractController
 {
     /**
      * @Route("/notifications", name="_notifications")

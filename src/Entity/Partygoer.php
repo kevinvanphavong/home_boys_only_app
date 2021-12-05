@@ -85,6 +85,11 @@ class Partygoer
      */
     private $notificationsAsGuest;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Event::class)
+     */
+    private $favlistParties;
+
     public function __construct()
     {
         $this->createdEvents = new ArrayCollection();
@@ -92,6 +97,7 @@ class Partygoer
         $this->conversations = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->notificationsAsGuest = new ArrayCollection();
+        $this->favlistParties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -349,5 +355,34 @@ class Partygoer
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getFavlistParties(): Collection
+    {
+        return $this->favlistParties;
+    }
+
+    public function addFavlistParty(Event $favlistParty): self
+    {
+        if (!$this->favlistParties->contains($favlistParty)) {
+            $this->favlistParties[] = $favlistParty;
+        }
+
+        return $this;
+    }
+
+    public function removeFavlistParty(Event $favlistParty): self
+    {
+        $this->favlistParties->removeElement($favlistParty);
+
+        return $this;
+    }
+
+    public function checkPartyInFavlist(Event $event): bool
+    {
+        return $this->favlistParties->contains($event);
     }
 }

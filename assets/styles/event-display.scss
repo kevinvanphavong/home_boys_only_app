@@ -7,7 +7,19 @@
 }
 h1 + p {
     font-size: $text-size + 6px;
-    margin-top: 10px;
+    margin: 10px 0px;
+}
+
+.btn-favlist {
+    padding: 5px 10px;
+    border-radius: $radius-10;
+    background: -webkit-linear-gradient(180deg, $primary-red 0%, $primary-orange 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    box-shadow: $box-shadow;
+}
+.btn-favlist:hover {
+    font-size: 24px;
 }
 
 

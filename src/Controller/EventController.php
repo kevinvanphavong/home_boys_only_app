@@ -6,8 +6,8 @@ use App\Entity\Event;
 use App\Entity\EventCover;
 use App\Entity\EventPicture;
 use App\Form\EventType;
-use App\Repository\EventRepository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -75,6 +75,26 @@ class EventController extends AbstractController
     {        
         return $this->render('event/event-display-page.html.twig', [
             'event' => $event,
+        ]);
+    }
+
+    /**
+     * @Route("/event/set/{id}/favlist", name="set-to-favlist")
+     */
+    public function setEventToFavlist(Event $event, EntityManagerInterface $em): Response
+    {
+        $partygoer = $this->getUser()->getPartygoer();
+
+        if ($partygoer->getFavlistParties()->contains($event)) {
+            $partygoer->removeFavlistParty($event);
+        } else {
+            $partygoer->addFavlistParty($event);
+        }
+
+        $em->flush();
+
+        return $this->json([
+            'checkPartyInFavlist' => $partygoer->checkPartyInFavlist($event)
         ]);
     }
 }

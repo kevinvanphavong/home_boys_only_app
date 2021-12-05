@@ -16,7 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 /**
  * @Route("my-account", name="my_account")
  */
-class AccountMessage extends AbstractController
+class AccountMessageController extends AbstractController
 {
     // my-account/party/creation
     // my-account/party/edition/{event.id}/{event.name}

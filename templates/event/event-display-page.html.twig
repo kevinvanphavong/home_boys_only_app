@@ -8,6 +8,9 @@
 
 {% block stylesheets %}
 	{{ encore_entry_link_tags('event-display-scss') }}
+	<style>
+
+	</style>
 {% endblock %}
 
 
@@ -26,9 +29,9 @@
 		<img class="header-img-bgc" src="{{asset('/build/images/' ~ event.eventCover.name)}} " alt="">
     {% endif %}
 		<div class="section-80 section-header-title">
-			<h1>
-				{{event.title }}
-			</h1>
+			<h1>{{event.title }} <a href="{{ path('set-to-favlist', {id: event.id}) }}" class="material-icons btn-favlist">
+				{{ (app.user.partygoer.checkPartyInFavlist(event)) ? 'favorite' : 'favorite_border'}}
+			</a></h1>
 			<p>
 				Etoile (Moyenne) -
 				{{event.planner.firstname ~ ' ' ~ event.planner.lastname }}
@@ -174,8 +177,10 @@
 	<br>
 	<p>{{event.presentation }}</p>
 </div>
+{% endblock %}
 
-
+{% block javascripts %}
+{{ parent() }}
 <script>
 	let images = document.querySelectorAll('.grid-item img')
     let overlayContainer = document.querySelector('.overlay-container')
@@ -206,4 +211,36 @@
             closeOverlay()
         }
     })
-</script>{% endblock %}
+
+
+	// Handling event : $partygoer add this party in his favlist
+	let btnFavlist = document.querySelector('.btn-favlist')
+	btnFavlist.addEventListener('click', function(event){
+		event.preventDefault();
+		addPartyToFavlist(btnFavlist.href);
+	});
+
+	function addPartyToFavlist(href) {
+		event.preventDefault();
+
+        fetch(href, {
+            method: "POST",
+            headers: {
+            'X-Requested-With': "XMLHttpRequest",
+            'Content-Type': "application/json" 
+        }})
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(res) {
+			console.log(res['checkPartyInFavlist'])
+			if(res['checkPartyInFavlist']) {
+				btnFavlist.innerText = 'favorite';
+			} else {
+				btnFavlist.innerText = 'favorite_border';
+			}
+        });
+	}
+
+</script>
+{% endblock %}
