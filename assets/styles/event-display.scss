@@ -17,9 +17,13 @@ h1 + p {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     box-shadow: $box-shadow;
-}
-.btn-favlist:hover {
-    font-size: 24px;
+
+    &:hover {
+        font-size: 24px;
+    }
+    &:active {
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    }
 }
 
 
