@@ -4,20 +4,167 @@
 {% endblock %}
 
 {% block stylesheets %}
-	{{ encore_entry_link_tags('account-messages-scss') }}
+	{{ encore_entry_link_tags('account-favlist-scss') }}
+	<style>
+	.section-favlist-party {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		width: 80%;
+    	margin: 0 auto;
+	}
+	.fav-party {
+		width: 300px; 
+		border-radius: 30px;
+		box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+		overflow: hidden;
+		margin: 20px;
+	}
+	.fav-party:active {
+		box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+	}
+
+	.fav-party-block-img {
+		position: relative;
+	}
+
+	.fav-party-starting-date {
+		position: absolute;
+		top: 0;
+		left: 0;
+		border-radius: 30px;
+		padding: 10px;
+		background: rgba(255, 255, 255, 0.75);
+		z-index: 2;
+		color: black;
+		margin: 10px;
+	}
+	.block-btn-display-event {
+		padding: 10px;
+		background: whitesmoke;
+		box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+		border-radius: 30px;
+		display: flex;
+		justify-content: center;
+	}
+	.material-icons.btn-favlist {
+		position: absolute;
+		top: 0;
+		right: 0;
+		border-radius: 30px;
+		padding: 10px;
+		background: rgba(255, 255, 255, 0.75);
+		z-index: 2;
+		color: black;
+		margin: 10px;
+	}
+	.material-icons:hover {
+		font-size: 24px;
+	}
+
+	.fav-party-block-img img {
+		width: 101%;
+		object-fit: cover;
+		overflow: hidden;
+		filter: hue-rotate(10deg);
+		box-shadow: 0px 1px 10px rgba(255, 255, 255, 0.5);
+	}
+	.fav-party-price {
+		box-shadow: 0px 2px 4px black;
+	}
+	.fav-party-price p {
+		padding: 5px 20px;
+		background: rgba(0, 0, 0, 0.75);
+		color: whitesmoke;
+	}
+	.fav-party-main-infos {
+		color: whitesmoke;
+		padding: 20px;
+		background: linear-gradient(to right, rgba(255, 0, 0, 0.75), rgba(255, 100, 0, 0.75));
+	}
+	.btn-display-event {
+		color: black;
+		cursor: pointer;
+	}
+	</style>
 {% endblock %}
 
 {% block body %}
 <section class="section-80 header">
-	<h1>MES MESSAGES</h1>
+	<h1>MA FAVLIST & INVITATIONS ENVOYÉES</h1>
 	<br>
 	<p>Vous pouvez consulter vos différentes soirées préférés ici :</p>
 </section>
 
 <section class="section-favlist-party">
+{% for party in favlist %}
+<div class="fav-party">
+		<div class="fav-party-block-img">
+			<p class="fav-party-starting-date">{{ party.startingDate|date('d-m-Y - H:i') }}</p>
+			<a href="{{ path('set-to-favlist', {id: party.id}) }}" class="material-icons btn-favlist">
+				{{ (app.user.partygoer.checkPartyInFavlist(party)) ? 'favorite' : 'favorite_border'}}
+			</a>
+			
+			{# reminder : pensez à changer la photo avec une vraiment utilisé par une vrai soirée non fixtures #}
+			<img src="{{ asset('build/images/' ~ party.eventCover.name) }}" alt="">
+		</div>
+
+		<div class="fav-party-price">
+			{% if party.entrancePrice %}
+				<p>{{ 'Entrée payante : ' ~ party.entrancePrice ~ '€' }}</p>
+			{% else %}
+				<p>{{ 'Entrée gratuite : 0€' }}</p>
+			{% endif %}
+		</div>
+
+		<div class="fav-party-main-infos">
+			<p>{{ party.title }}</p>
+			<br>
+			<p>{{ party.city|capitalize ~ ', ' ~ party.country|upper}}</p>
+			<br>
+			<div class="block-btn-display-event">
+				<a class="btn-display-event" href="{{ path('display-event', {id: party.id, title: party.title}) }}">
+					Voir la soirée
+				</a>
+			</div>
+		</div>
+</div>
+{% endfor %}
 
 </section>
 
 {% endblock %}
 
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script>
+let buttonsFavList = document.querySelectorAll('.btn-favlist');
+
+function addPartyToFavlist(btn) {
+	fetch(btn.href, {
+		method: "POST",
+		headers: {
+		'X-Requested-With': "XMLHttpRequest",
+		'Content-Type': "application/json" 
+	}})
+	.then(function(response) {
+		return response.json();
+	})
+	.then(function(res) {
+		if (res['checkPartyInFavlist'] == false) {
+			let card = btn.parentElement.parentElement
+			let section = document.querySelector('.section-favlist-party')
+			section.removeChild(card);
+		}
+	});
+}
+
+buttonsFavList.forEach(btn => {
+	btn.addEventListener('click', function(event) {
+		event.preventDefault();
+		addPartyToFavlist(btn);
+	})
+});
+
+</script>
+{% endblock %}
