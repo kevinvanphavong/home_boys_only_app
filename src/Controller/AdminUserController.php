@@ -4,10 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use App\Entity\PictureProfile;
+use App\Form\PartygoerType;
 use App\Security\EmailVerifier;
-use Symfony\Component\Mime\Address;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,23 +23,28 @@ class AdminUserController extends AbstractController
     }
     
     /**
-     * @Route("/admin/user/my-profile", name="admin_user_profile")
+     * @Route("/my-account/personnal-informations", name="admin_user_profile")
      */
     public function index(Request $request): Response
     {
-        $user = $this->getUser();
+        $partygoer = $this->getUser()->getPartygoer();
+        $partygoerForm = $this->createForm(PartygoerType::class, $partygoer);
+        $partygoerForm->handleRequest($request);
 
-        $userForm = $this->createForm(UserType::class, $user);
-        $userForm->handleRequest($request);
+        if ($partygoerForm->isSubmitted() && $partygoerForm->isValid()) {
+            $user = $this->getUser();
+            $user->setEmail($partygoerForm->get('email')->getData());
 
-        // if ($userForm->isSubmitted() && $userForm->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($partygoer);
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $this->addFlash('success', 'Vos informations ont bien été enregistrés ;)');
+        }
 
-        //     return $this->redirectToRoute('admin_user_profile');
-            
-        // }
 
         return $this->render('admin_user/user-profile.html.twig', [
-            'userForm' => $userForm->createView(),
+            'partygoerForm'     => $partygoerForm->createView(),
         ]);
     }
 

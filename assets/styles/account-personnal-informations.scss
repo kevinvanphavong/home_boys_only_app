@@ -1,0 +1,9 @@
+@import 'mixins.scss';
+
+.header h1 {
+    letter-spacing: 5px;
+    text-align: center;
+}
+.section-personnal-informations {
+    @include section-account-user;
+}

@@ -1,4 +1,5 @@
 @import 'app.scss';
+@import 'mixins.scss';
 
 // ---------- START - handling the event-form ----------
 .header-new-event img {
@@ -20,10 +21,7 @@ select, input, textarea {
 input.event-form-input,
 textarea.event-form-input,
 .event-form-input select {
-    padding: 10px 20px;
-    border-radius: $radius;
-    border: $border-1;
-    box-shadow: $box-shadow;
+    @include input-form;
 }
 
 .event-form-row {
@@ -33,8 +31,7 @@ textarea.event-form-input,
 }
 
 .event-form-label {
-    margin: 0px 0px 10px 5px;
-    text-decoration: underline rgba($black, 0.25);
+    @include label-form;
 }
 
 .event-form-input div {

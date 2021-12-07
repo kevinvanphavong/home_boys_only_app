@@ -7,69 +7,71 @@
 {% endblock %}
 
 {% block body %}
-<section class="section-80 header">
-    <h1>MES MESSAGES</h1>
-    <br>
-    <p>Vous pouvez consulter vos différentes conversations ici :</p>
-    <ul>
-        <li>- avec les organisateurs des soirées</li>
-        <li>- avec les invités qui souhaitent venir à votre soirée !</li>
-    </ul>
-</section>
+<section class="body-container">
+    <section class="section-80 header">
+        <h1>MES MESSAGES</h1>
+        <br>
+        <p>Vous pouvez consulter vos différentes conversations ici :</p>
+        <ul>
+            <li>- avec les organisateurs des soirées</li>
+            <li>- avec les invités qui souhaitent venir à votre soirée !</li>
+        </ul>
+    </section>
 
-<section class="section-messages">
-    {% for conv in convs %}
-        <div class="message-card">
-            <div class="message-header">
-                <div>
-                    <img class="message-contact-picture"/>
+    <section class="section-messages">
+        {% for conv in convs %}
+            <div class="message-card">
+                <div class="message-header">
+                    <div>
+                        <img class="message-contact-picture"/>
+                    </div>
+                    
+                    <div class="message-primary-infos">
+                        <div class="message-planner-and-toggler">
+                            <p class="message-contact-name">
+                                {% if user.id == conv.userPlanner.id %}
+                                    {{conv.userGuest.firstname ~ ' ' ~ conv.userGuest.lastname }}
+                                {% else %}
+                                    {{conv.userPlanner.firstname ~ ' ' ~ conv.userPlanner.lastname }}
+                                {% endif %}
+                            </p>
+                            <div class="material-icons expand button-display-conv">expand_more</div>
+                        </div>
+                        <div class="message-event-infos">
+                            <p class="message-event-title">{{ conv.party.title }}</p>
+                            <p class="message-event-date">{{ conv.party.startingDate | date('d-m-Y') }}</p>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="message-primary-infos">
-                    <div class="message-planner-and-toggler">
-                        <p class="message-contact-name">
-                            {% if user.id == conv.userPlanner.id %}
-                                {{conv.userGuest.firstname ~ ' ' ~ conv.userGuest.lastname }}
+                <div class="message-conversation">
+                    <div class="messages">
+                        {# boucler sur une div.message pour display tous les messages #}
+                        {% for message in conv.messages %}
+                            {% if message.author.id == user.id %}
+                                    {% set sidePart = 'author-side' %}
+                                    {% set messagePart = 'author-message' %}
                             {% else %}
-                                {{conv.userPlanner.firstname ~ ' ' ~ conv.userPlanner.lastname }}
+                                    {% set sidePart = 'recipient-side' %}
+                                    {% set messagePart = 'recipient-message' %}
                             {% endif %}
-                        </p>
-                        <div class="material-icons expand button-display-conv">expand_more</div>
-                    </div>
-                    <div class="message-event-infos">
-                        <p class="message-event-title">{{ conv.party.title }}</p>
-                        <p class="message-event-date">{{ conv.party.startingDate | date('d-m-Y') }}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="message-conversation">
-                <div class="messages">
-                    {# boucler sur une div.message pour display tous les messages #}
-                    {% for message in conv.messages %}
-                        {% if message.author.id == user.id %}
-                                {% set sidePart = 'author-side' %}
-                                {% set messagePart = 'author-message' %}
-                        {% else %}
-                                {% set sidePart = 'recipient-side' %}
-                                {% set messagePart = 'recipient-message' %}
-                        {% endif %}
-                            <div class="message {{ sidePart }}">
-                                <div class="bubble-message {{ messagePart }}">
-                                    <p>{{ message.content }}</p>
-                                    <p class="message-date">{{ message.createdAt | date('d-m-Y H:i')}}</p>
+                                <div class="message {{ sidePart }}">
+                                    <div class="bubble-message {{ messagePart }}">
+                                        <p>{{ message.content }}</p>
+                                        <p class="message-date">{{ message.createdAt | date('d-m-Y H:i')}}</p>
+                                    </div>
                                 </div>
-                            </div>
-                    {% endfor %}
-                </div>
-                <div class="message-block-form">
-                    <div class="message-form">
-                        <input type="text">
-                        <a href="{{ path('my_account_send_message', {'authorId': user.id, 'convId': conv.id}) }}" class="btn btn-success send-message">Envoyer</a>
+                        {% endfor %}
+                    </div>
+                    <div class="message-block-form">
+                        <div class="message-form">
+                            <input type="text">
+                            <a href="{{ path('my_account_send_message', {'authorId': user.id, 'convId': conv.id}) }}" class="btn btn-success send-message">Envoyer</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </section>
 </section>
 {% endblock %}
 

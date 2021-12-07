@@ -1,5 +1,34 @@
 @import "app.scss";
 
+// ----- Flash Messages -------
+.alert {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    z-index: 20;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+}
+@keyframes shade {
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
+.shade-disappear {
+    animation-name: shade;
+    animation-duration: 4s;
+    animation-delay: 2s;
+}
+// ----- Flash Messages -------
+
+
 .navbar-block {
     width: 100vw;
     height: auto;
@@ -8,6 +37,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 .nav-logo-part {

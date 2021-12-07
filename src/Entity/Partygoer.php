@@ -90,6 +90,11 @@ class Partygoer
      */
     private $favlistParties;
 
+    // /**
+    //  * @ORM\Column(type="string", length=255)
+    //  */
+    // private $email;
+
     public function __construct()
     {
         $this->createdEvents = new ArrayCollection();
@@ -385,4 +390,16 @@ class Partygoer
     {
         return $this->favlistParties->contains($event);
     }
+
+    // public function getEmail(): ?string
+    // {
+    //     return $this->getUser()->getEmail();
+    // }
+
+    // public function setEmail(string $email): self
+    // {
+    //     $this->email = $email;
+
+    //     return $this;
+    // }
 }

@@ -51,3 +51,26 @@
     overflow: hidden;
     box-shadow: 0px 1px 10px rgba($white, 0.5);
 }
+
+@mixin btn-register-login-form {
+    text-align: center;
+    color: $white;
+    padding: 10px 20px;
+    border-radius: $radius;
+    border: none;
+    box-shadow: $box-shadow;
+    background: linear-gradient(180deg, $primary-red 0%, $primary-orange 100%);
+    cursor: pointer;
+}
+
+@mixin input-form {
+    padding: 10px 20px;
+    border-radius: $radius;
+    border: $border-1;
+    box-shadow: $box-shadow;
+}
+
+@mixin label-form {
+    margin: 0px 0px 10px 5px;
+    text-decoration: underline rgba($black, 0.25);
+}

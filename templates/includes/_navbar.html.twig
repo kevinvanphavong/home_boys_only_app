@@ -3,6 +3,16 @@
 {% endblock %}
 
 <nav class="navbar-block">
+    {% for type, message in app.flashes %}
+        {% if message|length > 0 %}
+            {% for content in message %}
+                    <div class="alert alert-{{ type }}">
+                        <p>{{ content }}</p>
+                    </div>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+
     <div class="nav-logo-part">
         <img class="logo-img" src="{{ asset('build/images/logo.png') }}" alt="">
         <div class="group-letters">
@@ -95,5 +105,15 @@
         buttonsActionsNavbar[0].innerText = '🎉 🔎'
         buttonsActionsNavbar[1].innerText = '🎉 🛠'
     }
+
+    // ------------
+    window.addEventListener('load', function(){
+        let flashMessage = document.querySelector('.alert')
+        console.log(flashMessage);
+        flashMessage.classList.add('shade-disappear');
+        setTimeout(() => {
+            flashMessage.style.display = "none";
+        }, 6000);
+    })
 // --------
 </script>

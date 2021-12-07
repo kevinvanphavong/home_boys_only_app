@@ -1,15 +1,21 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Créer votre profil - LOWKEY{% endblock %}
+{% block title %}Mes informations personnelles{% endblock %}
 
 {% block stylesheets %}
 	{{ encore_entry_link_tags('user-form-scss') }}
+    <style>
+    .user-form-row-self-presentation {
+        display: flex;
+        flex-direction: column;
+    }
+    </style>
 {% endblock %}
 
 
 {% block body %}
-<section class="section-80 admin-user-infos">
-    <h1 class="title-account-user">Bienvenue sur votre compte personnel</h1>
+<section class="section-80 header admin-user-infos">
+    <h1 class="title-account-user">BIENVENUE SUR VOTRE ESPACE PERSONNEL</h1>
     <br>
     <p>
     {% if app.user %}
@@ -31,8 +37,7 @@
     <br>
 
     <div class="admin-user-infos-content">
-        {# {{ include('form/form-user.html.twig', {'button_label': 'E'}) }} #}
-        {{ include('form/form-user.html.twig') }}
+        {{ include('form/form-partygoer.html.twig') }}
     </div>
 </section>
 

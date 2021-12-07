@@ -36,14 +36,10 @@ class UserType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'label' => 'Email',
-                // 'label_attr' => ['class' => 'userFormLabel'],
                 'label_attr' => ['class' => 'user-form-label'],
                 'attr' => ['class' => 'user-form-input', ' placeholder' => 'john-doe@gmail.com'],
-                // 'row_attr' => ['class' => 'row-userForm row-email']
                 'row_attr' => ['class' => 'user-form-row']
             ])
-
-            // ->add('roles')
 
             ->add('agreeTerms', CheckboxType::class, [
                 'label' => 'Veuillez à accepter nos conditions d\'utilisations',

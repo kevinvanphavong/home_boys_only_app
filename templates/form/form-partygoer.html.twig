@@ -1,0 +1,23 @@
+{% block partygoerForm %}
+    {{ form_start(partygoerForm, {'attr': {'id': 'user-form'}}) }}
+        <div class="user-form-group">
+            {{form_row(partygoerForm.email, {'value' : app.user.email}) }}
+        </div>
+        <div class="user-form-group">
+            {{form_row(partygoerForm.firstname) }}
+        </div>
+        <div class="user-form-group">
+            {{form_row(partygoerForm.lastname) }}
+        </div>
+        <div class="user-form-group">
+            {{form_row(partygoerForm.birthdate) }}
+        </div>
+        <div class="user-form-group">
+            {{form_row(partygoerForm.phone) }}
+        </div>
+        <div class="user-form-group">
+            {{form_row(partygoerForm.presentation) }}
+        </div>
+        <button class="btn-submit-user-form">{{ button_label|default('Enregistrer') }}</button>
+    {{ form_end(partygoerForm) }}
+{% endblock %}

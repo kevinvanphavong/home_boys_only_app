@@ -1,4 +1,5 @@
 @import 'app.scss';
+@import 'mixins.scss';
 
 header p {
     font-size: $h1p;
@@ -9,36 +10,29 @@ header p {
     display: flex;
     justify-content: space-between;
 }
+
+.login-btn-submit,
+.btn-submit-user-form {
+    @include btn-register-login-form;
+}
+
 .user-form-row {
     display: flex;
     flex-direction: column;
-}
-
-input.user-form-input,
-#user_presentation,
-#user_birthdate {
-    padding: 10px 20px;
-    border-radius: $radius;
-    border: $border-1;
-    box-shadow: $box-shadow;
-}
-
-.user-form-row {
     width: 100%;
 }
-.user-form-row-self-presentation,
-.user-form-row-profile-picture {
-    width: 100%;
+
+.user-form-label {
+    @include label-form;
 }
-.user-form-row-self-presentation textarea {
+
+.user-form-input#partygoer_birthdate > select,
+.user-form-input:not(#partygoer_birthdate) {
+    @include input-form;
+}
+
+.user-form-input#partygoer_presentation {
     min-height: 300px;
-}
-.user-form-row-profile-picture input {
-    padding: 40px 0px;
-}
-
-.user-form-label:not(:last-child) {
-    margin: 0px 0px 10px 5px;
 }
 
 .user-form-row-agree-terms {
@@ -52,61 +46,47 @@ input.user-form-input,
     margin-right: 10px;
 }
 
-.login-btn-submit,
-.btn-submit-user-form {
-    text-align: center;
-    color: $white;
-    padding: 10px 20px;
-    border-radius: $radius;
-    border: none;
-    box-shadow: $box-shadow;
-    background: linear-gradient(180deg, $primary-red 0%, $primary-orange 100%);
-    cursor: pointer;
-}
+// ------- a garder -------- ON TOP
 
-.login-btn-submit:hover
-.btn-submit-user-form:hover {
-    transform: scale(1.05);
-    transition: 0.4s;
-}
+
 
 // start - LOGIN page 
-    .password-row label,
-    .email-row label {
-        margin-bottom: 5px;
-    }
+.password-row label,
+.email-row label {
+    margin-bottom: 5px;
+}
 
-    .password-row input,
-    .email-row input {
-        padding: 10px 20px;
-        border-radius: $radius;
-        border: $border-1;
-        background: $white;
-        box-shadow: $box-shadow;
-    }
+.password-row input,
+.email-row input {
+    padding: 10px 20px;
+    border-radius: $radius;
+    border: $border-1;
+    background: $white;
+    box-shadow: $box-shadow;
+}
 
-    .email-row,
-    .password-row {
-        display: flex;
-        flex-direction: column;
-    }
+.email-row,
+.password-row {
+    display: flex;
+    flex-direction: column;
+}
 
-    .material-icons.eye-icon{
-        vertical-align: bottom;
-        cursor: pointer;
-    }
+.material-icons.eye-icon{
+    vertical-align: bottom;
+    cursor: pointer;
+}
 // end LOGIN PAGE    
 
 // start ADMIN PROFILE PAGE
-    .material-icons.star{
-        font-size: 32px;
-        margin: 0px 5px 0px 0px;
-        vertical-align: bottom;
-        color: green;
-    }
-    .admin-user-infos ul li {
-        display: flex;
-        align-items: center;
-        margin: 0px 0px 10px 0px;
-    }
+.material-icons.star{
+    font-size: 32px;
+    margin: 0px 5px 0px 0px;
+    vertical-align: bottom;
+    color: green;
+}
+.admin-user-infos ul li {
+    display: flex;
+    align-items: center;
+    margin: 0px 0px 10px 0px;
+}
 // end ADMIN PROFILE PAGE
