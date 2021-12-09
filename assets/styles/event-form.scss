@@ -2,11 +2,48 @@
 @import 'mixins.scss';
 
 // ---------- START - handling the event-form ----------
+@keyframes light {
+    0% {
+        filter: grayscale(0.85);
+    }
+    5% {
+        filter: grayscale(0.3);
+    }
+    6% {
+        filter: grayscale(0.85);
+    }
+    10% {
+        filter: grayscale(0.3);
+    }
+    12% {
+        filter: grayscale(0.45);
+    }
+    14% {
+        filter: grayscale(0.3);
+    }
+    16% {
+        filter: grayscale(0.45);
+    }
+    20% {
+        filter: grayscale(0.2);
+    }
+    60% {
+        filter: grayscale(0.6);
+    }
+    80% {
+        filter: grayscale(0.8);
+    }
+}
+
 .header-new-event img {
     width: 100%;
     height: 300px;
     object-fit: cover;
     box-shadow: $box-shadow;
+    filter: grayscale(0.85);
+    animation-name: light;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
 }
 
 select, input, textarea {

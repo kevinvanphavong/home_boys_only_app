@@ -31,6 +31,13 @@ select {
     list-style: none;
 }
 
+input,
+textarea,
+select,
+label.material-icons {
+    background: lighten($white, 10%);
+}
+
 body {
     background-color: $white;
     box-shadow: inset 0px 0px 10px rgba($black, 0.5);
