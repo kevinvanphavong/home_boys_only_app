@@ -2,17 +2,18 @@
 
 namespace App\Form;
 
-use App\Entity\Partygoer;
 use DateTime;
+use App\Entity\Partygoer;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+// use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PartygoerType extends AbstractType
 {
@@ -55,6 +56,14 @@ class PartygoerType extends AbstractType
                 'attr' => ['class' => 'user-form-input', ' placeholder' => 'john-doe@gmail.com'],
                 'row_attr' => ['class' => 'user-form-row'],
                 'mapped' => false
+            ])
+            ->add('profilePictureImage', VichImageType::class, [
+                'required'      => false,
+                'mapped'        => false,
+                'label'         => 'Ajoute votre photo de profil',
+                'label_attr'    => ['class' => 'user-form-label'],
+                'attr'          => ['class' => 'user-form-input user-form-input-profile-picture'],
+                'row_attr'      => ['class' => 'user-form-row user-form-row-profile-picture'],
             ])
         ;
     }

@@ -31,6 +31,11 @@ header p {
     @include input-form;
 }
 
+.user-form-row-self-presentation {
+    display: flex;
+    flex-direction: column;
+}
+
 .user-form-input#partygoer_presentation {
     min-height: 300px;
 }

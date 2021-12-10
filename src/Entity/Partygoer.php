@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\PartygoerRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=PartygoerRepository::class)
+ * @Vich\Uploadable 
  */
 class Partygoer
 {
@@ -75,10 +76,10 @@ class Partygoer
      */
     private $messages;
 
-    // /**
-    //  * @ORM\OneToMany(targetEntity=Notification::class, mappedBy="author")
-    //  */
-    // private $notificationsAsPlanner;
+    /**
+     * @ORM\OneToMany(targetEntity=Notification::class, mappedBy="author")
+     */
+    private $notificationsAsPlanner;
 
     /**
      * @ORM\OneToMany(targetEntity=Notification::class, mappedBy="recipient")
@@ -89,11 +90,6 @@ class Partygoer
      * @ORM\ManyToMany(targetEntity=Event::class)
      */
     private $favlistParties;
-
-    // /**
-    //  * @ORM\Column(type="string", length=255)
-    //  */
-    // private $email;
 
     public function __construct()
     {
@@ -390,16 +386,4 @@ class Partygoer
     {
         return $this->favlistParties->contains($event);
     }
-
-    // public function getEmail(): ?string
-    // {
-    //     return $this->getUser()->getEmail();
-    // }
-
-    // public function setEmail(string $email): self
-    // {
-    //     $this->email = $email;
-
-    //     return $this;
-    // }
 }

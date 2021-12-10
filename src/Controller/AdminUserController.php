@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Partygoer;
+use App\Entity\ProfilePicture;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\PartygoerType;
@@ -31,13 +33,21 @@ class AdminUserController extends AbstractController
         $partygoerForm = $this->createForm(PartygoerType::class, $partygoer);
         $partygoerForm->handleRequest($request);
 
-        if ($partygoerForm->isSubmitted() && $partygoerForm->isValid()) {
+        if ($partygoerForm->isSubmitted() && $partygoerForm->isValid()) {            
+            // handling uploading profile picture
+
+            // $name = $partygoer->getProfilePicture()->getName();
+            $profilePictureData = $partygoerForm->get('profilePictureImage')->getData();
+            $profilePictureName = md5(uniqid()) . '.' . $profilePictureData->guessExtension();
+            $partygoer->setProfilePictureImage($profilePictureData);
+            $partygoer->setProfilePictureName($profilePictureName);
+
+            // $profilePictureData->move($this->getParameter('profile_picture'), $profilePictureName);
+
             $user = $this->getUser();
             $user->setEmail($partygoerForm->get('email')->getData());
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($partygoer);
-            $entityManager->persist($user);
             $entityManager->flush();
             $this->addFlash('success', 'Vos informations ont bien été enregistrés ;)');
         }
@@ -130,5 +140,16 @@ class AdminUserController extends AbstractController
 
         // return $this->redirectToRoute('app_register');
         return $this->redirectToRoute('homepage');
+    }
+
+    /**
+     * 
+     */
+    public function modifyProfilePciture(Partygoer $partygoer): Response
+    {
+        $profilePicture = $partygoer->getProfilePicture();
+        unlink($this->getParameter('profile_picture') . '/' . $profilePicture->getName());
+
+
     }
 }

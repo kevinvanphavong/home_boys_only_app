@@ -6,6 +6,7 @@
 parameters:
     event_pictures: '%kernel.project_dir%/public/uploads/eventPictures'
     event_cover: '%kernel.project_dir%/public/uploads/eventCover'
+    profile_pictures: '%kernel.project_dir%/public/uploads/profilePicture'
 
 services:
     # default configuration for services in *this* file

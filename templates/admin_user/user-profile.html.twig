@@ -5,9 +5,19 @@
 {% block stylesheets %}
 	{{ encore_entry_link_tags('user-form-scss') }}
     <style>
-    .user-form-row-self-presentation {
-        display: flex;
-        flex-direction: column;
+    .border-wrapper {
+        margin: 20px auto;
+        background: linear-gradient(red, orange);
+        box-shadow: -2px -6px 15px red, 2px 6px 15px orange;
+        width: fit-content;
+        overflow: hidden;
+        border-radius: 50%;
+    }
+    .group-profile-picture img {
+        height: 300px;
+        width: 300px;
+        background: whitesmoke;
+        object-fit: cover;
     }
     </style>
 {% endblock %}
@@ -49,4 +59,34 @@
     underline.style.width = title.offsetWidth - title.offsetTop + "px";
 </script>
 
+{% endblock %}
+
+{% block javascripts %}
+<script>
+// // ---------- display profile picture once upload in input
+//     let inputProfilePicture = document.querySelector('#partygoer_profilePicture');
+//     let rowProfilePicture = document.querySelector('.user-form-row-profile-picture');
+
+//     let blockPictureProfile = document.createElement('div');
+//     blockPictureProfile.classList.add('group-profile-picture');
+
+//     inputProfilePicture.addEventListener('change', function(){
+
+//         blockPictureProfile.innerHTML = "";
+
+//         const files = inputProfilePicture.files
+
+//         let wrapper = document.createElement('div')
+//         let image = document.createElement('img')
+    
+//         wrapper.classList.add('border-wrapper')
+//         image.src = URL.createObjectURL(files[0])
+
+//         wrapper.append(image)
+//         blockPictureProfile.append(wrapper)
+//         rowProfilePicture.appendChild(blockPictureProfile)
+
+//     })
+// // ---------- display profile picture once upload in input
+</script>
 {% endblock %}

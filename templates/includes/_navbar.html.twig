@@ -111,11 +111,12 @@
     // ------------
     window.addEventListener('load', function(){
         let flashMessage = document.querySelector('.alert')
-        console.log(flashMessage);
-        flashMessage.classList.add('shade-disappear');
-        setTimeout(() => {
-            flashMessage.style.display = "none";
-        }, 6000);
+        if (flashMessage) {
+            flashMessage.classList.add('shade-disappear');
+            setTimeout(() => {
+                flashMessage.style.display = "none";
+            }, 6000);
+        }
     })
 // --------
 </script>
