@@ -53,6 +53,9 @@
                     <li>
                         <a href="{{ path('my_account_favlist_parties')}}">Favlist des soirées</a>
                     </li>
+                    <li>
+                        <a href="{{ path('my_account_dashboard_parties')}}">Mes soirées à organiser</a>
+                    </li>
                     <li>Tous mes évènements</li>
                     <hr>
                     <li>
@@ -75,20 +78,20 @@
 
 <div class="menu-responsive">
     <div class="menu-user-admin">
-    	<a href="{{ path('admin_user_profile')}}">MES SOIRÉES À ORGANISER</a>
-    	<a href="{{ path('admin_user_profile')}}">MA FAVLIST - INVITATIONS</a>
-    	<a href="{{ path('admin_user_profile')}}">MES DERNIÈRES SOIRÉES</a>
+    	<a href="{{ path('my_account_dashboard_parties')}}">MES SOIRÉES À ORGANISER</a>
+    	<a href="{{ path('my_account_favlist_parties')}}">MA FAVLIST - INVITATIONS</a>
+    	<a href="#">MES DERNIÈRES SOIRÉES</a>
     </div>
     <div class="menu-user-icon">
         <a class="material-icons" href="{{ path('my_account_direct_messages') }}">
             <div>forum</div>
         </a>
-        <div class="material-icons">
+        <a class="material-icons" href="{{ path('my_account_notifications') }}">
             <div>notifications</div>
-        </div>
-        <div class="material-icons">
+        </a>
+        <a class="material-icons" href="{{ path('admin_user_profile') }}">
             <div>account_circle</div>
-        </div>
+        </a>
     </div>
 </div>
 

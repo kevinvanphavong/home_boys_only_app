@@ -37,9 +37,6 @@ class AdminUserController extends AbstractController
 
         if ($partygoerForm->isSubmitted() && $partygoerForm->isValid()) {  
             
-            // dump($partygoerForm->get('profilePicture')->getData());
-            // dump($partygoer->getProfileImage());
-            // die();
             // si il y a un changement de photo de profile
             if ($partygoerForm->get('profilePicture')->getData() !== null && $partygoer->getProfileImage() !== null){
                 $this->modifyProfilePicture($partygoer, $partygoer->getProfileImage(), $partygoerForm->get('profilePicture')->getData());
@@ -47,8 +44,6 @@ class AdminUserController extends AbstractController
             } elseif ($partygoerForm->get('profilePicture')->getData() !== null){
                 $this->modifyProfilePicture($partygoer, $partygoerForm->get('profilePicture')->getData());
             }
-
-            // dd($partygoerForm->get('profilePicture')->getData(), $partygoer->getProfileImage());
 
             // handling new user email if edit
             $user = $this->getUser();
