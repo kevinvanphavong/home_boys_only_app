@@ -158,7 +158,6 @@ class EventType extends AbstractType
 
             ->add('eventPictures', FileType::class, [
                 'multiple'      => true,
-                'required'      => true,
                 'mapped'        => false,
                 'required'      => false,
                 'label'         => 'Ajouter plus de photos',
@@ -169,7 +168,6 @@ class EventType extends AbstractType
 
             ->add('eventCover', FileType::class, [
                 'multiple'      => false,
-                'required'      => true,
                 'mapped'        => false,
                 'required'      => false,
                 'label'         => 'Ajoute une image de présentation',

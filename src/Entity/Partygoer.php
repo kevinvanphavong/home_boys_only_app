@@ -91,6 +91,11 @@ class Partygoer
      */
     private $favlistParties;
 
+    /**
+     * @ORM\OneToOne(targetEntity=ProfileImage::class, mappedBy="partygoer", cascade={"persist", "remove"})
+     */
+    private $profileImage;
+
     public function __construct()
     {
         $this->createdEvents = new ArrayCollection();
@@ -385,5 +390,22 @@ class Partygoer
     public function checkPartyInFavlist(Event $event): bool
     {
         return $this->favlistParties->contains($event);
+    }
+
+    public function getProfileImage(): ?ProfileImage
+    {
+        return $this->profileImage;
+    }
+
+    public function setProfileImage(ProfileImage $profileImage): self
+    {
+        // set the owning side of the relation if necessary
+        if ($profileImage->getPartygoer() !== $this) {
+            $profileImage->setPartygoer($this);
+        }
+
+        $this->profileImage = $profileImage;
+
+        return $this;
     }
 }

@@ -1,7 +1,7 @@
 {% block partygoerForm %}
     {{ form_start(partygoerForm, {'attr': {'id': 'user-form'}}) }}
         <div class="user-form-group">
-            {{form_row(partygoerForm.profilePictureImage) }}
+            {{form_row(partygoerForm.profilePicture) }}
         </div>
         <div class="user-form-group">
             {{form_row(partygoerForm.email, {'value' : app.user.email}) }}

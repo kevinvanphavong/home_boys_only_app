@@ -5,19 +5,17 @@
 {% block stylesheets %}
 	{{ encore_entry_link_tags('user-form-scss') }}
     <style>
-    .border-wrapper {
-        margin: 20px auto;
-        background: linear-gradient(red, orange);
-        box-shadow: -2px -6px 15px red, 2px 6px 15px orange;
-        width: fit-content;
-        overflow: hidden;
-        border-radius: 50%;
+    .block-profile-picture {
+        display: flex;
+        justify-content: center;
     }
-    .group-profile-picture img {
-        height: 300px;
+    .block-profile-picture div img {
         width: 300px;
-        background: whitesmoke;
+        height: 300px;
         object-fit: cover;
+        border-radius: 50%;
+        border: 1px solid whitesmoke;
+        box-shadow: 2px 2px 4px rgba(0,0,0, 0.25);
     }
     </style>
 {% endblock %}
@@ -46,6 +44,16 @@
 
     <br>
 
+    <div class="block-profile-picture">
+        <div class="profile-picture-old">
+        {% if partygoer.profileImage %}
+            <img src="{{ asset('uploads/profilePicture/partygoer_id_' ~ (partygoer.id) ~ '/' ~ (partygoer.profileImage.name)) }}" alt="">
+        {% endif %}
+        </div>
+        <div class="profile-picture-new">
+        </div>
+    </div>
+
     <div class="admin-user-infos-content">
         {{ include('form/form-partygoer.html.twig') }}
     </div>
@@ -63,30 +71,21 @@
 
 {% block javascripts %}
 <script>
-// // ---------- display profile picture once upload in input
-//     let inputProfilePicture = document.querySelector('#partygoer_profilePicture');
-//     let rowProfilePicture = document.querySelector('.user-form-row-profile-picture');
+// ---------- display profile picture once upload in input
+    let inputProfilePicture = document.querySelector('#partygoer_profilePicture');
+    let blockNewProfilePicture = document.querySelector('.profile-picture-new');
 
-//     let blockPictureProfile = document.createElement('div');
-//     blockPictureProfile.classList.add('group-profile-picture');
+    inputProfilePicture.addEventListener('change', function(){
 
-//     inputProfilePicture.addEventListener('change', function(){
+        blockNewProfilePicture.innerHTML = "";
 
-//         blockPictureProfile.innerHTML = "";
+        const files = inputProfilePicture.files
 
-//         const files = inputProfilePicture.files
+        let image = document.createElement('img')    
+        image.src = URL.createObjectURL(files[0])
 
-//         let wrapper = document.createElement('div')
-//         let image = document.createElement('img')
-    
-//         wrapper.classList.add('border-wrapper')
-//         image.src = URL.createObjectURL(files[0])
-
-//         wrapper.append(image)
-//         blockPictureProfile.append(wrapper)
-//         rowProfilePicture.appendChild(blockPictureProfile)
-
-//     })
-// // ---------- display profile picture once upload in input
+        blockNewProfilePicture.append(image)
+    })
+// ---------- display profile picture once upload in input
 </script>
 {% endblock %}

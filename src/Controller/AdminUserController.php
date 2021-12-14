@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Partygoer;
+use App\Entity\ProfileImage;
 use App\Entity\ProfilePicture;
 use App\Entity\User;
 use App\Form\UserType;
@@ -33,28 +34,33 @@ class AdminUserController extends AbstractController
         $partygoerForm = $this->createForm(PartygoerType::class, $partygoer);
         $partygoerForm->handleRequest($request);
 
-        if ($partygoerForm->isSubmitted() && $partygoerForm->isValid()) {            
-            // handling uploading profile picture
 
-            // $name = $partygoer->getProfilePicture()->getName();
-            $profilePictureData = $partygoerForm->get('profilePictureImage')->getData();
-            $profilePictureName = md5(uniqid()) . '.' . $profilePictureData->guessExtension();
-            $partygoer->setProfilePictureImage($profilePictureData);
-            $partygoer->setProfilePictureName($profilePictureName);
+        if ($partygoerForm->isSubmitted() && $partygoerForm->isValid()) {  
+            
+            // dump($partygoerForm->get('profilePicture')->getData());
+            // dump($partygoer->getProfileImage());
+            // die();
+            // si il y a un changement de photo de profile
+            if ($partygoerForm->get('profilePicture')->getData() !== null && $partygoer->getProfileImage() !== null){
+                $this->modifyProfilePicture($partygoer, $partygoer->getProfileImage(), $partygoerForm->get('profilePicture')->getData());
+            // si c'est l'ajout d'une photo de profile pour la 1ere fois
+            } elseif ($partygoerForm->get('profilePicture')->getData() !== null){
+                $this->modifyProfilePicture($partygoer, $partygoerForm->get('profilePicture')->getData());
+            }
 
-            // $profilePictureData->move($this->getParameter('profile_picture'), $profilePictureName);
+            // dd($partygoerForm->get('profilePicture')->getData(), $partygoer->getProfileImage());
 
+            // handling new user email if edit
             $user = $this->getUser();
             $user->setEmail($partygoerForm->get('email')->getData());
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->flush();
+            
+            $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Vos informations ont bien été enregistrés ;)');
         }
 
-
         return $this->render('admin_user/user-profile.html.twig', [
-            'partygoerForm'     => $partygoerForm->createView(),
+            'partygoerForm' => $partygoerForm->createView(),
+            'partygoer' => $partygoer,
         ]);
     }
 
@@ -145,11 +151,29 @@ class AdminUserController extends AbstractController
     /**
      * 
      */
-    public function modifyProfilePciture(Partygoer $partygoer): Response
+    public function modifyProfilePicture(Partygoer $partygoer, $oldProfilePicture, $newProfilePicture = null)
     {
-        $profilePicture = $partygoer->getProfilePicture();
-        unlink($this->getParameter('profile_picture') . '/' . $profilePicture->getName());
+        if($newProfilePicture !== null) {
 
+            // 1) on supprime l'ancienne PP en image sur le dossier /public
+            unlink($this->getParameter('profile_pictures') . '/partygoer_id_' . $partygoer->getId() . '/' .$oldProfilePicture->getName());
+            // 2) on fait le même process pour la nouvelle photo de profile
+            $profilePictureName = md5(uniqid()) . '.' . $newProfilePicture->guessExtension();
+            $newProfilePicture->move($this->getParameter('profile_pictures') . '/partygoer_id_' . $partygoer->getId(), $profilePictureName);
 
+            // dump($partygoer->getProfileImage());
+            // die();
+            $partygoer->getProfileImage()->setName($profilePictureName);
+        } else {
+            $profilePictureName = md5(uniqid()) . '.' . $oldProfilePicture->guessExtension();
+            $oldProfilePicture->move($this->getParameter('profile_pictures') . '/partygoer_id_' . $partygoer->getId(), $profilePictureName);
+            $image = new ProfileImage();
+            $image->setName($profilePictureName);
+            $image->setPartygoer($partygoer);
+            $partygoer->setProfileImage($image);
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
     }
 }
