@@ -29,7 +29,7 @@
                     <div class="message-primary-infos">
                         <div class="message-planner-and-toggler">
                             <p class="message-contact-name">
-                                {% if user.id == conv.userPlanner.id %}
+                                {% if partygoer.id == conv.userPlanner.id %}
                                     {{conv.userGuest.firstname ~ ' ' ~ conv.userGuest.lastname }}
                                 {% else %}
                                     {{conv.userPlanner.firstname ~ ' ' ~ conv.userPlanner.lastname }}
@@ -47,7 +47,7 @@
                     <div class="messages">
                         {# boucler sur une div.message pour display tous les messages #}
                         {% for message in conv.messages %}
-                            {% if message.author.id == user.id %}
+                            {% if message.author.id == partygoer.id %}
                                     {% set sidePart = 'author-side' %}
                                     {% set messagePart = 'author-message' %}
                             {% else %}
@@ -65,7 +65,7 @@
                     <div class="message-block-form">
                         <div class="message-form">
                             <input type="text">
-                            <a href="{{ path('my_account_send_message', {'authorId': user.id, 'convId': conv.id}) }}" class="btn btn-success send-message">Envoyer</a>
+                            <a href="{{ path('my_account_send_message', {'authorId': partygoer.id, 'convId': conv.id}) }}" class="btn btn-success send-message">Envoyer</a>
                         </div>
                     </div>
                 </div>

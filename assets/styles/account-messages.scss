@@ -51,7 +51,7 @@
     max-height: 400px;
     background: $black;
     border-radius: $radius-10;
-    box-shadow: inset 0 0 10px whitesmoke;
+    box-shadow: inset 0 0 10px rgba($white, 0.5);
     margin: 0 0 10px 0;
     overflow: scroll;
 }
@@ -94,7 +94,7 @@
     display: flex;
 }
 
-.btn {
+.btn.send-message {
     font-size: $text-size;
 }
 

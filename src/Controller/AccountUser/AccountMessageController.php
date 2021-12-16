@@ -37,19 +37,19 @@ class AccountMessageController extends AbstractController
      */
     public function getDirectMessagesPage(ConversationRepository $conversationRepository): Response
     {
-        $user = $this->getUser();
+        $partygoer = $this->getUser()->getPartygoer();
 
-        $convs = $conversationRepository->findAllTheConversation($user->getPartygoer());
+        $convs = $conversationRepository->findAllTheConversation($partygoer);
 
         return $this->render('account_user/direct-messages.html.twig', [
-            'user' => $user,
             'convs' => $convs,
+            'partygoer' => $partygoer,
         ]);
     }
 
     /**
      * @Route("/send-message/{authorId}/{convId}", name="_send_message", methods={"GET", "POST"})
-     * @ParamConverter("author", options={"id" = "authorId"})
+     * @ParamConverter("partygoer", options={"id" = "authorId"})
      * @ParamConverter("conversation", options={"id" = "convId"})
      */
     public function sendMessage(Request $request, Partygoer $author, Conversation $conversation)

@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block stylesheets %}
-	{{ encore_entry_link_tags('account-messages-scss') }}
+	{{ encore_entry_link_tags('account-dashboard-parties-scss') }}
 {% endblock %}
 
 {% block body %}
@@ -18,6 +18,41 @@
 			<li>- avec les invités qui souhaitent venir à votre soirée !</li>
 		</ul>
 	</section>
+
+    <section class="dashboard-section">
+        <div class="menu-dashboard-btn">
+            <a href="" class="btn-dashboard btn-to-parties">Mes soirées</a>
+            <a href="" class="btn-dashboard btn-to-comments">Mes commentaires</a>
+            <a href="" class="btn-dashboard btn-to-invits">Mes invitations reçues</a>
+        </div>
+
+
+        <div class="dashboard-sub-section section-my-comments"></div>
+
+        <div class="dashboard-sub-section section-my-invits"></div>
+    
+        <div class="section-active dashboard-sub-section section-my-parties">
+            {% for party in parties %}
+                <div class="card">
+                {% if party.eventCover is not null %}
+                    <img class="card-cover-background" src="{{ asset('build/images/' ~ party.eventCover.name) }}" alt="">
+                {% endif %}
+                    <div class="half-card half-top-card">
+                        <h5>{{ party.title }}</h5>
+                        <h5>{{ party.startingDate|date('d M Y')}}</h5>
+                    </div>
+                    <div class="half-card half-bottom-card">
+                        <a href="">Voir</a>
+                        <a href="">Modifier</a>
+                        <a href="">Rendre visible</a>
+                        <a href="">Annuler la soirée</a>
+                    </div>
+                </div>
+                <hr class="w-50 m-auto">
+            {% endfor %}
+        </div>
+
+    </section>
 
 
 </section>

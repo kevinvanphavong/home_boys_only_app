@@ -46,6 +46,7 @@ Encore
     .addEntry('account-favlist-scss',                   './assets/styles/account-favlist.scss')
     .addEntry('account-recents-parties-scss',           './assets/styles/account-recents-parties.scss')
     .addEntry('account-personnal-informations-scss',    './assets/styles/account-personnal-informations.scss')
+    .addEntry('account-dashboard-parties-scss',         './assets/styles/account-dashboard-parties.scss')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
