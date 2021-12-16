@@ -26,7 +26,7 @@
 		<img class="header-img-bgc" src="{{asset('/build/images/' ~ event.eventCover.name)}} " alt="">
     {% endif %}
 		<div class="section-80 section-header-title">
-			<h1>{{event.title }} <a href="{{ path('set-to-favlist', {id: event.id}) }}" class="material-icons btn-favlist">
+			<h1>{{event.title }} <a href="{{ path('event-set-to-favlist', {id: event.id}) }}" class="material-icons btn-favlist">
 				{{ (app.user.partygoer.checkPartyInFavlist(event)) ? 'favorite' : 'favorite_border'}}
 			</a></h1>
 			<p>
@@ -66,8 +66,7 @@
 				<div class="event-planner-infos-primary">
 					<img src="{{asset('/build/images/thumbnail-profile.jpg') }}" alt="" class="event-planner-picture-profile">
 					<div>
-						<h5>Kevin Vanphavong</h5>
-						<p>etoiles etoiles etoiles</p>
+						<h5>{{ event.planner.firstname ~ ' ' ~ event.planner.lastname }}</h5>
 					</div>
 				</div>
 				<div class="event-planner-infos-actions">
@@ -77,7 +76,7 @@
 					</div> #}
 					<div>
 						<span class="material-icons">account_circle</span>
-						<span>Profile</p>
+						<span>Profile</span>
 					</span>
 				</div>
 				<div>

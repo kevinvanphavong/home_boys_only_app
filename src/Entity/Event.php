@@ -101,6 +101,16 @@ class Event
      */
     private $eventCover;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $visible;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $canceled;
+
     public function __construct()
     {
         $this->relatedComments = new ArrayCollection();
@@ -373,6 +383,30 @@ class Event
         }
 
         $this->eventCover = $eventCover;
+
+        return $this;
+    }
+
+    public function isVisible(): ?bool
+    {
+        return $this->visible;
+    }
+
+    public function setVisible(?bool $visible): self
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    public function isCanceled(): ?bool
+    {
+        return $this->canceled;
+    }
+
+    public function setCanceled(?bool $canceled): self
+    {
+        $this->canceled = $canceled;
 
         return $this;
     }

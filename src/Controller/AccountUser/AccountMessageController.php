@@ -49,7 +49,7 @@ class AccountMessageController extends AbstractController
 
     /**
      * @Route("/send-message/{authorId}/{convId}", name="_send_message", methods={"GET", "POST"})
-     * @ParamConverter("partygoer", options={"id" = "authorId"})
+     * @ParamConverter("author", options={"id" = "authorId"})
      * @ParamConverter("conversation", options={"id" = "convId"})
      */
     public function sendMessage(Request $request, Partygoer $author, Conversation $conversation)

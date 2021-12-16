@@ -19,7 +19,7 @@
 <div class="fav-party">
 		<div class="fav-party-block-img">
 			<p class="fav-party-starting-date">{{ party.startingDate|date('d-m-Y - H:i') }}</p>
-			<a href="{{ path('set-to-favlist', {id: party.id}) }}" class="material-icons btn-favlist">
+			<a href="{{ path('event-set-to-favlist', {id: party.id}) }}" class="material-icons btn-favlist">
 				{{ (app.user.partygoer.checkPartyInFavlist(party)) ? 'favorite' : 'favorite_border'}}
 			</a>
 			

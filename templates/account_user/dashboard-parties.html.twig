@@ -17,6 +17,7 @@
 			<li>- avec les organisateurs des soirées</li>
 			<li>- avec les invités qui souhaitent venir à votre soirée !</li>
 		</ul>
+        <p>{{ partygoer.firstname ~ ' ' ~ partygoer.lastname ~ ' id:' ~ partygoer.id }}</p>
 	</section>
 
     <section class="dashboard-section">
@@ -42,10 +43,19 @@
                         <h5>{{ party.startingDate|date('d M Y')}}</h5>
                     </div>
                     <div class="half-card half-bottom-card">
-                        <a href="">Voir</a>
+                        <a href="{{ path('display-event', {'id': party.id, 'title':party.title }) }}">Voir</a>
                         <a href="">Modifier</a>
-                        <a href="">Rendre visible</a>
-                        <a href="">Annuler la soirée</a>
+                        {% if party.isVisible == true %}
+                            <a class="btn-event-set-visibility btn-event-set-visibility-off btn-danger" href="{{ path('event-set-visibility', {'eventId': party.id}) }}">Masquer</a>
+                        {% else %}
+                            <a class="btn-event-set-visibility btn-event-set-visibility-on btn-success" href="{{ path('event-set-visibility', {'eventId': party.id}) }}">Rendre visible</a>    
+                        {% endif %}
+
+                        {% if party.isCanceled == true %}
+                            <a href="#" class="btn-event-set-cancellation-on">Soirée annulée</a>
+                        {% else %}
+                            <a class="btn-event-set-cancellation" href="{{ path('event-set-cancellation', {'eventId': party.id}) }}">Annuler la soirée</a>
+                        {% endif %}
                     </div>
                 </div>
                 <hr class="w-50 m-auto">
@@ -56,4 +66,76 @@
 
 
 </section>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+// -------- fetching buttons actions on each event cart
+let buttonsEventVisibility = document.querySelectorAll('.btn-event-set-visibility');
+let buttonsEventCancellation = document.querySelectorAll('.btn-event-set-cancellation');
+
+// -------- create functions settings visibility and cancellation on event
+function setEventVisibility(button) {
+    fetch(button.href, {
+        method: "POST",
+        headers: {
+        'X-Requested-With': "XMLHttpRequest",
+        'Content-Type': "application/json" 
+    }
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(response) {
+        if (response.visibility == true){
+            button.innerText = "Masquer"
+            button.classList.add('btn-danger');
+            button.classList.remove('btn-success');
+        } else if (response.visibility == false){
+            button.innerText = "Rendre visible";
+            button.classList.add('btn-success');
+            button.classList.remove('btn-danger');
+        }
+    })
+}
+
+function setEventCancellation(button) {
+    fetch(button.href, {
+        method: "POST",
+        headers: {
+        'X-Requested-With': "XMLHttpRequest",
+        'Content-Type': "application/json" 
+    }
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(response) {
+        button.classList.add('btn-event-set-cancellation-on');
+        button.innerText = "Soirée annulée";
+    })
+}
+
+// -------- adding event listener on each button fetched with functions created earlier
+buttonsEventVisibility.forEach(button => {
+    button.addEventListener('click', function(event){
+        event.preventDefault();
+
+        setEventVisibility(button);
+    });
+});
+
+buttonsEventCancellation.forEach(button => {
+    button.addEventListener('click', function(event){
+        event.preventDefault();
+
+        let response = confirm('Souhaitez vous vraiment annulez cet évènement ? L\'action sera irréversible')
+
+        if (response){
+            setEventCancellation(button);
+        }
+    });
+});
+
+</script>
 {% endblock %}

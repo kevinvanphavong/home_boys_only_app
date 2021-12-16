@@ -24,7 +24,7 @@ span {
     padding: 10px 20px;
     width: 100%;
     text-align: center;
-    transition: 0.2s color, 0.6s text-shadow;
+    transition: 0.3s box-shadow;
 } 
 
 .menu-dashboard-btn .btn-dashboard:not(:last-child) {
@@ -32,10 +32,7 @@ span {
 }
 
 .menu-dashboard-btn .btn-dashboard:hover {
-    // background-color: $primary-orange-tr;
-    background: linear-gradient(180deg, $primary-orange-tr, $primary-red-tr);
-    color: $white;
-    text-shadow: 2px 2px 4px $primary-red;
+    box-shadow: inset 1px 1px 10px $border-color;
 }
 
 /* card party */
@@ -79,15 +76,25 @@ $spacing-btn: 40px;
 .half-top-card h5,
 .half-bottom-card a {
     border-radius: 15px;
-    background: rgba($white, 0.5);
     line-height: $spacing-btn;
     padding: 0 $spacing-btn;
     box-shadow: $box-shadow;
 }
 
+.half-bottom-card a:not(.btn-danger, .btn-success) {
+    background: rgba($white, 0.5);
+}
+
+.half-bottom-card a.btn-event-set-cancellation-on {
+    pointer-events: none;
+    color: darken($border-color, 50%);
+    background: rgba(darken($border-color, 20%), 0.5);
+}
+
 .half-bottom-card a {
     margin: 10px 10px 0;
 }
+
 
 @media screen and (max-width: 1000px) {
     .dashboard-section {

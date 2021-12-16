@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Entity\EventCover;
 use App\Entity\EventPicture;
+use App\Entity\Partygoer;
 use App\Form\EventType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class EventController extends AbstractController
 {
@@ -79,7 +81,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/set/{id}/favlist", name="set-to-favlist")
+     * @Route("/event/set/{id}/favlist", name="event-set-to-favlist")
      */
     public function setEventToFavlist(Event $event, EntityManagerInterface $em): Response
     {
@@ -97,15 +99,42 @@ class EventController extends AbstractController
             'checkPartyInFavlist' => $partygoer->checkPartyInFavlist($event)
         ]);
     }
-}
-    // /**
-    //  * @Route("/event/edition/{id}/{title}/", name="edition-event")
-    //  */
-    // public function showEvent(Request $request, UserRepository $userRepository): Response
-    // {
 
-    //     return;
-    // }
+    /**
+     * @Route("/event/{eventId}/settings/visibility", name="event-set-visibility", methods={"GET", "POST"})
+     * @ParamConverter("event", options={"id" = "eventId"})
+     */
+    public function setEventVisibility(Event $event)
+    {
+        if ($this->getUser()->getPartygoer() === $event->getPlanner()){
+
+            $event->setVisible(!$event->isVisible());
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->json([
+                'visibility' => $event->isVisible()
+            ]);
+        }
+    }
+
+    /**
+     * @Route("/event/{eventId}/settings/cancellation", name="event-set-cancellation", methods={"GET", "POST"})
+     * @ParamConverter("event", options={"id" = "eventId"})
+     */
+    public function setEventCancellation(Event $event)
+    {
+        if ($this->getUser()->getPartygoer() === $event->getPlanner()){
+
+            $event->setCanceled(!$event->isCanceled());
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->json([
+                'cancellation' => $event->isCanceled()
+            ]);
+        }
+    }
+}
+
     
     // /**
     //  * @Route("/event/suppression/{id}/{title}/", name="suppression-event")

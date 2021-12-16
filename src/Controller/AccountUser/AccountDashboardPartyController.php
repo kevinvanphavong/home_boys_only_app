@@ -29,7 +29,8 @@ class AccountDashboardPartyController extends AbstractController
 
         return $this->render('account_user/dashboard-parties.html.twig', [
             'parties'   =>  $parties,
-            'comments'   =>  $comments
+            'comments'   =>  $comments,
+            'partygoer'   =>  $partygoer,
         ]);
     }
 }
