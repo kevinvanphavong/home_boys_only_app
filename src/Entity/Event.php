@@ -92,7 +92,7 @@ class Event
     private $gatheringComplementsToBring;
 
     /**
-     * @ORM\OneToMany(targetEntity=EventPicture::class, mappedBy="event", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=EventPicture::class, mappedBy="event", cascade={"persist", "remove"})
      */
     private $eventPictures;
 

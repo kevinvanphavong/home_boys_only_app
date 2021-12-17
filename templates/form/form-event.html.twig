@@ -58,7 +58,6 @@
 		{% if party and party.eventPictures %}
 			<div class="group-event-pictures">
 				{% for picture in party.eventPictures %}
-					{# Penser à changer la photo par le bon repertoire des fichiers uplaodés #}
 					<img src="{{ asset('/uploads/eventPictures/' ~ picture.name)}}" alt="">
 				{% endfor %}
 			</div>

@@ -86,9 +86,7 @@ for (let index = 0; index < inputsWhatToBring.length; index++) {
 
 // --------------- START - showing images pre upload from the form
 
-let blockPictures = document.createElement('div')
-blockPictures.classList.add('group-event-pictures')
-
+let blockPictures = document.querySelector('.group-event-pictures')
 let rowPictures = document.querySelector('.event-form-row-pictures')
 let inputEventPictures = document.getElementById('event_eventPictures')
 

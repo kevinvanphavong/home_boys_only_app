@@ -18,6 +18,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class EventController extends AbstractController
 {
     /**
+     * @Route("/event/display/{id}/{title}", name="display-event")
+     */
+    public function displayEvent(Event $event): Response
+    {
+        return $this->render('event/event-display-page.html.twig', [
+            'event' => $event,
+        ]);
+    }
+
+    /**
      * @Route("/event/creation-new-party", name="creation-new-party")
      */
     public function newEvent(Request $request): Response
@@ -71,29 +81,90 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/display/{id}/{title}", name="display-event")
-     */
-    public function displayEvent(Event $event): Response
-    {        
-        return $this->render('event/event-display-page.html.twig', [
-            'event' => $event,
-        ]);
-    }
-
-    /**
      * @Route("/event/edit/{id}/{title}", name="edit-event")
      * @ParamConverter("event", options={"id" = "id"})
      */
     public function editEvent(Request $request, Event $event): Response
     {
-        // $event =  new Event();
+        $entityManager = $this->getDoctrine()->getManager();
+
         $eventForm = $this->createForm(EventType::class, $event);
-        // $eventForm->handleRequest($request);
+        $eventForm->handleRequest($request);
+
+        if ($eventForm->isSubmitted() && $eventForm->isValid()) {
+        
+            $this->setEventFormGatheringsComplements($eventForm, $event);
+            $this->setEventFormPictures($eventForm, $event);
+            $this->setEventFormCover($eventForm, $event);
+
+            $entityManager->flush();
+            $this->addFlash('success', 'Les modifications faites à votre soirée ont bien été prises en compte');
+        }
 
         return $this->render('event/event-edit-page.html.twig', [
             'eventForm' => $eventForm->createView(),
             'party' => $event,
         ]);
+    }
+
+    public function setEventFormGatheringsComplements($eventForm, $event)
+    {
+        $complements1 = $eventForm->get('gatheringComplementsIncluded')->getData();
+        if (count($complements1) > 0) {
+            // Supprimer toutes les compléments de la soirée
+            foreach ($event->getGatheringComplementsIncluded() as $complement) {
+                $event->removeGatheringComplementsIncluded($complement);
+            }
+            // Ajouter les nouveux compléments sélectionnés
+            foreach ($complements1 as $complement) {
+                $event->addGatheringComplementsIncluded($complement);
+            }
+        }
+
+        $complements2 = $eventForm->get('gatheringComplementsToBring')->getData();
+        if (count($complements2) > 0) {
+            foreach ($event->getGatheringComplementsToBring() as $complement) {
+                $event->removeGatheringComplementsToBring($complement);
+            }
+            foreach ($complements2 as $complement) {
+                $event->addGatheringComplementsToBring($complement);
+            }
+        }
+    }
+    
+    public function setEventFormPictures($eventForm, $event)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        // handling each image uploaded for eventPictures
+        $eventPictures = $eventForm->get('eventPictures')->getData();
+        if ($eventPictures) {
+            // Supprimer les photos en public pour eventPictures
+            foreach ($event->getEventPictures() as $oldEventPicture) {
+                // unlink($this->getParameter('event_pictures') . '/' . $eventPicture->getName());
+                $event->removeEventPicture($oldEventPicture);
+                $entityManager->remove($oldEventPicture);
+            }
+
+            foreach ($eventPictures as $image) {
+                $imageName = md5(uniqid()) . '.' . $image->guessExtension();
+                $image->move($this->getParameter('event_pictures'), $imageName);
+                $newEventPicture = new EventPicture();
+                $newEventPicture->setName($imageName);
+                $event->addEventPicture($newEventPicture);
+            }
+        }
+    }
+    
+    public function setEventFormCover($eventForm, $event)
+    {
+        // handling one image uploaded for eventCover
+        $eventCover = $eventForm->get('eventCover')->getData();
+        if ($eventCover) {
+            $coverName = md5(uniqid()) . '.' . $eventCover->guessExtension();
+            $eventCover->move($this->getParameter('event_cover'), $coverName);
+            unlink($this->getParameter('event_cover') . '/' . $event->getEventCover()->getName());
+            $event->getEventCover()->setName($coverName);
+        }
     }
 
     /**
@@ -150,13 +221,3 @@ class EventController extends AbstractController
         }
     }
 }
-
-    
-    // /**
-    //  * @Route("/event/suppression/{id}/{title}/", name="suppression-event")
-    //  */
-    // public function showEvent(Request $request, UserRepository $userRepository): Response
-    // {
-    //     return;
-    // }
-

@@ -36,7 +36,7 @@
             {% for party in parties %}
                 <div class="event-card">
                     {% if party.eventCover is not null %}
-                        <img class="card-cover-background" src="{{ asset('build/images/' ~ party.eventCover.name) }}" alt="">
+                        <img class="card-cover-background" src="{{ asset('uploads/eventCover/' ~ party.eventCover.name) }}" alt="">
                     {% else %}
                         <div class="card-cover-background background-gradient" src="" alt="background-gradient"></div>
                     {% endif %}
