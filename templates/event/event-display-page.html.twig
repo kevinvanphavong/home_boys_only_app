@@ -21,9 +21,7 @@
 
 	<header>
     {% if event.eventCover %}
-		{# <img class="header-img-bgc" src="{{asset('/uploads/eventCover/' ~ event.eventCover.name)}} " alt=""> #}
-		{# // test avec photo de couverture pour fixtures, dans public #}
-		<img class="header-img-bgc" src="{{asset('/build/images/' ~ event.eventCover.name)}} " alt="">
+		<img class="header-img-bgc" src="{{asset('/uploads/eventCover/' ~ event.eventCover.name)}} " alt="">
     {% endif %}
 		<div class="section-80 section-header-title">
 			<h1>{{event.title }} <a href="{{ path('event-set-to-favlist', {id: event.id}) }}" class="material-icons btn-favlist">
@@ -49,9 +47,7 @@
 		{% else %}
 			{% for picture in event.eventPictures %}
 				<div class="grid-item grid-item-{{ loop.index }}">
-					{# <img src="{{asset('/uploads/eventPictures/' ~ picture.name) }}" alt=""> #}
-					{# // test avec fixtures cherchant les photos du public #}
-					<img src="{{asset('/build/images/' ~ picture.name) }}" alt="">
+					<img src="{{asset('/uploads/eventPictures/' ~ picture.name) }}" alt="">
 				</div>
 			{% endfor %}
 		{% endif %}

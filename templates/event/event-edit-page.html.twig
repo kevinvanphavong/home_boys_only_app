@@ -18,26 +18,23 @@
         {% for complement in party.gatheringComplementsToBring %}
             <p class="gathering-complements to-bring">{{ complement.name }}</p>
         {% endfor %}
+        <p class="data-event-cover-name">{{ party.EventCover.name }}</p>
+        {% for image in party.EventPictures %}
+            <p class="data-event-pictures-name">{{ image.name }}</p>
+        {% endfor %}
     </div>
-
 
     <section class="section-80">
-    <h1 class="text-center" data-event-id="{{ path('edit-event-check-gathering-complements', {'eventId': party.id}) }}">Modifier la soirée n°
-        {{ party.id }}
+        <h1 class="text-center">Modifier la soirée n°
+            {{ party.id }}
+            <br>
+            {{ party.title }}
+        </h1>
         <br>
-        {{ party.title }}
-    </h1>
-
-    <br>
- 
-{# <pre>
-        {{ dump(party.gatheringComplementsIncluded|length) }}
-        {{ dump(party.gatheringComplementsToBring|length) }}
-    </pre> #}
-
-    <div class="section-80">
-        {{ include('form/form-event.html.twig', {'button_label': 'Enregister'}) }}
-    </div>
+        <div>
+            {{ include('form/form-event.html.twig', {'button_label': 'Enregister'}) }}
+        </div>
+    </section>
 {% endblock %}
 
 
@@ -73,5 +70,7 @@
             let data = "event_gatheringComplementsToBring_" + complement.replace("-", "_");
             showSelectedGatheringComplements(data)
         });
+
+
     </script>
 {% endblock %}

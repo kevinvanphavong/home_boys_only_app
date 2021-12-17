@@ -31,8 +31,6 @@ for (let index = 0; index < inputsWhatsIncluded.length; index++) {
 
     // 2) Donner du style au input s'il sont checked true or false
     currentInput.addEventListener('change', function() {
-        console.log(currentInput)
-        console.log(currentInput.checked)
         if (currentInput.checked == false) {
             currentLabel.classList.remove('checked')
         } else if (currentInput.checked == true) {
@@ -74,7 +72,6 @@ for (let index = 0; index < inputsWhatToBring.length; index++) {
 
     // 2) Donner du style au input s'il sont checked true or false
     currentInput.addEventListener('change', function() {
-        console.log(currentInput.checked)
         if (currentInput.checked == false) {
             currentLabel.classList.remove('checked')
         } else if (currentInput.checked == true) {
@@ -128,9 +125,10 @@ inputEventPictures.addEventListener('change', function() {
 
 // ------
 
-let blockCover = document.createElement('div')
-blockCover.classList.add('group-event-cover')
+// let blockCover = document.createElement('div')
+// blockCover.classList.add('group-event-cover')
 
+let blockCover = document.querySelector('.group-event-cover')  
 let rowCover = document.querySelector('.event-form-row-cover')  
 
 let inputEventCover = document.getElementById('event_eventCover')

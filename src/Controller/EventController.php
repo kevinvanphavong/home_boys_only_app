@@ -20,7 +20,7 @@ class EventController extends AbstractController
     /**
      * @Route("/event/creation-new-party", name="creation-new-party")
      */
-    public function newEvent(Request $request, UserRepository $userRepository): Response
+    public function newEvent(Request $request): Response
     {
         $event =  new Event();
         $eventForm = $this->createForm(EventType::class, $event);
@@ -56,7 +56,7 @@ class EventController extends AbstractController
             $newEventCover->setName($coverName);
             $event->setEventCover($newEventCover);
 
-            $event->setPlanner($userRepository->find(51));
+            $event->setPlanner($this->getUser()->getPartygoer());
             
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($event);
@@ -93,21 +93,6 @@ class EventController extends AbstractController
         return $this->render('event/event-edit-page.html.twig', [
             'eventForm' => $eventForm->createView(),
             'party' => $event,
-        ]);
-    }
-
-    /**
-     * @Route("/event/edit/{eventId}/gatheringComplements", name="edit-event-check-gathering-complements")
-     * @ParamConverter("event", options={"id" = "eventId"})
-     */
-    public function showGatheringComplementsChecked(Event $event)
-    {
-        $gatheringIncluded = $event->getGatheringComplementsToBring();
-        $gatheringToBring = $event->getGatheringComplementsIncluded();
-
-        return $this->json([
-            'gatheringIncluded' => $gatheringIncluded,
-            'gatheringToBring' => $gatheringToBring,
         ]);
     }
 

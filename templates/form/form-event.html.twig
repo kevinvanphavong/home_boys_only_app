@@ -2,7 +2,7 @@
 	{{ form_start(eventForm, {'attr': {'id': 'event-form'}}) }}
 	<div class="event-form-group">
 		{{form_row(eventForm.title) }}
-        {{form_row(eventForm.entrancePrice) }}
+		{{form_row(eventForm.entrancePrice) }}
 	</div>
 
 	<div class="event-form-group">
@@ -39,12 +39,36 @@
 	<div class="event-form-group">
 		{{form_row(eventForm.eventCover) }}
 	</div>
-	
+
+	{% if app.request.attributes.get('_route') == "edit-event" %}	
+		{% if party and party.eventCover %}
+			<div class="group-event-cover">
+				<img src="{{ asset('/uploads/eventCover/' ~ party.eventCover.name)}}" alt="">
+			</div>
+		{% endif %}
+	{% else %}
+		<div class="group-event-cover"></div>
+	{% endif %}
+
 	<div class="event-form-group">
 		{{form_row(eventForm.eventPictures) }}
 	</div>
 
+	{% if app.request.attributes.get('_route') == "edit-event" %}
+		{% if party and party.eventPictures %}
+			<div class="group-event-pictures">
+				{% for picture in party.eventPictures %}
+					{# Penser à changer la photo par le bon repertoire des fichiers uplaodés #}
+					<img src="{{ asset('/uploads/eventPictures/' ~ picture.name)}}" alt="">
+				{% endfor %}
+			</div>
+		{% endif %}
+	{% else %}
+		<div class="group-event-pictures"></div>
+	{% endif %}
+
+	<hr>
 	<button class="btn-submit-event-form btn btn-success">{{ button_label|default('Enregistrer') }}</button>
 
-	{{ form_end(eventForm) }}
+{{ form_end(eventForm) }}
 {% endblock %}
