@@ -1,0 +1,80 @@
+.comment {
+    padding: 20px;
+    background: $background-card;
+    color: $white;
+    box-shadow: $box-shadow;
+    border-radius: $radius;
+    margin: 2rem 0;
+    min-height: 300px;
+    display: flex;
+}
+
+.comment-block-author {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    .comment-author-profile-picture {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: $box-shadow;
+    }
+}
+
+.comment-block-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    h5+p {
+        max-height: 100px;
+        overflow-y: scroll;
+    }
+    .comment-visibility {
+        align-self: end;
+    }
+}
+
+input.form-check-input[type="checkbox"] {
+    cursor: pointer;
+    background-color: $primary-red-tr;
+    border-color: $border-color;
+    margin: 0;
+    &:checked {
+        background-color: rgb(9, 160, 9);
+    }
+}
+
+div.form-switch {
+    display: flex;
+    align-items: center;
+    padding-left: 0px;
+    grid-gap: 10px;
+}
+
+@media screen and (max-width: 600px) {
+    $gap: 10px;
+    .comment {
+        flex-direction: column;
+        grid-row-gap: $gap;
+    }
+
+    .comment-block-content {
+        padding: 0;
+        h5+p {
+            margin: 20px 0;
+        }
+        h5 {
+            text-align: center;
+        }
+        .comment-visibility {
+            flex-direction: column;
+            align-items: center;
+            grid-row-gap: $gap;
+        }
+    }
+
+}

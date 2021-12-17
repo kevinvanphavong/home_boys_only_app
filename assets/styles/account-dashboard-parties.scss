@@ -12,12 +12,8 @@
 .menu-dashboard-btn {
     display: flex;
     align-items: center;
-    border-top: $border-1;
-    border-bottom: $border-1;
-}
-
-span {
-    color: darken($border-color, 10%);
+    // border-top: 1px solid darken($border-color, 10%);
+    // border-bottom: 1px solid darken($border-color, 10%);
 }
 
 .menu-dashboard-btn .btn-dashboard {
@@ -28,82 +24,24 @@ span {
 } 
 
 .menu-dashboard-btn .btn-dashboard:not(:last-child) {
-    border-right: $border-1;
+    border-right: 1px solid $border-color;
 }
 
-.menu-dashboard-btn .btn-dashboard:hover {
-    box-shadow: inset 1px 1px 10px $border-color;
+.btn-dashboard-active {
+    background: -webkit-linear-gradient(180deg, $primary-orange, $primary-red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* card party */
-.card {
-    margin: 20px 0;
-    position: relative;
-    overflow: hidden;
-    min-height: 300px;
-    background: none;
-    z-index: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.section-dashboard {
+    display: none;
 }
 
-.card-cover-background {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.3;
-    z-index: -2;
+.section-dashboard-active {
+    display: block;
 }
 
-.half-card {
-    display: flex;
-    padding: 20px;
-    flex-wrap: wrap;
-}
-
-.half-top-card {
-    justify-content: space-between;
-}
-
-.half-bottom-card {
-    justify-content: space-evenly;
-}
-
-$spacing-btn: 40px;
-.half-top-card h4,
-.half-top-card h5,
-.half-bottom-card a {
-    border-radius: 15px;
-    line-height: $spacing-btn;
-    padding: 0 $spacing-btn;
-    box-shadow: $box-shadow;
-}
-
-.half-bottom-card a:not(.btn-danger, .btn-success) {
-    background: rgba($white, 0.5);
-}
-
-.half-bottom-card a.btn-event-set-cancellation-on {
-    pointer-events: none;
-    color: darken($border-color, 50%);
-    background: rgba(darken($border-color, 20%), 0.5);
-}
-
-.half-bottom-card a {
-    margin: 10px 10px 0;
-}
-
-
-@media screen and (max-width: 1000px) {
-    .dashboard-section {
-        width: 90%;
-    }
-}
-
-@media screen and (max-width: 500px) {
-    .dashboard-section {
-        width: 100%;
-    }
-}
+$background-card: linear-gradient(350deg, lighten($black, 10%), black, $primary-red-tr, $primary-orange-tr);
+@import 'account-dashboard/dashboard-my-parties.scss';
+@import 'account-dashboard/dashboard-my-comments.scss';
+@import 'account-dashboard/dashboard-my-invits.scss';

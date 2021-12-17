@@ -1,0 +1,84 @@
+
+/* card party */
+.event-card {
+    margin: 2rem 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 300px;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: $radius;
+    box-shadow: $box-shadow;
+}
+.background-gradient {
+    background: $background-card;
+}
+
+.card-cover-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+    z-index: -2;
+}
+
+.half-card {
+    display: flex;
+    padding: 20px;
+    flex-wrap: wrap;
+    grid-gap: 10px;
+    justify-content: space-between;
+}
+   
+.half-bottom-card a {
+    width: 47%;
+    text-align: center;
+}
+
+$spacing-btn: 40px;
+.half-top-card h4,
+.half-top-card h5,
+.half-bottom-card a {
+    border-radius: 15px;
+    line-height: $spacing-btn;
+    padding: 0 $spacing-btn;
+    box-shadow: $box-shadow;
+}
+
+.half-top-card h4,
+.half-top-card h5,
+.half-bottom-card a:not(.btn-danger, .btn-success) {
+    background: rgba($white, 0.5);
+    color: $black;
+}
+
+.half-bottom-card a.btn-event-set-cancellation-on {
+    pointer-events: none;
+    &:not(.btn-danger) {
+        color: darken($border-color, 50%);
+        background: rgba(darken($border-color, 20%), 0.5);
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .dashboard-section {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .dashboard-section {
+        width: 100%;
+    }
+
+    .half-card {
+        justify-content: center;
+    }
+
+    .half-bottom-card a {
+        width: 100%;
+    }
+}

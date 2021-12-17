@@ -5,6 +5,9 @@
 
 {% block stylesheets %}
 	{{ encore_entry_link_tags('account-dashboard-parties-scss') }}
+
+    <style>
+    </style>
 {% endblock %}
 
 {% block body %}
@@ -21,23 +24,22 @@
 	</section>
 
     <section class="dashboard-section">
+        <hr>
         <div class="menu-dashboard-btn">
-            <a href="" class="btn-dashboard btn-to-parties">Mes soirées</a>
-            <a href="" class="btn-dashboard btn-to-comments">Mes commentaires</a>
-            <a href="" class="btn-dashboard btn-to-invits">Mes invitations reçues</a>
+            <a href="" data-ref="parties" class="btn-dashboard btn-to-parties">Mes soirées</a>
+            <a href="" data-ref="comments" class="btn-dashboard btn-dashboard-active btn-to-comments">Mes commentaires</a>
+            <a href="" data-ref="invits" class="btn-dashboard btn-to-invits">Mes invitations reçues</a>
         </div>
+        <hr>
 
-
-        <div class="dashboard-sub-section section-my-comments"></div>
-
-        <div class="dashboard-sub-section section-my-invits"></div>
-    
-        <div class="section-active dashboard-sub-section section-my-parties">
+        <div data-ref="parties" class="section-dashboard dashboard-sub-section section-my-parties">
             {% for party in parties %}
-                <div class="card">
-                {% if party.eventCover is not null %}
-                    <img class="card-cover-background" src="{{ asset('build/images/' ~ party.eventCover.name) }}" alt="">
-                {% endif %}
+                <div class="event-card">
+                    {% if party.eventCover is not null %}
+                        <img class="card-cover-background" src="{{ asset('build/images/' ~ party.eventCover.name) }}" alt="">
+                    {% else %}
+                        <div class="card-cover-background background-gradient" src="" alt="background-gradient"></div>
+                    {% endif %}
                     <div class="half-card half-top-card">
                         <h5>{{ party.title }}</h5>
                         <h5>{{ party.startingDate|date('d M Y')}}</h5>
@@ -45,22 +47,54 @@
                     <div class="half-card half-bottom-card">
                         <a href="{{ path('display-event', {'id': party.id, 'title':party.title }) }}">Voir</a>
                         <a href="">Modifier</a>
-                        {% if party.isVisible == true %}
-                            <a class="btn-event-set-visibility btn-event-set-visibility-off btn-danger" href="{{ path('event-set-visibility', {'eventId': party.id}) }}">Masquer</a>
+                        {% if party.isVisible and party.isCanceled == false %}
+                            <a class="btn-event-set-visibility btn-success" href="{{ path('event-set-visibility', {'eventId': party.id}) }}">Visible</a>
                         {% else %}
-                            <a class="btn-event-set-visibility btn-event-set-visibility-on btn-success" href="{{ path('event-set-visibility', {'eventId': party.id}) }}">Rendre visible</a>    
+                            <a class="btn-event-set-visibility btn-danger {{ party.isCanceled ? 'btn-event-set-cancellation-on' }}" href="{{ path('event-set-visibility', {'eventId': party.id}) }}">Masqué</a>
                         {% endif %}
 
-                        {% if party.isCanceled == true %}
+                        {% if party.isCanceled %}
                             <a href="#" class="btn-event-set-cancellation-on">Soirée annulée</a>
                         {% else %}
-                            <a class="btn-event-set-cancellation" href="{{ path('event-set-cancellation', {'eventId': party.id}) }}">Annuler la soirée</a>
+                            <a class="btn-event-set-cancellation" href="{{ path('event-set-cancellation', {'eventId': party.id}) }}">Annuler</a>
                         {% endif %}
                     </div>
                 </div>
                 <hr class="w-50 m-auto">
             {% endfor %}
         </div>
+
+        <div data-ref="comments" class="section-dashboard-active section-dashboard dashboard-sub-section section-my-comments">
+            {% for comment in comments %}
+                <div class="comment">
+                    <div class="comment-block-author">
+                        {% if comment.author.profileImage %}
+                            <img class="comment-author-profile-picture" src="{{ asset('build/uploads/profilePicture/partygoer_id_' ~ comment.author.id ~ '/' ~ comment.author.profileImage.name ) }}" alt="">
+                        {% else %}
+                            <img class="comment-author-profile-picture" src="{{ asset('build/images/thumbnail-profile.jpg') }}" alt="">
+                        {% endif %}
+                        <p>{{ comment.author.firstname ~ ' ' ~ comment.author.lastname }}</p>
+                    </div>
+                    <div class="comment-block-content">
+                        <h5>{{ comment.event.title }}</h5>
+                        <p>{{ comment.content }}</p>
+                        <div class="comment-visibility">
+                            {# <label class="form-check-label" for="tt">
+                                État : {{ comment.isVisible ? 'Visible' : 'Masqué' }}
+                            </label> #}
+                            <div class="form-switch">
+                                <span>Masqué</span>
+                                <input class="form-check-input btn-comment-set-visibility" {{ comment.isVisible ? 'checked' }} type="checkbox" id="tt" data-href="{{ path('comment-set-visibility', {'commentId': comment.id}) }}">
+                                <span>Visible</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="w-50 m-auto">
+            {% endfor %}
+        </div>
+
+        <div data-ref="invits" class="section-dashboard dashboard-sub-section section-my-invits"></div>
 
     </section>
 
@@ -69,73 +103,139 @@
 {% endblock %}
 
 {% block javascripts %}
-<script>
-// -------- fetching buttons actions on each event cart
-let buttonsEventVisibility = document.querySelectorAll('.btn-event-set-visibility');
-let buttonsEventCancellation = document.querySelectorAll('.btn-event-set-cancellation');
+    <script>
+        {% block JavascriptMyParties %}
+                // -------- fetching buttons actions on each event cart
+                let buttonsEventVisibility = document.querySelectorAll('.btn-event-set-visibility');
+                let buttonsEventCancellation = document.querySelectorAll('.btn-event-set-cancellation');
 
-// -------- create functions settings visibility and cancellation on event
-function setEventVisibility(button) {
-    fetch(button.href, {
-        method: "POST",
-        headers: {
-        'X-Requested-With': "XMLHttpRequest",
-        'Content-Type': "application/json" 
-    }
-    })
-    .then(function(response) {
-        return response.json();
-    })
-    .then(function(response) {
-        if (response.visibility == true){
-            button.innerText = "Masquer"
-            button.classList.add('btn-danger');
-            button.classList.remove('btn-success');
-        } else if (response.visibility == false){
-            button.innerText = "Rendre visible";
-            button.classList.add('btn-success');
-            button.classList.remove('btn-danger');
-        }
-    })
-}
+                // -------- create functions settings visibility and cancellation on event
+                function setEventVisibility(button) {
+                    fetch(button.href, {
+                        method: "POST",
+                        headers: {
+                        'X-Requested-With': "XMLHttpRequest",
+                        'Content-Type': "application/json" 
+                    }
+                    })
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(response) {
+                        if (response.visibility == true){
+                            button.innerText = "Visible"
+                            button.classList.add('btn-success');
+                            button.classList.remove('btn-danger');
+                        } else if (response.visibility == false){
+                            button.innerText = "Masqué";
+                            button.classList.add('btn-danger');
+                            button.classList.remove('btn-success');
+                        }
+                    })
+                }
 
-function setEventCancellation(button) {
-    fetch(button.href, {
-        method: "POST",
-        headers: {
-        'X-Requested-With': "XMLHttpRequest",
-        'Content-Type': "application/json" 
-    }
-    })
-    .then(function(response) {
-        return response.json();
-    })
-    .then(function(response) {
-        button.classList.add('btn-event-set-cancellation-on');
-        button.innerText = "Soirée annulée";
-    })
-}
+                function setEventCancellation(button) {
+                    fetch(button.href, {
+                        method: "POST",
+                        headers: {
+                        'X-Requested-With': "XMLHttpRequest",
+                        'Content-Type': "application/json" 
+                    }
+                    })
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(response) {
+                        button.classList.add('btn-event-set-cancellation-on');
+                        button.innerText = "Soirée annulée";
+                    })
+                }
 
-// -------- adding event listener on each button fetched with functions created earlier
-buttonsEventVisibility.forEach(button => {
-    button.addEventListener('click', function(event){
-        event.preventDefault();
+                // -------- adding event listener on each button fetched with functions created earlier
+                buttonsEventVisibility.forEach(button => {
+                    button.addEventListener('click', function(event){
+                        event.preventDefault();
 
-        setEventVisibility(button);
-    });
-});
+                        setEventVisibility(button);
+                    });
+                });
 
-buttonsEventCancellation.forEach(button => {
-    button.addEventListener('click', function(event){
-        event.preventDefault();
+                buttonsEventCancellation.forEach(button => {
+                    button.addEventListener('click', function(event){
+                        event.preventDefault();
 
-        let response = confirm('Souhaitez vous vraiment annulez cet évènement ? L\'action sera irréversible')
+                        let response = confirm('Souhaitez vous vraiment annulez cet évènement ? L\'action sera irréversible')
 
-        if (response){
-            setEventCancellation(button);
-        }
-    });
-});
+                        if (response){
+                            setEventCancellation(button);
+                            setEventVisibility(button.previousElementSibling);
+                            button.previousElementSibling.style.pointerEvents = "none";
+                        }
+                    });
+                });
+        {% endblock %}
+        {% block JavascriptMySlider %}
+            // SLIDER BUT NOT A REAL SLIDER
+            let buttonsDashboard = document.querySelectorAll('.btn-dashboard');
+            let sectonsDashboard = document.querySelectorAll('.section-dashboard');
 
-</script>
+            buttonsDashboard.forEach(button => {
+                button.addEventListener('click', function(event){
+                    event.preventDefault();
+
+                    if (button.classList.contains('btn-dashboard-active')){
+                        return;
+                    } else {
+                        oldActiveButton = document.querySelector('.btn-dashboard-active');
+                        oldActiveButton.classList.remove('btn-dashboard-active');
+
+                        button.classList.add('btn-dashboard-active');
+                        let reference = button.dataset.ref;
+
+                        oldActiveSection = document.querySelector('.section-dashboard-active');
+                        oldActiveSection.classList.remove('section-dashboard-active');
+
+                        newActiveSection = document.querySelector(".section-dashboard[data-ref='" + reference + "']");
+                        newActiveSection.classList.add('section-dashboard-active')
+                    }
+                })    
+            });
+        {% endblock %}
+        {% block JavascriptMyComments %}
+
+            let buttonsCommentVisibility = document.querySelectorAll('.btn-comment-set-visibility')
+
+            function setCommentVisibility(button) {
+                    fetch(button.dataset.href, {
+                        method: "POST",
+                        headers: {
+                        'X-Requested-With': "XMLHttpRequest",
+                        'Content-Type': "application/json" 
+                    }
+                    })
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(response) {
+                        if(response.visibility == true){
+                            button.checked = true;
+                        } else {
+                            button.checked = false;
+                        }
+                    })
+            }
+
+            buttonsCommentVisibility.forEach(button => {
+                button.addEventListener('click', function(event){
+                    event.preventDefault();
+
+                    setCommentVisibility(button);
+                })
+            });
+                
+        {% endblock %}
+
+    </script>
 {% endblock %}
+
+
