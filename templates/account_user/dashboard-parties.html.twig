@@ -46,7 +46,7 @@
                     </div>
                     <div class="half-card half-bottom-card">
                         <a href="{{ path('display-event', {'id': party.id, 'title':party.title }) }}">Voir</a>
-                        <a href="">Modifier</a>
+                        <a href="{{ path('edit-event', {'id': party.id, 'title': party.title }) }}">Modifier</a>
                         {% if party.isVisible and party.isCanceled == false %}
                             <a class="btn-event-set-visibility btn-success" href="{{ path('event-set-visibility', {'eventId': party.id}) }}">Visible</a>
                         {% else %}
@@ -202,7 +202,6 @@
             });
         {% endblock %}
         {% block JavascriptMyComments %}
-
             let buttonsCommentVisibility = document.querySelectorAll('.btn-comment-set-visibility')
 
             function setCommentVisibility(button) {
@@ -231,10 +230,8 @@
 
                     setCommentVisibility(button);
                 })
-            });
-                
+            });  
         {% endblock %}
-
     </script>
 {% endblock %}
 

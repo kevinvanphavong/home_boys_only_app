@@ -1,0 +1,77 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Soirée n°
+	{{party.id}}
+	-
+	{{parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags('event-form-scss') }}
+{% endblock %}
+
+{% block body %}
+    <div class="d-none">
+        {% for complement in party.gatheringComplementsIncluded %}
+            <p class="gathering-complements included">{{ complement.name }}</p>
+        {% endfor %}
+        {% for complement in party.gatheringComplementsToBring %}
+            <p class="gathering-complements to-bring">{{ complement.name }}</p>
+        {% endfor %}
+    </div>
+
+
+    <section class="section-80">
+    <h1 class="text-center" data-event-id="{{ path('edit-event-check-gathering-complements', {'eventId': party.id}) }}">Modifier la soirée n°
+        {{ party.id }}
+        <br>
+        {{ party.title }}
+    </h1>
+
+    <br>
+ 
+{# <pre>
+        {{ dump(party.gatheringComplementsIncluded|length) }}
+        {{ dump(party.gatheringComplementsToBring|length) }}
+    </pre> #}
+
+    <div class="section-80">
+        {{ include('form/form-event.html.twig', {'button_label': 'Enregister'}) }}
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('event-form-js') }}
+    <script>
+    // Display all the gathering complements included or to bring, in a party in checked color
+        let gatheringComplements = document.querySelectorAll('.gathering-complements')
+
+        let toBring = [];
+        let included = [];
+
+        gatheringComplements.forEach(complement => {
+            if (complement.classList.contains('included')){
+                included.push(complement.innerText)
+            } else if (complement.classList.contains('to-bring')){
+                toBring.push(complement.innerText)
+            }
+        });
+
+        function showSelectedGatheringComplements(data){
+            let label = document.querySelector('[for="' + data + '"]')
+            label.classList.add('checked');
+        }
+
+        included.forEach(complement => {
+            let data = "event_gatheringComplementsIncluded_" + complement.replace("-", "_");
+            showSelectedGatheringComplements(data)
+        });
+
+        toBring.forEach(complement => {
+            let data = "event_gatheringComplementsToBring_" + complement.replace("-", "_");
+            showSelectedGatheringComplements(data)
+        });
+    </script>
+{% endblock %}

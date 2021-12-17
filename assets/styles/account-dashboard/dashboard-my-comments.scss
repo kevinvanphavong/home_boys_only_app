@@ -44,7 +44,7 @@ input.form-check-input[type="checkbox"] {
     border-color: $border-color;
     margin: 0;
     &:checked {
-        background-color: rgb(9, 160, 9);
+        background-color: $checked;
     }
 }
 

@@ -81,6 +81,37 @@ class EventController extends AbstractController
     }
 
     /**
+     * @Route("/event/edit/{id}/{title}", name="edit-event")
+     * @ParamConverter("event", options={"id" = "id"})
+     */
+    public function editEvent(Request $request, Event $event): Response
+    {
+        // $event =  new Event();
+        $eventForm = $this->createForm(EventType::class, $event);
+        // $eventForm->handleRequest($request);
+
+        return $this->render('event/event-edit-page.html.twig', [
+            'eventForm' => $eventForm->createView(),
+            'party' => $event,
+        ]);
+    }
+
+    /**
+     * @Route("/event/edit/{eventId}/gatheringComplements", name="edit-event-check-gathering-complements")
+     * @ParamConverter("event", options={"id" = "eventId"})
+     */
+    public function showGatheringComplementsChecked(Event $event)
+    {
+        $gatheringIncluded = $event->getGatheringComplementsToBring();
+        $gatheringToBring = $event->getGatheringComplementsIncluded();
+
+        return $this->json([
+            'gatheringIncluded' => $gatheringIncluded,
+            'gatheringToBring' => $gatheringToBring,
+        ]);
+    }
+
+    /**
      * @Route("/event/set/{id}/favlist", name="event-set-to-favlist")
      */
     public function setEventToFavlist(Event $event, EntityManagerInterface $em): Response
