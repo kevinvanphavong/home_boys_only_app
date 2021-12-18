@@ -41,9 +41,13 @@ class AccountMessageController extends AbstractController
 
         $convs = $conversationRepository->findAllTheConversation($partygoer);
 
+        $arrayPathFolder = explode('/', $this->getParameter('profile_pictures'));
+        $publicFolderProfilePicture = $arrayPathFolder[count($arrayPathFolder) - 2] . '/' . $arrayPathFolder[count($arrayPathFolder) - 1]; 
+
         return $this->render('account_user/direct-messages.html.twig', [
             'convs' => $convs,
             'partygoer' => $partygoer,
+            'publicFolderProfile' => $publicFolderProfilePicture,
         ]);
     }
 

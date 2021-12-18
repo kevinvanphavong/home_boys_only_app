@@ -27,10 +27,18 @@ class AccountDashboardPartyController extends AbstractController
         $parties = $partygoer->getCreatedEvents();
         $comments = $commentRepository->findAllCommentsOnMyParties($partygoer);
 
+        $arrayPathFolder = explode('/', $this->getParameter('profile_pictures'));
+        $publicFolderProfilePicture = $arrayPathFolder[count($arrayPathFolder) - 2] . '/' . $arrayPathFolder[count($arrayPathFolder) - 1];
+
+        $arrayPathFolder = explode('/', $this->getParameter('event_cover'));
+        $publicFolderEventCover = $arrayPathFolder[count($arrayPathFolder) - 2] . '/' . $arrayPathFolder[count($arrayPathFolder) - 1]; 
+
         return $this->render('account_user/dashboard-parties.html.twig', [
             'parties'   =>  $parties,
             'comments'   =>  $comments,
             'partygoer'   =>  $partygoer,
+            'publicFolderProfilePicture'   =>  $publicFolderProfilePicture,
+            'publicFolderEventCover'   =>  $publicFolderEventCover,
         ]);
     }
 }

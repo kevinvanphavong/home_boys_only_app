@@ -162,8 +162,15 @@ class EventController extends AbstractController
         if ($eventCover) {
             $coverName = md5(uniqid()) . '.' . $eventCover->guessExtension();
             $eventCover->move($this->getParameter('event_cover'), $coverName);
-            unlink($this->getParameter('event_cover') . '/' . $event->getEventCover()->getName());
-            $event->getEventCover()->setName($coverName);
+            if ($event->getEventCover()) {
+                unlink($this->getParameter('event_cover') . '/' . $event->getEventCover()->getName());
+                $event->getEventCover()->setName($coverName);
+            } else {
+                $eventCover = new EventCover();
+                $eventCover->setName($coverName);
+                $eventCover->setEvent($event);
+                $event->setEventCover($eventCover);
+            }
         }
     }
 

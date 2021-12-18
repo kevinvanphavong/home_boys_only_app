@@ -140,6 +140,7 @@
     .menu-user-admin {
         background: $black;
         display: flex;
+        justify-content: space-evenly;
         overflow: scroll;
         color: $white;
         font-size: 50px;
@@ -185,6 +186,9 @@
 }
 
 @media screen and (max-width: 500px) {
+    .menu-user-admin {
+        justify-content: flex-start;
+    }
     .circle {
         width: 30px;
         height: 30px;

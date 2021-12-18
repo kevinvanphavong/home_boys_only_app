@@ -25,9 +25,13 @@ class AccountFavlistPartyController extends AbstractController {
         }
 
         $favlistParties = $partygoer->getFavlistParties();
-     
+
+        $arrayPathFolder = explode('/', $this->getParameter('event_cover'));
+        $publicFolderEventCover = $arrayPathFolder[count($arrayPathFolder) - 2] . '/' . $arrayPathFolder[count($arrayPathFolder) - 1]; 
+
         return $this->render('account_user/favlist-party.html.twig', [
-            'favlist'   =>  $favlistParties
+            'favlist'   =>  $favlistParties,
+            'publicFolderEventCover'   =>  $publicFolderEventCover,
         ]);
     }
 }

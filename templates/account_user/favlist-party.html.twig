@@ -22,9 +22,8 @@
 			<a href="{{ path('event-set-to-favlist', {id: party.id}) }}" class="material-icons btn-favlist">
 				{{ (app.user.partygoer.checkPartyInFavlist(party)) ? 'favorite' : 'favorite_border'}}
 			</a>
-			
-			{# reminder : pensez à changer la photo avec une vraiment utilisé par une vrai soirée non fixtures #}
-			<img src="{{ asset('build/images/' ~ party.eventCover.name) }}" alt="">
+
+			<img src="{{ asset(publicFolderEventCover ~ '/' ~ party.eventCover.name) }}" alt="">
 		</div>
 
 		<div class="fav-party-price">

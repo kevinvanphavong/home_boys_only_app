@@ -18,7 +18,9 @@
         {% for complement in party.gatheringComplementsToBring %}
             <p class="gathering-complements to-bring">{{ complement.name }}</p>
         {% endfor %}
-        <p class="data-event-cover-name">{{ party.EventCover.name }}</p>
+        {% if party.eventCover %}
+            <p class="data-event-cover-name">{{ party.eventCover.name }}</p>
+        {% endif %}
         {% for image in party.EventPictures %}
             <p class="data-event-pictures-name">{{ image.name }}</p>
         {% endfor %}

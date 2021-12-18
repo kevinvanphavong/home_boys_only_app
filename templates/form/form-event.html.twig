@@ -41,11 +41,11 @@
 	</div>
 
 	{% if app.request.attributes.get('_route') == "edit-event" %}	
-		{% if party and party.eventCover %}
-			<div class="group-event-cover">
+		<div class="group-event-cover">
+			{% if party and party.eventCover %}
 				<img src="{{ asset('/uploads/eventCover/' ~ party.eventCover.name)}}" alt="">
-			</div>
-		{% endif %}
+			{% endif %}
+		</div>
 	{% else %}
 		<div class="group-event-cover"></div>
 	{% endif %}
@@ -55,13 +55,13 @@
 	</div>
 
 	{% if app.request.attributes.get('_route') == "edit-event" %}
-		{% if party and party.eventPictures %}
-			<div class="group-event-pictures">
+		<div class="group-event-pictures">
+			{% if party and party.eventPictures %}
 				{% for picture in party.eventPictures %}
 					<img src="{{ asset('/uploads/eventPictures/' ~ picture.name)}}" alt="">
 				{% endfor %}
-			</div>
-		{% endif %}
+			{% endif %}
+		</div>
 	{% else %}
 		<div class="group-event-pictures"></div>
 	{% endif %}

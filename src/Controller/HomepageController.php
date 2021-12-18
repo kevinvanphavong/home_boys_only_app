@@ -15,15 +15,19 @@ class HomepageController extends AbstractController
      */
     public function index(EventRepository $events, CommentRepository $comments): Response
     {
+        $upcomingEvents = [];
+        for ($i=0; $i < 4; $i++) {
+            $upcomingEvents[$i + 1] = $events->findBy([], [], 5, 5*$i);
+        }
         return $this->render('homepage.html.twig', [
-            'upcomingEvents1' => $events->findBy([], [], 5),
-            'upcomingEvents2' => $events->findBy([], [], 5),
-            'upcomingEvents3' => $events->findBy([], [], 5),
-            'upcomingEvents4' => $events->findBy([], [], 5),
-            'pastEvents1' => $events->findBy([], [], 5),
-            'pastEvents2' => $events->findBy([], [], 5),
-            'pastEvents3' => $events->findBy([], [], 5),
-            'pastEvents4' => $events->findBy([], [], 5),
+            'upcomingEvents1' => $upcomingEvents[1],
+            'upcomingEvents2' => $upcomingEvents[2],
+            'upcomingEvents3' => $upcomingEvents[3],
+            'upcomingEvents4' => $upcomingEvents[4],
+            'pastEvents1' => $upcomingEvents[1],
+            'pastEvents2' => $upcomingEvents[2],
+            'pastEvents3' => $upcomingEvents[3],
+            'pastEvents4' => $upcomingEvents[4],
             // 'upcomingEvents1' => $events->getUpcomingEvents(5, 0),
             // 'upcomingEvents2' => $events->getUpcomingEvents(5, 5),
             // 'upcomingEvents3' => $events->getUpcomingEvents(5, 10),
@@ -32,7 +36,7 @@ class HomepageController extends AbstractController
             // 'pastEvents2' => $events->getPastEvents(5, 5),
             // 'pastEvents3' => $events->getPastEvents(5, 10),
             // 'pastEvents4' => $events->getPastEvents(5, 15),
-            'comments' => $comments->findBy([], [], 5),
+            'comments' => $comments->findBy([], [], 10),
         ]);
     }
 }

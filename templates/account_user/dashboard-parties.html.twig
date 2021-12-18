@@ -36,7 +36,7 @@
             {% for party in parties %}
                 <div class="event-card">
                     {% if party.eventCover is not null %}
-                        <img class="card-cover-background" src="{{ asset('uploads/eventCover/' ~ party.eventCover.name) }}" alt="">
+                        <img class="card-cover-background" src="{{ asset( publicFolderEventCover ~ '/' ~ party.eventCover.name) }}" alt="">
                     {% else %}
                         <div class="card-cover-background background-gradient" src="" alt="background-gradient"></div>
                     {% endif %}
@@ -67,14 +67,16 @@
         <div data-ref="comments" class="section-dashboard-active section-dashboard dashboard-sub-section section-my-comments">
             {% for comment in comments %}
                 <div class="comment">
+
                     <div class="comment-block-author">
                         {% if comment.author.profileImage %}
-                            <img class="comment-author-profile-picture" src="{{ asset('build/uploads/profilePicture/partygoer_id_' ~ comment.author.id ~ '/' ~ comment.author.profileImage.name ) }}" alt="">
+                            <img class="comment-author-profile-picture" src="{{ asset( publicFolderProfilePicture ~ '/partygoer_id_' ~ comment.author.id ~ '/' ~ comment.author.profileImage.name ) }}" alt="">
                         {% else %}
                             <img class="comment-author-profile-picture" src="{{ asset('build/images/thumbnail-profile.jpg') }}" alt="">
                         {% endif %}
                         <p>{{ comment.author.firstname ~ ' ' ~ comment.author.lastname }}</p>
                     </div>
+
                     <div class="comment-block-content">
                         <h5>{{ comment.event.title }}</h5>
                         <p>{{ comment.content }}</p>
@@ -89,6 +91,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <hr class="w-50 m-auto">
             {% endfor %}

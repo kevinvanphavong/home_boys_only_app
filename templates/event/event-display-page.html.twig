@@ -24,9 +24,13 @@
 		<img class="header-img-bgc" src="{{asset('/uploads/eventCover/' ~ event.eventCover.name)}} " alt="">
     {% endif %}
 		<div class="section-80 section-header-title">
-			<h1>{{event.title }} <a href="{{ path('event-set-to-favlist', {id: event.id}) }}" class="material-icons btn-favlist">
-				{{ (app.user.partygoer.checkPartyInFavlist(event)) ? 'favorite' : 'favorite_border'}}
-			</a></h1>
+			<h1>{{event.title }}
+			{% if app.user %}
+				<a href="{{ path('event-set-to-favlist', {id: event.id}) }}" class="material-icons btn-favlist">
+					{{ (app.user.partygoer.checkPartyInFavlist(event)) ? 'favorite' : 'favorite_border'}}
+				</a>
+			{% endif %}
+			</h1>
 			<p>
 				Etoile (Moyenne) -
 				{{event.planner.firstname ~ ' ' ~ event.planner.lastname }}

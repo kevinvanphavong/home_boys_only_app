@@ -14,7 +14,7 @@
     flex-direction: column;
 }
 @mixin account-user-party-card {
-    width: 300px; 
+    min-width: 300px; 
     border-radius: $radius;
     box-shadow: $box-shadow;
     overflow: hidden;

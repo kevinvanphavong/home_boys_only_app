@@ -5,16 +5,16 @@
     letter-spacing: 5px;
     text-align: center;
 }
-.section-favlist-party {
-    @include section-account-user;
-}
 
 .section-favlist-party {
+    @include section-account-user;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    overflow-x: scroll;
     width: 80%;
     margin: 0 auto;
+    box-shadow: inset 4px 0px 10px rgba($black, 0.25), inset -4px 0px 10px rgba($black, 0.25);
 }
 .fav-party {
     @include account-user-party-card;
@@ -65,4 +65,10 @@
 .btn-display-event {
     color: $black;
     cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+    .section-favlist-party {
+        width: 100%;
+    }
 }
