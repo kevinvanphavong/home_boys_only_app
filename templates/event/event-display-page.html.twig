@@ -60,30 +60,15 @@
 
 <div class="section-separator"></div>
 
-	<div class="section-event-planner section-80">
-		<h2>Soirée organisée par :</h2>
-		<br>
-		<div class="section-event-planner-blocks">
-			<div class="event-planner-infos event-planner-infos-1">
-				<div class="event-planner-infos-primary">
-					<img src="{{asset('/build/images/thumbnail-profile.jpg') }}" alt="" class="event-planner-picture-profile">
-					<div>
-						<h5>{{ event.planner.firstname ~ ' ' ~ event.planner.lastname }}</h5>
-					</div>
-				</div>
-				<div class="event-planner-infos-actions">
-					{# <div>
-						<span class="material-icons">person_add</span>
-						<span>Friend</span>
-					</div> #}
-					<div>
-						<span class="material-icons">account_circle</span>
-						<span>Profile</span>
-					</span>
-				</div>
+<div class="section-event-planner section-80">
+	<h2>Soirée organisée par :</h2>
+	<br>
+	<div class="section-event-planner-blocks">
+		<div class="event-planner-infos event-planner-infos-1">
+			<div class="event-planner-infos-primary">
+				<img src="{{asset('/build/images/thumbnail-profile.jpg') }}" alt="" class="event-planner-picture-profile">
 				<div>
-					<span class="material-icons">chat</span>
-					<span>Message</span>
+					<h5>{{ event.planner.firstname ~ ' ' ~ event.planner.lastname }}</h5>
 				</div>
 			</div>
 		</div>
@@ -96,17 +81,17 @@
 			<div>
 				<p class="material-icons">event_available</p>
 				<p>
-                {{ event.startingDate | date('d/m/Y') }}
+				{{ event.startingDate | date('d/m/Y') }}
 					<br>
-                    {{ event.startingDate | date('H:i') }}
+					{{ event.startingDate | date('H:i') }}
 				</p>
 			</div>
 			<div>
 				<p class="material-icons">event_busy</p>
 				<p>
-                {{ event.endingDate | date('d/m/Y') }}
+				{{ event.endingDate | date('d/m/Y') }}
 					<br>
-                {{ event.endingDate | date('H:i') }}
+				{{ event.endingDate | date('H:i') }}
 				</p>
 			</div>
 		</div>
@@ -114,21 +99,49 @@
 		<div class="event-planner-infos event-planner-infos-3">
 			<div>
 				<p class="material-icons">paid</p>
-                {% if event.entrancePrice > 0 %}
-				    <p>{{ event.entrancePrice }}€ prix d'entrée</p>
-                {% else %}
-				    <p>Entrée gratuite</p>
-                {% endif %}
+				{% if event.entrancePrice > 0 %}
+					<p>{{ event.entrancePrice }}€ prix d'entrée</p>
+				{% else %}
+					<p>Entrée gratuite</p>
+				{% endif %}
 			</div>
 			<div>
 				<p class="material-icons">local_activity</p>
-                <p>{{ event.limitedPlaces }} places disponibles</p>
+				<p>{{ event.limitedPlaces }} places disponibles</p>
 			</div>
 			<div>
 				<p class="material-icons">volunteer_activism</p>
 				<p>60 personnes intéressés par la soirée</p>
 			</div>
 		</div>
+	</div>
+</div>
+<div class="section-80">
+	<div class="section-group-buttons">
+		<div>
+			<span class="material-icons">account_circle</span>
+			<span>Profil</span>
+		</div>
+		{% if event.planner.id is same as app.user.partygoer.id %}
+			<div class="pointer-event-none">
+		{% else %}
+			<div>
+		{% endif %}
+				<span class="material-icons">send</span>
+				<span>Demande d'invitation</span>
+		</div>
+		<div id="open-block-creating-message" class="{{ app.user.partygoer.id == event.planner.id ? 'pointer-event-none' : '' }}">
+			<span class="material-icons">chat</span>
+			<span>Message</span>
+		</div>
+	</div>
+
+	<div class="block-creating-message show-off">
+		<form action="">
+			<label for="message">"Qu'est ce que tu veux me dire pelo ?"</label>
+			<textarea name="message"></textarea>
+			<button type="submit">Envoyer</button>
+		</form>
 	</div>
 </div>
 
@@ -239,6 +252,19 @@
 			}
         });
 	}
+
+	// Handling event : show textarea for sending a first message to planner Event
+	let buttonBlockMessage = document.getElementById('open-block-creating-message')
+	let blockMessage = document.querySelector('.block-creating-message')
+
+	buttonBlockMessage.addEventListener('click', function(){		
+		if(blockMessage.classList.contains('show-off')){
+			blockMessage.classList.remove('show-off');
+		} else {
+			blockMessage.classList.add('show-off');
+		}
+	})
+
 
 </script>
 {% endblock %}

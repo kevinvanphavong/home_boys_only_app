@@ -1,4 +1,10 @@
 @import 'app.scss';
+@import 'mixins.scss';
+
+.pointer-event-none {
+    pointer-events: none;
+    cursor: not-allowed;
+}
 
 .header-img-bgc {
     width: 100%;
@@ -127,10 +133,8 @@ h1 + p {
 /* ----- section event planner info */
 
 .section-event-planner-blocks {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(1, 1fr);
-    grid-gap: 10px;
+    display:flex;
+    justify-content: space-between;
 }
 
 .event-planner-infos-1 {
@@ -167,10 +171,6 @@ img.event-planner-picture-profile {
     object-fit: cover;
 }
 
-.event-planner-infos-actions {
-    display: flex;
-}
-
 .event-planner-infos-primary {
     display: flex;
     flex-direction: column;
@@ -185,11 +185,6 @@ img.event-planner-picture-profile {
     text-align: center
 }
 
-.event-planner-infos-actions {
-    margin-top: 20px;
-    justify-content: space-between;
-}
-
 .event-planner-infos-actions div {
     display: flex;
     padding: 10px;
@@ -198,11 +193,6 @@ img.event-planner-picture-profile {
     background: linear-gradient(180deg, $primary-red 0%, $primary-orange 100%);
     cursor: pointer;
     color: $white;
-}
-
-.event-planner-infos-actions div span:not(:first-child) {
-    align-self: center;
-    margin-left: 5px;
 }
 
 .event-planner-infos-2 div,
@@ -215,6 +205,43 @@ img.event-planner-picture-profile {
 .event-planner-infos-3 div p {
     align-self: center;
     margin: 0 10px;
+}
+
+.section-group-buttons {
+	display: flex;
+	justify-content: space-evenly;
+    margin: 50px 0 0 0; 
+}
+.section-group-buttons div {
+	display: flex;
+	align-items: center;
+    @include btn-register-login-form;
+	grid-column-gap: 10px;
+}
+
+.block-creating-message form {
+	display: flex;
+	flex-direction: column;
+	grid-row-gap: 10px;
+	padding: 20px;
+	margin: 10px 0 0 0;
+}
+
+.block-creating-message form textarea {
+    @include input-form;
+    padding: 20px;
+    min-height: 150px;
+}
+
+.block-creating-message form button {
+    @include btn-register-login-form;
+    width: fit-content;
+    align-self: end;
+}
+
+.show-off {
+	height: 0;
+    overflow: hidden;
 }
 
 /* ------ */
@@ -276,5 +303,17 @@ span.material-icons {
 	}
     .block-event-complements-included, .block-event-complements-to-bring {
         justify-content: space-evenly;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .section-group-buttons {
+        flex-direction: column;
+        grid-row-gap: 10px;
+        align-items: center;
+    }
+    .section-group-buttons div {
+        width: 80%;
+        justify-content: space-between;
     }
 }
