@@ -94,6 +94,16 @@ class Partygoer
      */
     private $profileImage;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Invitation::class, mappedBy="partygoerGuest")
+     */
+    private $invitationsRequests;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Invitation::class, mappedBy="partygoerEventPlanner")
+     */
+    private $invitationsMakings;
+
     public function __construct()
     {
         $this->createdEvents = new ArrayCollection();
@@ -102,6 +112,8 @@ class Partygoer
         $this->messages = new ArrayCollection();
         $this->notificationsAsGuest = new ArrayCollection();
         $this->favlistParties = new ArrayCollection();
+        $this->invitationsRequests = new ArrayCollection();
+        $this->invitationsMakings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -403,6 +415,66 @@ class Partygoer
         }
 
         $this->profileImage = $profileImage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Invitation[]
+     */
+    public function getInvitationsRequests(): Collection
+    {
+        return $this->invitationsRequests;
+    }
+
+    public function addInvitationsRequest(Invitation $invitationsRequest): self
+    {
+        if (!$this->invitationsRequests->contains($invitationsRequest)) {
+            $this->invitationsRequests[] = $invitationsRequest;
+            $invitationsRequest->setPartygoerGuest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvitationsRequest(Invitation $invitationsRequest): self
+    {
+        if ($this->invitationsRequests->removeElement($invitationsRequest)) {
+            // set the owning side to null (unless already changed)
+            if ($invitationsRequest->getPartygoerGuest() === $this) {
+                $invitationsRequest->setPartygoerGuest(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Invitation[]
+     */
+    public function getInvitationsMakings(): Collection
+    {
+        return $this->invitationsMakings;
+    }
+
+    public function addInvitationsMaking(Invitation $invitationsMaking): self
+    {
+        if (!$this->invitationsMakings->contains($invitationsMaking)) {
+            $this->invitationsMakings[] = $invitationsMaking;
+            $invitationsMaking->setPartygoerEventPlanner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvitationsMaking(Invitation $invitationsMaking): self
+    {
+        if ($this->invitationsMakings->removeElement($invitationsMaking)) {
+            // set the owning side to null (unless already changed)
+            if ($invitationsMaking->getPartygoerEventPlanner() === $this) {
+                $invitationsMaking->setPartygoerEventPlanner(null);
+            }
+        }
 
         return $this;
     }

@@ -111,12 +111,18 @@ class Event
      */
     private $canceled;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Invitation::class, mappedBy="event")
+     */
+    private $relatedInvitations;
+
     public function __construct()
     {
         $this->relatedComments = new ArrayCollection();
         $this->gatheringComplementsIncluded = new ArrayCollection();
         $this->gatheringComplementsToBring = new ArrayCollection();
         $this->eventPictures = new ArrayCollection();
+        $this->relatedInvitations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -407,6 +413,36 @@ class Event
     public function setCanceled(?bool $canceled): self
     {
         $this->canceled = $canceled;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Invitation[]
+     */
+    public function getRelatedInvitations(): Collection
+    {
+        return $this->relatedInvitations;
+    }
+
+    public function addRelatedInvitation(Invitation $relatedInvitation): self
+    {
+        if (!$this->relatedInvitations->contains($relatedInvitation)) {
+            $this->relatedInvitations[] = $relatedInvitation;
+            $relatedInvitation->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelatedInvitation(Invitation $relatedInvitation): self
+    {
+        if ($this->relatedInvitations->removeElement($relatedInvitation)) {
+            // set the owning side to null (unless already changed)
+            if ($relatedInvitation->getEvent() === $this) {
+                $relatedInvitation->setEvent(null);
+            }
+        }
 
         return $this;
     }
