@@ -20,60 +20,62 @@
 
     <section class="section-messages">
         {% for conv in convs %}
-            <div class="message-card">
-                <div class="message-header">
-                    <div>
-                        {% if partygoer.id == conv.userPlanner.id and conv.userGuest.profileImage %}
-                            <img class="message-contact-picture" src="{{ asset(publicFolderProfile ~ '/partygoer_id_' ~ conv.userGuest.id ~ '/' ~ conv.userGuest.profileImage.name ) }}"/>
-                        {% elseif partygoer.id == conv.userGuest.id and conv.userPlanner.profileImage %}
-                            <img class="message-contact-picture" src="{{ asset(publicFolderProfile ~ '/partygoer_id_' ~ conv.userPlanner.id ~ '/' ~ conv.userPlanner.profileImage.name ) }}"/>
-                        {% else %}
-                            <img class="message-contact-picture" src="{{ asset('build/images/thumbnail-profile.jpg') }}"/>
-                        {% endif %}
-                    </div>
-                    
-                    <div class="message-primary-infos">
-                        <div class="message-planner-and-toggler">
-                            <p class="message-contact-name">
-                                <b>
-                                {% if partygoer.id == conv.userPlanner.id %}
-                                    {{conv.userGuest.firstname ~ ' ' ~ conv.userGuest.lastname }}
-                                {% else %}
-                                    {{conv.userPlanner.firstname ~ ' ' ~ conv.userPlanner.lastname }}
-                                {% endif %}
-                                </b>
-                            </p>
-                            <div class="material-icons expand button-display-conv">expand_more</div>
-                        </div>
-                        <div class="message-event-infos">
-                            <p class="message-event-title"><i>{{ conv.party.title }}</i></p>
-                            <p class="message-event-date">{{ conv.party.startingDate | date('d-m-Y') }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="message-conversation">
-                    <div class="messages">
-                        {# boucler sur une div.message pour display tous les messages #}
-                        {% for message in conv.messages %}
-                            {% if message.author.id == partygoer.id %}
-                                    {% set sidePart = 'author-side' %}
-                                    {% set messagePart = 'author-message' %}
+            <div class="message-card-shadow">
+                <div class="message-card">
+                    <div class="message-header">
+                        <div>
+                            {% if partygoer.id == conv.userPlanner.id and conv.userGuest.profileImage %}
+                                <img class="message-contact-picture" src="{{ asset(publicFolderProfile ~ '/partygoer_id_' ~ conv.userGuest.id ~ '/' ~ conv.userGuest.profileImage.name ) }}"/>
+                            {% elseif partygoer.id == conv.userGuest.id and conv.userPlanner.profileImage %}
+                                <img class="message-contact-picture" src="{{ asset(publicFolderProfile ~ '/partygoer_id_' ~ conv.userPlanner.id ~ '/' ~ conv.userPlanner.profileImage.name ) }}"/>
                             {% else %}
-                                    {% set sidePart = 'recipient-side' %}
-                                    {% set messagePart = 'recipient-message' %}
+                                <img class="message-contact-picture" src="{{ asset('build/images/thumbnail-profile.jpg') }}"/>
                             {% endif %}
-                                <div class="message {{ sidePart }}">
-                                    <div class="bubble-message {{ messagePart }}">
-                                        <p>{{ message.content }}</p>
-                                        <p class="message-date">{{ message.createdAt | date('d-m-Y H:i')}}</p>
-                                    </div>
-                                </div>
-                        {% endfor %}
+                        </div>
+                        
+                        <div class="message-primary-infos">
+                            <div class="message-planner-and-toggler">
+                                <p class="message-contact-name">
+                                    <b>
+                                    {% if partygoer.id == conv.userPlanner.id %}
+                                        {{conv.userGuest.firstname ~ ' ' ~ conv.userGuest.lastname }}
+                                    {% else %}
+                                        {{conv.userPlanner.firstname ~ ' ' ~ conv.userPlanner.lastname }}
+                                    {% endif %}
+                                    </b>
+                                </p>
+                                <div class="material-icons expand button-display-conv">expand_more</div>
+                            </div>
+                            <div class="message-event-infos">
+                                <p class="message-event-title"><i>{{ conv.party.title }}</i></p>
+                                <p class="message-event-date">{{ conv.party.startingDate | date('d-m-Y') }}</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="message-block-form">
-                        <div class="message-form">
-                            <input type="text">
-                            <a href="{{ path('my_account_send_message', {'authorId': partygoer.id, 'convId': conv.id}) }}" class="btn btn-success send-message">Envoyer</a>
+                    <div class="message-conversation">
+                        <div class="messages">
+                            {# boucler sur une div.message pour display tous les messages #}
+                            {% for message in conv.messages %}
+                                {% if message.author.id == partygoer.id %}
+                                        {% set sidePart = 'author-side' %}
+                                        {% set messagePart = 'author-message' %}
+                                {% else %}
+                                        {% set sidePart = 'recipient-side' %}
+                                        {% set messagePart = 'recipient-message' %}
+                                {% endif %}
+                                    <div class="message {{ sidePart }}">
+                                        <div class="bubble-message {{ messagePart }}">
+                                            <p>{{ message.content }}</p>
+                                            <p class="message-date">{{ message.createdAt | date('d-m-Y H:i')}}</p>
+                                        </div>
+                                    </div>
+                            {% endfor %}
+                        </div>
+                        <div class="message-block-form">
+                            <div class="message-form">
+                                <input type="text">
+                                <a href="{{ path('my_account_send_message', {'authorId': partygoer.id, 'convId': conv.id}) }}" class="btn btn-success send-message">Envoyer</a>
+                            </div>
                         </div>
                     </div>
                 </div>

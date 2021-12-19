@@ -2,9 +2,8 @@
     width: 100%;
     padding: 10px;
     border-radius: 10px;
-    background: $white;
+    background: rgba($black, 0.925);
     box-shadow: $box-shadow;
-    margin: 10px 0;
 }
 
 @mixin section-account-user {

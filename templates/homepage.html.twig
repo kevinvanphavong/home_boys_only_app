@@ -8,6 +8,17 @@
 <div>
     <div class="header-homepage-block">
         <img class="header-homepage-img" src="{{ asset('build/images/hbo-background-header-homepage.jpg') }}" alt=""/>
+        {# <div class="block-icons-arrow">
+            <div class="material-icons arrow-move double-arrow-1">
+                double_arrow
+            </div>
+            <div class="material-icons arrow-move double-arrow-2">
+                double_arrow
+            </div>
+            <div class="material-icons arrow-move double-arrow-3">
+                double_arrow
+            </div>
+        </div> #}
     </div>
 </div>
 
@@ -674,6 +685,31 @@ window.addEventListener('scroll', function() {
 
     enveloppe.style.top = value*0.15 + "px"
 })
+
+
+// ----------- handling animation arrow in header image
+// let arrows = document.querySelectorAll('.block-icons-arrow .material-icons');
+// let navbar = document.querySelector('.navbar-block');
+
+// navbar.style.position = "absolute";
+// navbar.style.zIndex = 100;
+
+// setTimeout(() => {
+//     arrows.forEach(arrow => {
+//         arrow.classList.add('arrow-move');
+//     });
+// }, 200);
+
+// setInterval(() => {    
+//     arrows.forEach(arrow => {
+//         arrow.classList.remove('arrow-move')
+//     });
+//     setTimeout(() => {
+//         arrows.forEach(arrow => {
+//             arrow.classList.add('arrow-move')
+//         });
+//     }, 100);
+// }, 3000);
 </script>
 
 {% endblock %}
