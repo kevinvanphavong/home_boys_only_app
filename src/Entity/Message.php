@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MessageRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,6 +50,12 @@ class Message
      * @ORM\JoinColumn(nullable=false)
      */
     private $conversation;
+
+    public function __construct()
+    {
+        $this->createdAt = new DateTime();
+        $this->sendAt = new DateTime();
+    }
 
     public function getId(): ?int
     {

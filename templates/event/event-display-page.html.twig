@@ -147,8 +147,8 @@
 	<div class="block-creating-message show-off">
 		<form action="">
 			<label for="message">"Qu'est ce que tu veux me dire pelo ?"</label>
-			<textarea name="message"></textarea>
-			<button type="submit">Envoyer</button>
+			<textarea name="message" placeholder="Votre message..."></textarea>
+			<button type="submit" id="submit-message" data-href="{{ path('my_account_create_conversation', {'eventId': event.id, 'authorId': app.user.partygoer.id}) }}">Envoyer</button>
 		</form>
 	</div>
 </div>
@@ -279,10 +279,6 @@
 	let overlaySuccesMessage = document.getElementById('overlay-invitation-request')
 	let overlayContent = document.querySelector('.overlay-invitation-request-content')
 
-
-		console.log(text)
-		console.log(overlaySuccesMessage)
-
 	buttonInvitationRequest.addEventListener('click', function(){
 		fetch(this.dataset.href, {
             method: "POST",
@@ -294,9 +290,6 @@
             return response.json();
         })
 		.then(function(response) {
-			console.log(response.successMessage)
-			console.log(text)
-			console.log(overlaySuccesMessage)
 			setTimeout(() => {				
 				text.innerHTML = response.successMessage
 				overlaySuccesMessage.classList.add("done")
@@ -309,6 +302,49 @@
 				}, 5000);
 			}, 200);
 		})
+	})
+
+	// Handling event : feature to send a message to eventPlanner
+	// will create a conversation or update one if already exist
+	let btnSubmitMessage = document.getElementById('submit-message')
+
+	function createConversation(href, messageContent){
+
+		fetch(href, {
+            method: "POST",
+			body: messageContent,
+            headers: {
+            	'X-Requested-With': "XMLHttpRequest",
+            	'Content-Type': "application/json"
+			},
+		})
+		.then(function(res){
+			return res.json()
+		})
+		.then(function(response){
+			console.log(response)
+			setTimeout(() => {				
+				text.innerHTML = response.successMessage
+				overlaySuccesMessage.classList.add("done")
+				overlayContent.style.display = "block";
+				overlayContent.classList.add(response.backgroundColor);
+				setTimeout(() => {
+					overlaySuccesMessage.classList.remove("done")
+					overlayContent.style.display = "none";
+					overlayContent.classList.remove(response.backgroundColor);
+				}, 5000);
+			}, 200);
+			blockMessage.classList.add('show-off');
+		})
+	}
+
+	btnSubmitMessage.addEventListener('click', function(event){
+		event.preventDefault();
+
+		let href = this.dataset.href
+		let messageContent = this.previousElementSibling.value
+		createConversation(href, messageContent);
+		this.previousElementSibling.value = "";
 	})
 
 </script>

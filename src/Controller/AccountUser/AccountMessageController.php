@@ -3,6 +3,7 @@
 namespace App\Controller\AccountUser;
 
 use App\Entity\Conversation;
+use App\Entity\Event;
 use App\Entity\Message;
 use App\Entity\Partygoer;
 use App\Repository\ConversationRepository;
@@ -92,5 +93,64 @@ class AccountMessageController extends AbstractController
             ]);
         }
 
+    }
+
+    /**
+     * @Route("/create-conversation/event/{eventId}/author/{authorId}", name="_create_conversation", methods={"GET", "POST"})
+     * @ParamConverter("event",    options={"id" = "eventId"})
+     * @ParamConverter("partygoerGuest",    options={"id" = "authorId"})
+     */
+    public function createConversationAndSendMessage(Request $request, Event $event, Partygoer $partygoerGuest, ConversationRepository $convRepo)
+    {
+        // Vérfier la conversation existe deja 
+        // ou sinon la créer
+        $conversation = $convRepo->findOneBy(
+            [
+                'userGuest' => $partygoerGuest->getId(),
+                'userPlanner' => $event->getPlanner()->getId(),
+                'party' => $event->getId()
+            ]
+        );
+
+        $newMessage = new Message();
+        $newMessage->setContent($request->getContent());
+        $newMessage->setAuthor($partygoerGuest);
+        $newMessage->setRecipient($event->getPlanner());
+
+        if($conversation == null) {
+            // créer la nouvelle conversation et le nouveau message
+            $conversation = new Conversation();
+            $conversation->setParty($event);
+            $conversation->setUserGuest($partygoerGuest);
+            $conversation->setUserPlanner($event->getPlanner());
+            $newMessage->setConversation($conversation);
+            $this->getDoctrine()->getManager()->persist($conversation);
+            $this->getDoctrine()->getManager()->persist($newMessage);
+
+            $backgroundColor = 'bg-success';
+            $successMessage =
+            'Une nouvelle conversation a été créé avec ' . $event->getPlanner()->getFirstname() . ' ' . $event->getPlanner()->getLastname() . '.<br>'
+            . "Votre message a bien été envoyé <br>"
+            . "Retrouvez tous vos messages dans votre espace personnel !"
+            ;
+    
+        } else {
+            // créer uniquement le nouveau message si la conv existe deja
+            $newMessage->setConversation($conversation);
+            $this->getDoctrine()->getManager()->persist($newMessage);
+
+            $backgroundColor = 'bg-warning';
+            $successMessage = "Votre message a bien été envoyé à " . $event->getPlanner()->getFirstname() . ' ' . $event->getPlanner()->getLastname() . '.<br>'
+            . "Retrouvez tous vos messages dans votre espace personnel !";
+    
+        }
+        
+        $this->getDoctrine()->getManager()->flush();
+        $newMessage->setConversation($conversation);
+
+        return $this->json([
+            'successMessage'  => $successMessage,
+            'backgroundColor'  => $backgroundColor,
+        ]);
     }
 }
