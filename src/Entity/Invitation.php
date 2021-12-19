@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\InvitationRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -65,12 +66,19 @@ class Invitation
      */
     private $isAccepted;
 
+    public function __construct()
+    {
+        $this->date = new DateTime();
+        $this->lastModified = new DateTime();
+        $this->isAccepted = false;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIsRequest(): ?bool
+    public function isRequest(): ?bool
     {
         return $this->isRequest;
     }
@@ -82,7 +90,7 @@ class Invitation
         return $this;
     }
 
-    public function getIsMaking(): ?bool
+    public function isMaking(): ?bool
     {
         return $this->isMaking;
     }
@@ -166,7 +174,7 @@ class Invitation
         return $this;
     }
 
-    public function getIsAccepted(): ?bool
+    public function isAccepted(): ?bool
     {
         return $this->isAccepted;
     }

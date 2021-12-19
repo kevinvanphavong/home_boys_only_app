@@ -12,51 +12,58 @@
 
 
 {% block body %}
-	<div class="overlay-container">
-		<div class="overlay-close">
-			<button class="overlay-btn-close">X</button>
-		</div>
-		<img src="" alt="" class="overlay-picture">
+<div class="overlay-container">
+	<div class="overlay-close">
+		<button class="overlay-btn-close">X</button>
 	</div>
+	<img src="" alt="" class="overlay-picture">
+</div>
 
-	<header>
-    {% if event.eventCover %}
+<div id="overlay-invitation-request">
+	<div class="overlay-invitation-request-content">
+		<img src="{{ asset('build/images/saying-hi.jpg') }}" alt="">
+		<p id="success-message-display" class="text-light"></p>
+	</div>
+</div>
+
+<header>
+	{% if event.eventCover %}
 		<img class="header-img-bgc" src="{{asset('/uploads/eventCover/' ~ event.eventCover.name)}} " alt="">
-    {% endif %}
-		<div class="section-80 section-header-title">
-			<h1>{{event.title }}
-			{% if app.user %}
-				<a href="{{ path('event-set-to-favlist', {id: event.id}) }}" class="material-icons btn-favlist">
-					{{ (app.user.partygoer.checkPartyInFavlist(event)) ? 'favorite' : 'favorite_border'}}
-				</a>
-			{% endif %}
-			</h1>
-			<p>
-				Etoile (Moyenne) -
-				{{event.planner.firstname ~ ' ' ~ event.planner.lastname }}
-				-
-				{{event.country ~ ', ' ~ event.city}}
-			</p>
-		</div>
-	</header>
-
-	<div class="section-event-images section-80">
-		<div class="grid-container">
-		{% if (event.eventPictures | length) == 0 %}
-			{% for i in 1..5 %}				
-				<div class="grid-item grid-item-{{ loop.index }}">
-					
-				</div>
-			{% endfor %}
-		{% else %}
-			{% for picture in event.eventPictures %}
-				<div class="grid-item grid-item-{{ loop.index }}">
-					<img src="{{asset('/uploads/eventPictures/' ~ picture.name) }}" alt="">
-				</div>
-			{% endfor %}
+	{% endif %}
+	<div class="section-80 section-header-title">
+		<h1>{{event.title }}
+		{% if app.user %}
+			<a href="{{ path('event-set-to-favlist', {id: event.id}) }}" class="material-icons btn-favlist">
+				{{ (app.user.partygoer.checkPartyInFavlist(event)) ? 'favorite' : 'favorite_border'}}
+			</a>
 		{% endif %}
-		</div>
+		</h1>
+		<p>
+			Etoile (Moyenne) -
+			{{event.planner.firstname ~ ' ' ~ event.planner.lastname }}
+			-
+			{{event.country ~ ', ' ~ event.city}}
+		</p>
 	</div>
+</header>
+
+<div class="section-event-images section-80">
+	<div class="grid-container">
+	{% if (event.eventPictures | length) == 0 %}
+		{% for i in 1..5 %}				
+			<div class="grid-item grid-item-{{ loop.index }}">
+				
+			</div>
+		{% endfor %}
+	{% else %}
+		{% for picture in event.eventPictures %}
+			<div class="grid-item grid-item-{{ loop.index }}">
+				<img src="{{asset('/uploads/eventPictures/' ~ picture.name) }}" alt="">
+			</div>
+		{% endfor %}
+	{% endif %}
+	</div>
+</div>
 
 <div class="section-separator"></div>
 
@@ -116,6 +123,7 @@
 		</div>
 	</div>
 </div>
+
 <div class="section-80">
 	<div class="section-group-buttons">
 		<div>
@@ -125,7 +133,7 @@
 		{% if event.planner.id is same as app.user.partygoer.id %}
 			<div class="pointer-event-none">
 		{% else %}
-			<div>
+			<div id="btn-invitation-request" data-href="{{ path('send_invitation_request', {'eventId': event.id, 'partygoerGuestId': app.user.partygoer.id}) }}">
 		{% endif %}
 				<span class="material-icons">send</span>
 				<span>Demande d'invitation</span>
@@ -265,6 +273,43 @@
 		}
 	})
 
+	// 
+	let buttonInvitationRequest = document.getElementById('btn-invitation-request');
+	let text = document.getElementById('success-message-display');
+	let overlaySuccesMessage = document.getElementById('overlay-invitation-request')
+	let overlayContent = document.querySelector('.overlay-invitation-request-content')
+
+
+		console.log(text)
+		console.log(overlaySuccesMessage)
+
+	buttonInvitationRequest.addEventListener('click', function(){
+		fetch(this.dataset.href, {
+            method: "POST",
+            headers: {
+            'X-Requested-With': "XMLHttpRequest",
+            'Content-Type': "application/json" 
+        }})
+        .then(function(response) {
+            return response.json();
+        })
+		.then(function(response) {
+			console.log(response.successMessage)
+			console.log(text)
+			console.log(overlaySuccesMessage)
+			setTimeout(() => {				
+				text.innerHTML = response.successMessage
+				overlaySuccesMessage.classList.add("done")
+				overlayContent.style.display = "block";
+				overlayContent.classList.add(response.backgroundColor);
+				setTimeout(() => {
+					overlaySuccesMessage.classList.remove("done")
+					overlayContent.style.display = "none";
+					overlayContent.classList.remove(response.backgroundColor);
+				}, 5000);
+			}, 200);
+		})
+	})
 
 </script>
 {% endblock %}
