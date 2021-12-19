@@ -43,7 +43,7 @@ class AccountMessageController extends AbstractController
         $convs = $conversationRepository->findAllTheConversation($partygoer);
 
         $arrayPathFolder = explode('/', $this->getParameter('profile_pictures'));
-        $publicFolderProfilePicture = $arrayPathFolder[count($arrayPathFolder) - 2] . '/' . $arrayPathFolder[count($arrayPathFolder) - 1]; 
+        $publicFolderProfilePicture = $arrayPathFolder[count($arrayPathFolder) - 2] . '/' . $arrayPathFolder[count($arrayPathFolder) - 1];
 
         return $this->render('account_user/direct-messages.html.twig', [
             'convs' => $convs,
@@ -61,13 +61,13 @@ class AccountMessageController extends AbstractController
     {
         $messageContent = $request->getContent();
 
-        if($conversation->getUserGuest() == $author){
+        if ($conversation->getUserGuest() == $author) {
             $recipient = $conversation->getUserPlanner();
         } else {
             $recipient = $conversation->getUserGuest();
         }
-        
-        if($request && $messageContent){
+
+        if ($request && $messageContent) {
             $dateTime = new DateTime();
             $message = new Message();
             $message->setAuthor($author);
@@ -92,7 +92,6 @@ class AccountMessageController extends AbstractController
                 '500' => "La requête n'a pas été récupéré",
             ]);
         }
-
     }
 
     /**
@@ -112,45 +111,47 @@ class AccountMessageController extends AbstractController
             ]
         );
 
+        if ($conversation == null) {
+            // créer la nouvelle conversation
+            $conversation = $this->createFirstConversation($event, $partygoerGuest);
+
+            $backgroundColor = 'bg-success';
+            $successMessage =
+                'Une nouvelle conversation a été créé avec ' . $event->getPlanner()->getFirstname() . ' ' . $event->getPlanner()->getLastname() . '.<br>'
+                . "Votre message a bien été envoyé <br>"
+                . "Retrouvez tous vos messages dans votre espace personnel !";
+        } else {
+            $backgroundColor = 'bg-warning';
+            $successMessage = "Votre message a bien été envoyé à " . $event->getPlanner()->getFirstname() . ' ' . $event->getPlanner()->getLastname() . '.<br>'
+                . "Retrouvez tous vos messages dans votre espace personnel !";
+        }
+
         $newMessage = new Message();
         $newMessage->setContent($request->getContent());
         $newMessage->setAuthor($partygoerGuest);
         $newMessage->setRecipient($event->getPlanner());
+        $conversation->addMessage($newMessage);
+        $conversation->setLastMessageDate();
 
-        if($conversation == null) {
-            // créer la nouvelle conversation et le nouveau message
-            $conversation = new Conversation();
-            $conversation->setParty($event);
-            $conversation->setUserGuest($partygoerGuest);
-            $conversation->setUserPlanner($event->getPlanner());
-            $newMessage->setConversation($conversation);
-            $this->getDoctrine()->getManager()->persist($conversation);
-            $this->getDoctrine()->getManager()->persist($newMessage);
-
-            $backgroundColor = 'bg-success';
-            $successMessage =
-            'Une nouvelle conversation a été créé avec ' . $event->getPlanner()->getFirstname() . ' ' . $event->getPlanner()->getLastname() . '.<br>'
-            . "Votre message a bien été envoyé <br>"
-            . "Retrouvez tous vos messages dans votre espace personnel !"
-            ;
-    
-        } else {
-            // créer uniquement le nouveau message si la conv existe deja
-            $newMessage->setConversation($conversation);
-            $this->getDoctrine()->getManager()->persist($newMessage);
-
-            $backgroundColor = 'bg-warning';
-            $successMessage = "Votre message a bien été envoyé à " . $event->getPlanner()->getFirstname() . ' ' . $event->getPlanner()->getLastname() . '.<br>'
-            . "Retrouvez tous vos messages dans votre espace personnel !";
-    
-        }
-        
+        $this->getDoctrine()->getManager()->persist($newMessage);
         $this->getDoctrine()->getManager()->flush();
-        $newMessage->setConversation($conversation);
 
         return $this->json([
             'successMessage'  => $successMessage,
             'backgroundColor'  => $backgroundColor,
         ]);
+    }
+
+    public function createFirstConversation($event, $partygoerGuest)
+    {
+        $conversation = new Conversation();
+        $conversation->setParty($event);
+        $conversation->setUserGuest($partygoerGuest);
+        $conversation->setUserPlanner($event->getPlanner());
+
+        $this->getDoctrine()->getManager()->persist($conversation);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $conversation;
     }
 }

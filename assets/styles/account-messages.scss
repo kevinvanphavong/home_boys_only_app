@@ -49,6 +49,13 @@
 .message-event-infos {
     display: flex;
     justify-content: space-between;
+    .message-event-title {
+        transform: skewX(-15deg);
+        padding: 5px 10px;
+        background: $white;
+        color: $black;
+        border-radius: 5px;
+    }
 }
 
 .messages {
@@ -84,6 +91,7 @@
 }
 
 .expand {
+    font-size: 30px;
     align-self: start;
     border-radius: 50%;
     color: $black;

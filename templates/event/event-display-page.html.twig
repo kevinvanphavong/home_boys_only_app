@@ -334,7 +334,6 @@
 					overlayContent.classList.remove(response.backgroundColor);
 				}, 5000);
 			}, 200);
-			blockMessage.classList.add('show-off');
 		})
 	}
 
@@ -344,6 +343,7 @@
 		let href = this.dataset.href
 		let messageContent = this.previousElementSibling.value
 		createConversation(href, messageContent);
+		blockMessage.classList.add('show-off');
 		this.previousElementSibling.value = "";
 	})
 

@@ -28,6 +28,7 @@ class ConversationRepository extends ServiceEntityRepository
             ->where('c.userPlanner = :id')
             ->orWhere('c.userGuest = :id')
             ->setParameter('id', $id)
+            ->orderBy('c.lastMessageDate', 'DESC')
             ->getQuery()
             ->getResult();
     }

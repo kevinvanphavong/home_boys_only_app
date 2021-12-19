@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ConversationRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -41,6 +42,11 @@ class Conversation
      * @ORM\OneToMany(targetEntity=Message::class, mappedBy="conversation")
      */
     private $messages;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastMessageDate;
 
     public function __construct()
     {
@@ -114,6 +120,18 @@ class Conversation
                 $message->setConversation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLastMessageDate(): ?\DateTimeInterface
+    {
+        return $this->lastMessageDate;
+    }
+
+    public function setLastMessageDate(): ?self
+    {
+        $this->lastMessageDate = new DateTime();
 
         return $this;
     }
