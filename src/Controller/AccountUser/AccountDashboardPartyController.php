@@ -3,6 +3,7 @@
 namespace App\Controller\AccountUser;
 
 use App\Repository\CommentRepository;
+use App\Repository\InvitationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,7 +16,7 @@ class AccountDashboardPartyController extends AbstractController
     /**
      * @Route("/dashboard-parties", name="_dashboard_parties")
      */
-    public function getDashboardPartyPage(CommentRepository $commentRepository): Response
+    public function getDashboardPartyPage(CommentRepository $commentRepository, InvitationRepository $invitationRepository): Response
     {
         $partygoer = $this->getUser()->getPartygoer();
 
@@ -26,6 +27,13 @@ class AccountDashboardPartyController extends AbstractController
 
         $parties = $partygoer->getCreatedEvents();
         $comments = $commentRepository->findAllCommentsOnMyParties($partygoer);
+        $invitations = $invitationRepository->findBy(
+            [
+                'isMaking' => false,
+                'isRequest' => true,
+                'partygoerEventPlanner' => $partygoer,
+            ]
+        );
 
         $arrayPathFolder = explode('/', $this->getParameter('profile_pictures'));
         $publicFolderProfilePicture = $arrayPathFolder[count($arrayPathFolder) - 2] . '/' . $arrayPathFolder[count($arrayPathFolder) - 1];
@@ -36,6 +44,7 @@ class AccountDashboardPartyController extends AbstractController
         return $this->render('account_user/dashboard-parties.html.twig', [
             'parties'   =>  $parties,
             'comments'   =>  $comments,
+            'invitations'   =>  $invitations,
             'partygoer'   =>  $partygoer,
             'publicFolderProfilePicture'   =>  $publicFolderProfilePicture,
             'publicFolderEventCover'   =>  $publicFolderEventCover,

@@ -1,4 +1,9 @@
 @import 'app.scss';
+@import 'mixins.scss';
+
+.section-separator {
+   @include separator;
+}
 
 @keyframes light {
     0% {
@@ -45,6 +50,8 @@ h2 + p {
 .header-homepage-block {
     width: 100%;
     position: relative;
+    overflow: hidden;
+    background-color: $black;
 }
 
 .header-homepage-block .header-homepage-img {
@@ -52,97 +59,27 @@ h2 + p {
     height: 500px;
     object-fit: cover;
     filter: grayscale(0.85) brightness(0.85);
+    transform: scale(1);
     box-shadow: $box-shadow;
-    animation-name: light;
-    animation-duration: 15s;
-    animation-iteration-count: infinite;
+    animation: scaling 10s ease-in 0s infinite, light 15s ease-in 0s infinite;
 }
 
-// .block-icons-arrow {
-//     position: absolute;
-//     top: 0;
-//     bottom: 0;
-//     width: 100%;
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: flex-end;
-//     align-items: center;
-//     margin: 0 0 50px 0;
-// }
-
-// .block-icons-arrow .material-icons {
-//     transform: rotate(90deg) translateY(0px);
-//     color: rgba(255, 255, 255, 0.6);
-//     font-size: 80px;
-//     opacity: 0.75;
-//     animation-timing-function: linear;
-// }
-
-// @keyframes arrow1move {
-//     0% {
-//         opacity: 0.75;
-//         transform: rotate(90deg) translateX(0px);
-//     }
-//     15% {
-//         opacity: 0.5;
-//         transform: rotate(90deg) translateX(40px);
-//     }
-//     70% {
-//         opacity: 0.75;
-//         transform: rotate(90deg) translateX(40px);
-//     }
-//     100% {
-//         opacity: 0.75;
-//         transform: rotate(90deg) translateX(0px);
-//     }
-// }
-// @keyframes arrow2move {
-//     0% {
-//         opacity: 0.75;
-//         transform: rotate(90deg) translateX(0px);
-//     }
-//     25% {
-//         opacity: 0.25;
-//         transform: rotate(90deg) translateX(40px);
-//     }
-//     75% {
-//         opacity: 0.25;
-//         transform: rotate(90deg) translateX(40px);
-//     }
-//     100% {
-//         opacity: 0.75;
-//         transform: rotate(90deg) translateX(0px);
-//     }
-// }
-// @keyframes arrow3move {
-//     0% {
-//         opacity: 0.75;
-//         transform: rotate(90deg) translateX(0px);
-//     }
-//     50% {
-//         opacity: 0.25;
-//         transform: rotate(90deg) translateX(40px);
-//     }
-//     100% {
-//         opacity: 0.75;
-//         transform: rotate(90deg) translateX(0px);
-//     }
-// }
-
-.block-icons-arrow .material-icons.double-arrow-1.arrow-move {
-    animation-name: arrow1move;
-    animation-duration: 2.8s;
-    animation-delay: 0s;
-}
-.block-icons-arrow .material-icons.double-arrow-2.arrow-move {
-    animation-name: arrow2move;
-    animation-duration: 1.8s;
-    animation-delay: 0.35s;
-}
-.block-icons-arrow .material-icons.double-arrow-3.arrow-move {
-    animation-name: arrow3move;
-    animation-duration: 1s;
-    animation-delay: 0.7s;
+@keyframes scaling {
+    from {
+        transform: scale(1.01);
+    }
+    10% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(1.01);
+    }
+    75%{
+        transform: scale(1.15);
+    }
+    to {
+        transform: scale(1.01);
+    }
 }
 
 .block-upcoming-event-card,

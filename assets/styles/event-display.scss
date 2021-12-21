@@ -155,13 +155,7 @@ h1 + p {
 }
 
 .section-separator {
-    width: 50%;
-    height: 6px;
-    background: $white;
-    border-radius: $radius;
-    border: $border-1;
-    box-shadow: $box-shadow;
-    margin: 50px auto;
+   @include separator;
 }
 
 

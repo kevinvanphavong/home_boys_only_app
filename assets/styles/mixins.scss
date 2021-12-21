@@ -73,3 +73,13 @@
     margin: 0px 0px 10px 5px;
     text-decoration: underline rgba($black, 0.25);
 }
+
+@mixin separator {
+    width: 50%;
+    height: 6px;
+    background: $white;
+    border-radius: $radius;
+    border: $border-1;
+    box-shadow: $box-shadow;
+    margin: 50px auto;
+}

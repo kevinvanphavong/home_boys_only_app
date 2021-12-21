@@ -41,9 +41,6 @@ class InvitationController extends AbstractController
                 'backgroundColor' => 'bg-danger'
             ]);
         } else {
-
-            // if ($request->attributes->get('event') === $event && $request->attributes->get('partygoerGuest') === $partygoerGuest) {
-
             $messageContent =
                 $partygoerGuest->getFirstname() . ' ' . $partygoerGuest->getLastname()
                 . " vous a envoyé une demande d'invitation pour la soirée  : "
@@ -70,6 +67,24 @@ class InvitationController extends AbstractController
             return $this->json([
                 'successMessage' => $successMessage,
                 'backgroundColor' => 'bg-success'
+            ]);
+        }
+    }
+
+    /**
+     * @Route("/invitation/{invitId}/settings/acceptation", name="invit_set_acceptation", methods={"GET", "POST"})
+     * @ParamConverter("invitation", options={"id" = "invitId"})
+     */
+    public function setCommentVisiblity(Invitation $invitation)
+    {
+        if ($this->getUser()->getPartygoer() === $invitation->getPartygoerEventPlanner()) {
+
+            $invitation->setIsAccepted(!$invitation->isAccepted());
+
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->json([
+                'acceptation' => $invitation->isAccepted()
             ]);
         }
     }

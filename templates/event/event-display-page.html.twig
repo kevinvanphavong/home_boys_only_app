@@ -73,7 +73,11 @@
 	<div class="section-event-planner-blocks">
 		<div class="event-planner-infos event-planner-infos-1">
 			<div class="event-planner-infos-primary">
+			{% if event.planner.profileImage %}
+				<img src="{{asset('/uploads/profilePicture/partygoer_id_' ~ event.planner.id ~ '/' ~ event.planner.profileImage.name) }}" alt="" class="event-planner-picture-profile">
+			{% else %}
 				<img src="{{asset('/build/images/thumbnail-profile.jpg') }}" alt="" class="event-planner-picture-profile">
+			{% endif %}
 				<div>
 					<h5>{{ event.planner.firstname ~ ' ' ~ event.planner.lastname }}</h5>
 				</div>

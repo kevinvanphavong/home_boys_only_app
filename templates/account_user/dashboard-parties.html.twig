@@ -12,16 +12,16 @@
 
 {% block body %}
 <section class="body-container">
-	<section class="section-80 header">
-		<h1>MES SOIRÉES À ORGANISER</h1>
-		<br>
-		<p>Vous pouvez consulter vos différentes conversations ici :</p>
-		<ul>
-			<li>- avec les organisateurs des soirées</li>
-			<li>- avec les invités qui souhaitent venir à votre soirée !</li>
-		</ul>
+    <section class="section-80 header">
+        <h1>MES SOIRÉES À ORGANISER</h1>
+        <br>
+        <p>Vous pouvez consulter vos différentes conversations ici :</p>
+        <ul>
+            <li>- avec les organisateurs des soirées</li>
+            <li>- avec les invités qui souhaitent venir à votre soirée !</li>
+        </ul>
         <p>{{ partygoer.firstname ~ ' ' ~ partygoer.lastname ~ ' id:' ~ partygoer.id }}</p>
-	</section>
+    </section>
 
     <section class="dashboard-section">
         <hr>
@@ -81,12 +81,9 @@
                         <h5>{{ comment.event.title }}</h5>
                         <p>{{ comment.content }}</p>
                         <div class="comment-visibility">
-                            {# <label class="form-check-label" for="tt">
-                                État : {{ comment.isVisible ? 'Visible' : 'Masqué' }}
-                            </label> #}
                             <div class="form-switch">
                                 <span>Masqué</span>
-                                <input class="form-check-input btn-comment-set-visibility" {{ comment.isVisible ? 'checked' }} type="checkbox" id="tt" data-href="{{ path('comment-set-visibility', {'commentId': comment.id}) }}">
+                                <input class="form-check-input btn-comment-set-visibility" {{ comment.isVisible ? 'checked' }} type="checkbox" data-href="{{ path('comment-set-visibility', {'commentId': comment.id}) }}">
                                 <span>Visible</span>
                             </div>
                         </div>
@@ -97,11 +94,37 @@
             {% endfor %}
         </div>
 
-        <div data-ref="invits" class="section-dashboard dashboard-sub-section section-my-invits"></div>
-
+        <div data-ref="invits" class="section-dashboard dashboard-sub-section section-my-invits">
+            {% for invit in invitations %}
+                <div class="invitation">
+                    <div class="invit-block-partygoer">
+                        {% if invit.partygoerGuest.profileImage %}
+                            <img class="invit-partygoer-profile-picture" src="{{ asset( publicFolderProfilePicture ~ '/partygoer_id_' ~ invit.partygoerGuest.id ~ '/' ~ invit.partygoerGuest.profileImage.name ) }}" alt="">
+                        {% else %}
+                            <img class="invit-partygoer-profile-picture" src="{{ asset('build/images/thumbnail-profile.jpg') }}" alt="">
+                        {% endif %}
+                        <p>{{ invit.partygoerGuest.firstname ~ ' ' ~ invit.partygoerGuest.lastname }}</p>
+                    </div>
+                    <div class="invit-block-content">
+                        <div class="invit-block-infos">
+                            <p>Demande d'invitation pour :</p>
+                            <b>
+                                <p>{{ invit.event.title }}</p>
+                            </b>
+                        </div>
+                        <a href="#" class="btn btn-warning">Voir profil</a>
+                        <div class="invit-block-acceptation">
+                            <div class="form-switch">
+                                <label for="acceptation{{ invit.id }}">Refusé</label>
+                                <input name="acceptation{{ invit.id }}" id="acceptation{{ invit.id }}" class="form-check-input btn-invit-set-acceptation" {{ invit.isAccepted ? 'checked' }} type="checkbox" data-href="{{ path('invit_set_acceptation', {'invitId': invit.id}) }}">
+                                <label for="acceptation{{ invit.id }}">Accepté</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </section>
-
-
 </section>
 {% endblock %}
 
@@ -234,6 +257,37 @@
                     setCommentVisibility(button);
                 })
             });  
+        {% endblock %}
+        {% block JavascriptMyInvits %}
+            let buttonsInvitAcceptation = document.querySelectorAll('.btn-invit-set-acceptation')
+
+            function setInvitAcceptation(button) {
+                fetch(button.dataset.href, {
+                    method: "POST",
+                    headers: {
+                    'X-Requested-With': "XMLHttpRequest",
+                    'Content-Type': "application/json" 
+                }
+                })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(response) {
+                    if(response.acceptation == true){
+                        button.checked = true;
+                    } else {
+                        button.checked = false;
+                    }
+                })
+            }
+            
+            buttonsInvitAcceptation.forEach(button => {
+                button.addEventListener('click', function(event){
+                    event.preventDefault();
+
+                    setInvitAcceptation(button);
+                })
+            });
         {% endblock %}
     </script>
 {% endblock %}

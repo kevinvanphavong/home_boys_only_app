@@ -1,0 +1,42 @@
+.section-dashboard-active.section-my-invits {
+    margin: 20px 0 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 5%;
+    justify-content: center;
+}
+
+.invitation {
+    padding: 40px;
+    background: $background-card;
+    color: $white;
+    box-shadow: $box-shadow;
+    border-radius: $radius;
+    width: max-content;
+    min-height: 250px;
+    display: flex;
+    grid-column-gap: 20px;
+}
+
+.invit-block-partygoer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    grid-row-gap: 10px;
+    .invit-partygoer-profile-picture {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: $box-shadow;
+    }
+}
+
+.invit-block-content {
+    height: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
