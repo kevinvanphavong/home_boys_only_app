@@ -287,8 +287,101 @@ span.material-icons {
 }
 
 
-/* ----- section event complements */
+// ------ section comments
 
+.comment-card {
+    @include account-user-party-card;
+    background: $white;
+
+    img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: $border-3;
+        box-shadow: $box-shadow;
+    }
+}
+
+.section-block-comments {
+    display: flex;
+    flex-direction: column;
+    grid-row-gap: 20px;
+    min-height: 400px;
+    width: 100%;
+    background: linear-gradient(red, orange);
+    padding: 50px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.section-comments {
+    display: flex;
+    overflow-x: scroll;
+    grid-column-gap: 50px;
+}
+.comment-card {
+    @include account-user-party-card;
+    display: flex;
+    flex-direction: column;
+    grid-row-gap: 20px;
+    justify-content: space-around;
+    align-items: center;
+    padding: 50px;
+    min-width: 400px;
+    background: $white;
+
+    img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: $border-3;
+        box-shadow: $box-shadow;
+    }
+}
+.comment-content {
+    margin: 20px 0 0 0;
+    height: 200px;
+    overflow-y: scroll;
+}
+.section-block-comments h4 {
+    color: whitesmoke;
+}
+.toggle-comment-button {
+	cursor: pointer;
+	color: whitesmoke;
+	width: max-content;
+    align-self: center;
+    &.toggle-active {
+        transform: rotate(90deg);
+    }
+}
+.title-block-send-comment {
+    display: flex;
+    grid-column-gap: 20px;
+}
+.hide-send-comment {
+	height: 0px;
+	overflow: hidden;
+}
+.form-section-comment {
+    display: flex;
+    flex-direction: column;
+    button {
+        box-shadow: 2px 2px 4px rgba(0,0,0,0.25);
+    }
+}
+.input-section-comment {
+    width: 100%;
+    min-height: 300px;
+    padding: 20px;
+    border: 0;
+    margin: 0 auto 10px;
+    border-radius: 30px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.25);
+}
+
+
+/* ----- section event complements */
 .block-event-complements-included,
 .block-event-complements-to-bring {
     width: 100%;
@@ -299,9 +392,8 @@ span.material-icons {
 .block-event-complements-included .event-complement-included,
 .block-event-complements-to-bring .event-complement-to-bring {
     text-align: center;
-    width: 200px;
     height: auto;
-    margin: 10px 0px;
+    margin: 10px 20px;
 }
 
 .block-event-complements-included .event-complement-included .material-icons,
@@ -344,5 +436,12 @@ span.material-icons {
     .section-group-buttons div {
         width: 80%;
         justify-content: space-between;
+    }
+    .section-block-comments {
+        padding: 20px;
+    }
+    .comment-card {
+        padding: 20px;
+        min-width: 300px;
     }
 }

@@ -23,7 +23,11 @@
 				{{ (app.user.partygoer.checkPartyInFavlist(party)) ? 'favorite' : 'favorite_border'}}
 			</a>
 
-			<img src="{{ asset(publicFolderEventCover ~ '/' ~ party.eventCover.name) }}" alt="">
+			{% if party.eventCover %}
+				<img src="{{ asset(publicFolderEventCover ~ '/' ~ party.eventCover.name) }}" alt="">
+			{% else %}
+				<img src="{{ asset('build/images/thumbnail-profile.jpg') }}" alt="">
+			{% endif %}
 		</div>
 
 		<div class="fav-party-price">

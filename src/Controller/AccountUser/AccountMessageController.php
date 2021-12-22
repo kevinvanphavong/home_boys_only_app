@@ -137,7 +137,7 @@ class AccountMessageController extends AbstractController
         $this->getDoctrine()->getManager()->flush();
 
         return $this->json([
-            'successMessage'  => $successMessage,
+            'messageContent'  => $successMessage,
             'backgroundColor'  => $backgroundColor,
         ]);
     }

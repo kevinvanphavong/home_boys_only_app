@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CommentRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,6 +44,11 @@ class Comment
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $visible;
+
+    public function __construct(){
+        $this->date = new DateTime();
+        $this->visible = true;
+    }
 
     public function getId(): ?int
     {

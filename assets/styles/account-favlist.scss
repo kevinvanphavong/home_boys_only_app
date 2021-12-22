@@ -8,16 +8,17 @@
 
 .section-favlist-party {
     @include section-account-user;
-    display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    grid-column-gap: 10px;
+    padding: 0 50px;
     overflow-x: scroll;
-    width: 80%;
-    margin: 0 auto;
+    width: 100%;
     box-shadow: inset 4px 0px 10px rgba($black, 0.25), inset -4px 0px 10px rgba($black, 0.25);
 }
 .fav-party {
     @include account-user-party-card;
+    max-width: 300px;
 }
 .fav-party:active {
     box-shadow: $box-shadow;
@@ -47,6 +48,7 @@
 .fav-party-block-img img {
     @include party-img-in-card;
     filter: hue-rotate(10deg);
+    height: 200px;
 }
 .fav-party-price {
     box-shadow: $box-shadow;

@@ -37,7 +37,7 @@ class InvitationController extends AbstractController
                 . " vous donnera une réponse au plus vite ;)";
 
             return $this->json([
-                'successMessage' => $successMessage,
+                'messageContent' => $successMessage,
                 'backgroundColor' => 'bg-danger'
             ]);
         } else {
@@ -65,7 +65,7 @@ class InvitationController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             return $this->json([
-                'successMessage' => $successMessage,
+                'messageContent' => $successMessage,
                 'backgroundColor' => 'bg-success'
             ]);
         }

@@ -19,6 +19,7 @@ class HomepageController extends AbstractController
         for ($i=0; $i < 4; $i++) {
             $upcomingEvents[$i + 1] = $events->findBy([], [], 5, 5*$i);
         }
+
         return $this->render('homepage.html.twig', [
             'upcomingEvents1' => $upcomingEvents[1],
             'upcomingEvents2' => $upcomingEvents[2],
