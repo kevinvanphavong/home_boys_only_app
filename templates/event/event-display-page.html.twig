@@ -133,10 +133,10 @@
 			<span class="material-icons">account_circle</span>
 			<span>Profil</span>
 		</div>
-		{% if event.planner.id is same as app.user.partygoer.id %}
-			<div class="pointer-event-none">
-		{% else %}
+		{% if app.user.partygoer.id %}
 			<div id="btn-invitation-request" data-href="{{ path('send_invitation_request', {'eventId': event.id, 'partygoerGuestId': app.user.partygoer.id}) }}">
+		{% else %}
+			<div class="pointer-event-none">
 		{% endif %}
 				<span class="material-icons">send</span>
 				<span>Demande d'invitation</span>
@@ -185,7 +185,7 @@
 		</div>
 
 		<div class="form-section-comment hide-send-comment">
-			<textarea name="section-comment" id="section-comment" class="input-section-comment"></textarea>
+			<textarea name="section-comment" id="section-comment" class="input-section-comment" placeholder="Ecris ton commentaire ou ton numéro si t'as envie de retrouver le gars ou la fille que t'as croisé ;)"></textarea>
 			<button data-href="{{ path('my_account_send_comment', {'eventId': event.id, 'authorId': app.user.partygoer.id })}}" for="section-comment" class=" btn btn-success">Envoyer</button>
 		</div>
 

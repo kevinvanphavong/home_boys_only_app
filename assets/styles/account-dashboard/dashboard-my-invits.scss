@@ -2,13 +2,17 @@
     margin: 20px 0 0 0;
     display: flex;
     flex-wrap: wrap;
-    grid-gap: 5%;
+    grid-gap: 20px;
     justify-content: center;
+}
+
+.invitation-card-background {
+    @include background-shadow-gradient-colors;
 }
 
 .invitation {
     padding: 40px;
-    background: $background-card;
+    background: rgba($black, 0.8);
     color: $white;
     box-shadow: $box-shadow;
     border-radius: $radius;

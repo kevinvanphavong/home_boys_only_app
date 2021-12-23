@@ -32,6 +32,7 @@ class DashboardPartyService
             $arrayEventTitleComment[$comment->getEvent()->getId()] = [
                 'title' => $comment->getEvent()->getTitle(),
                 'id' => $comment->getEvent()->getId(),
+                'startingDate' => $comment->getEvent()->getStartingDate(),
             ];
         }
 

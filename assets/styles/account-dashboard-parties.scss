@@ -1,45 +1,44 @@
-@import 'app.scss';
-@import 'mixins.scss';
+@import "app.scss";
+@import "mixins.scss";
 
 .header h1 {
-    letter-spacing: 5px;
-    text-align: center;
+  letter-spacing: 5px;
+  text-align: center;
 }
 .dashboard-section {
-    @include section-account-user;
+  @include section-account-user;
 }
 
 .menu-dashboard-btn {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .menu-dashboard-btn .btn-dashboard {
-    padding: 10px 20px;
-    width: 100%;
-    text-align: center;
-    transition: 0.3s box-shadow;
-} 
+  padding: 10px 20px;
+  width: 100%;
+  text-align: center;
+  transition: 0.3s box-shadow;
+}
 
 .menu-dashboard-btn .btn-dashboard:not(:last-child) {
-    border-right: 1px solid $border-color;
+  border-right: 1px solid $border-color;
 }
 
 .btn-dashboard-active {
-    background: -webkit-linear-gradient(180deg, $primary-orange, $primary-red);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  background: -webkit-linear-gradient(180deg, $primary-orange, $primary-red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .section-dashboard {
-    display: none;
+  display: none;
 }
 
 .section-dashboard-active {
-    display: block;
+  display: block;
 }
 
-$background-card: linear-gradient(350deg, $primary-red-tr, $primary-orange-tr);
-@import 'account-dashboard/dashboard-my-parties.scss';
-@import 'account-dashboard/dashboard-my-comments.scss';
-@import 'account-dashboard/dashboard-my-invits.scss';
+@import "account-dashboard/dashboard-my-parties.scss";
+@import "account-dashboard/dashboard-my-comments.scss";
+@import "account-dashboard/dashboard-my-invits.scss";

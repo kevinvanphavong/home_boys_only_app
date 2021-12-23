@@ -33,7 +33,6 @@
         <hr>
 
         <div data-ref="parties" class="section-dashboard dashboard-sub-section section-my-parties">
-
             {% for date in arrayDatesFromEvents %}
                 <br>
                 <h4 class="event-date-group">{{ date|date('M Y') }}</h4>
@@ -73,19 +72,18 @@
             {% endfor %}
         </div>
 
-        <style>
-
-
-        </style>
-
-        <div data-ref="comments" class="section-dashboard-active section-dashboard dashboard-sub-section section-my-comments">
-            
+        <div data-ref="comments" class="section-dashboard-active section-dashboard dashboard-sub-section section-my-comments">     
             {% for item in arrayEventTitleFromComments %}
                 <br>
-                <h4 class="comment-title-group">{{ item.title }}</h4>
+                <div class="block-comment-header">
+                    <h4 class="comment-title-group">{{ item.title }}</h4>
+                    <p>{{ item.startingDate|date('d-m-Y') }}</p>
+                </div>
+
                 <div class="block-comment-by-title">
                     {% for comment in comments %}
                         {% if comment.event.id == item.id  %}
+                        <div class="comment-card-background">
                             <div class="comment">
 
                                 <div class="comment-block-author">
@@ -110,6 +108,7 @@
                                 </div>
 
                             </div>
+                        </div>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -119,6 +118,7 @@
 
         <div data-ref="invits" class="section-dashboard dashboard-sub-section section-my-invits">
             {% for invit in invitations %}
+            <div class="invitation-card-background">
                 <div class="invitation">
                     <div class="invit-block-partygoer">
                         {% if invit.partygoerGuest.profileImage %}
@@ -145,6 +145,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             {% endfor %}
         </div>
     </section>
