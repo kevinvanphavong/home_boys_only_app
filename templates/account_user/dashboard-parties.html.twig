@@ -33,62 +33,85 @@
         <hr>
 
         <div data-ref="parties" class="section-dashboard dashboard-sub-section section-my-parties">
-            {% for party in parties %}
-                <div class="event-card">
-                    {% if party.eventCover is not null %}
-                        <img class="card-cover-background" src="{{ asset( publicFolderEventCover ~ '/' ~ party.eventCover.name) }}" alt="">
-                    {% else %}
-                        <div class="card-cover-background background-gradient" src="" alt="background-gradient"></div>
-                    {% endif %}
-                    <div class="half-card half-top-card">
-                        <h5>{{ party.title }}</h5>
-                        <h5>{{ party.startingDate|date('d M Y')}}</h5>
-                    </div>
-                    <div class="half-card half-bottom-card">
-                        <a href="{{ path('display-event', {'id': party.id, 'title':party.title }) }}">Voir</a>
-                        <a href="{{ path('edit-event', {'id': party.id, 'title': party.title }) }}">Modifier</a>
-                        {% if party.isVisible and party.isCanceled == false %}
-                            <a class="btn-event-set-visibility btn-success" href="{{ path('event-set-visibility', {'eventId': party.id}) }}">Visible</a>
-                        {% else %}
-                            <a class="btn-event-set-visibility btn-danger {{ party.isCanceled ? 'btn-event-set-cancellation-on' }}" href="{{ path('event-set-visibility', {'eventId': party.id}) }}">Masqué</a>
-                        {% endif %}
 
-                        {% if party.isCanceled %}
-                            <a href="#" class="btn-event-set-cancellation-on">Soirée annulée</a>
-                        {% else %}
-                            <a class="btn-event-set-cancellation" href="{{ path('event-set-cancellation', {'eventId': party.id}) }}">Annuler</a>
+            {% for date in arrayDatesFromEvents %}
+                <br>
+                <h4 class="event-date-group">{{ date|date('M Y') }}</h4>
+                <div class="block-group-event-by-date">
+                    {% for party in parties %}
+                        {% if party.startingDate == date %}
+                            <div class="event-card">
+                                {% if party.eventCover is not null %}
+                                    <img class="card-cover-background" src="{{ asset( publicFolderEventCover ~ '/' ~ party.eventCover.name) }}" alt="">
+                                {% else %}
+                                    <div class="card-cover-background background-gradient" src="" alt="background-gradient"></div>
+                                {% endif %}
+                                <div class="half-card half-top-card">
+                                    <h5>{{ party.title }}</h5>
+                                    <h5>{{ party.startingDate|date('d M Y')}}</h5>
+                                </div>
+                                <div class="half-card half-bottom-card">
+                                    <a href="{{ path('display-event', {'id': party.id, 'title':party.title }) }}">Voir</a>
+                                    <a href="{{ path('edit-event', {'id': party.id, 'title': party.title }) }}">Modifier</a>
+                                    {% if party.isVisible and party.isCanceled == false %}
+                                        <a class="btn-event-set-visibility btn-success" href="{{ path('event-set-visibility', {'eventId': party.id}) }}">Visible</a>
+                                    {% else %}
+                                        <a class="btn-event-set-visibility btn-danger {{ party.isCanceled ? 'btn-event-set-cancellation-on' }}" href="{{ path('event-set-visibility', {'eventId': party.id}) }}">Masqué</a>
+                                    {% endif %}
+
+                                    {% if party.isCanceled %}
+                                        <a href="#" class="btn-event-set-cancellation-on">Soirée annulée</a>
+                                    {% else %}
+                                        <a class="btn-event-set-cancellation" href="{{ path('event-set-cancellation', {'eventId': party.id}) }}">Annuler</a>
+                                    {% endif %}
+                                </div>
+                            </div>
                         {% endif %}
-                    </div>
+                    {% endfor %}
                 </div>
                 <hr class="w-50 m-auto">
             {% endfor %}
         </div>
 
+        <style>
+
+
+        </style>
+
         <div data-ref="comments" class="section-dashboard-active section-dashboard dashboard-sub-section section-my-comments">
-            {% for comment in comments %}
-                <div class="comment">
+            
+            {% for item in arrayEventTitleFromComments %}
+                <br>
+                <h4 class="comment-title-group">{{ item.title }}</h4>
+                <div class="block-comment-by-title">
+                    {% for comment in comments %}
+                        {% if comment.event.id == item.id  %}
+                            <div class="comment">
 
-                    <div class="comment-block-author">
-                        {% if comment.author.profileImage %}
-                            <img class="comment-author-profile-picture" src="{{ asset( publicFolderProfilePicture ~ '/partygoer_id_' ~ comment.author.id ~ '/' ~ comment.author.profileImage.name ) }}" alt="">
-                        {% else %}
-                            <img class="comment-author-profile-picture" src="{{ asset('build/images/thumbnail-profile.jpg') }}" alt="">
-                        {% endif %}
-                        <p>{{ comment.author.firstname ~ ' ' ~ comment.author.lastname }}</p>
-                    </div>
+                                <div class="comment-block-author">
+                                    {% if comment.author.profileImage %}
+                                        <img class="comment-author-profile-picture" src="{{ asset( publicFolderProfilePicture ~ '/partygoer_id_' ~ comment.author.id ~ '/' ~ comment.author.profileImage.name ) }}" alt="">
+                                    {% else %}
+                                        <img class="comment-author-profile-picture" src="{{ asset('build/images/thumbnail-profile.jpg') }}" alt="">
+                                    {% endif %}
+                                    <p>{{ comment.author.firstname ~ ' ' ~ comment.author.lastname }}</p>
+                                </div>
 
-                    <div class="comment-block-content">
-                        <h5>{{ comment.event.title }}</h5>
-                        <p>{{ comment.content }}</p>
-                        <div class="comment-visibility">
-                            <div class="form-switch">
-                                <span>Masqué</span>
-                                <input class="form-check-input btn-comment-set-visibility" {{ comment.isVisible ? 'checked' }} type="checkbox" data-href="{{ path('comment-set-visibility', {'commentId': comment.id}) }}">
-                                <span>Visible</span>
+                                <div class="comment-block-content">
+                                    <h5>{{ comment.event.title ~ ' (id:' ~ comment.event.id ~ ')'}}</h5>
+                                    <p>{{ comment.content }}</p>
+                                    <div class="comment-visibility">
+                                        <div class="form-switch">
+                                            <span>Masqué</span>
+                                            <input class="form-check-input btn-comment-set-visibility" {{ comment.isVisible ? 'checked' }} type="checkbox" data-href="{{ path('comment-set-visibility', {'commentId': comment.id}) }}">
+                                            <span>Visible</span>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
-                    </div>
-
+                        {% endif %}
+                    {% endfor %}
                 </div>
                 <hr class="w-50 m-auto">
             {% endfor %}

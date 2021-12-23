@@ -39,7 +39,7 @@
     display: block;
 }
 
-$background-card: linear-gradient(350deg, lighten($black, 10%), black, $primary-red-tr, $primary-orange-tr);
+$background-card: linear-gradient(350deg, $primary-red-tr, $primary-orange-tr);
 @import 'account-dashboard/dashboard-my-parties.scss';
 @import 'account-dashboard/dashboard-my-comments.scss';
 @import 'account-dashboard/dashboard-my-invits.scss';

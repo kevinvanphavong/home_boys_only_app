@@ -6,6 +6,7 @@ use App\Entity\Event;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\DependencyInjection\DoctrineExtension;
 
 /**
  * @method Event|null find($id, $lockMode = null, $lockVersion = null)
@@ -46,6 +47,19 @@ class EventRepository extends ServiceEntityRepository
             ->orderBy('e.startingDate', 'ASC')
             ->setMaxResults($limit)
             ->setFirstResult($offset)
+            ->getQuery()
+            ->getResult();
+
+        return $qb;
+    }
+
+    public function getAllDateFromEvents($partygoerId)
+    {
+        $qb = $this->createQueryBuilder('e')
+            ->select('e.startingDate')
+            ->where('e.planner >= :partygoerId')
+            ->setParameter('partygoerId', $partygoerId)
+            ->orderBy('e.startingDate', 'DESC')
             ->getQuery()
             ->getResult();
 

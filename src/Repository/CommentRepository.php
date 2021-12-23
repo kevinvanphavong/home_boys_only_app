@@ -32,6 +32,18 @@ class CommentRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getAllEventRelatedToComment(Partygoer $partygoer)
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->join('c.event', 'e')
+            ->where('e.planner = :partygoerId')
+            ->setParameter('partygoerId', $partygoer->getId())
+            ->getQuery()
+            ->getResult();
+        
+        return $qb;
+    }
+
     // /**
     //  * @return Comment[] Returns an array of Comment objects
     //  */
