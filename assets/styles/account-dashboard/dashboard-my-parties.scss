@@ -20,8 +20,9 @@
     margin: 2rem 0;
     position: relative;
     overflow: hidden;
-    min-height: 400px;
-    min-width: 500px;
+    min-height: 300px;
+    min-width: 450px;
+    max-width: 450px;
     z-index: 0;
     display: flex;
     flex-direction: column;
@@ -50,23 +51,23 @@
 .half-bottom-card a {
     width: 47%;
     text-align: center;
+    line-height: inherit;
 }
 
 $spacing-btn: 40px;
-.half-top-card h4,
+.half-top-card p,
 .half-top-card h5,
 .half-bottom-card a {
     border-radius: 15px;
-    line-height: $spacing-btn;
-    padding: 0 $spacing-btn;
+    padding: 6px $spacing-btn;
     box-shadow: $box-shadow;
+    color: $black;
 }
 
-.half-top-card h4,
+.half-top-card p,
 .half-top-card h5,
 .half-bottom-card a:not(.btn-danger, .btn-success) {
     background: rgba($white, 0.5);
-    color: $black;
 }
 
 .half-bottom-card a.btn-event-set-cancellation-on {

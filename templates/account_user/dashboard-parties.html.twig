@@ -47,7 +47,7 @@
                                 {% endif %}
                                 <div class="half-card half-top-card">
                                     <h5>{{ party.title }}</h5>
-                                    <h5>{{ party.startingDate|date('d M Y')}}</h5>
+                                    <p>{{ party.startingDate|date('d M Y')}}</p>
                                 </div>
                                 <div class="half-card half-bottom-card">
                                     <a href="{{ path('display-event', {'id': party.id, 'title':party.title }) }}">Voir</a>
