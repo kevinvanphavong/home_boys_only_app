@@ -140,11 +140,14 @@
     .menu-user-admin {
         background: $black;
         display: flex;
-        justify-content: space-evenly;
+        justify-content: flex-start;
         overflow: scroll;
         color: $white;
         font-size: 50px;
         width: 100%;
+        &.not-logged {
+            justify-content: space-evenly;
+        }
     }
     .menu-user-admin a {
         padding: 10px 20px;
