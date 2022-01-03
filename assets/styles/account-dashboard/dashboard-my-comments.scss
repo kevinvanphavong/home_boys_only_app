@@ -99,6 +99,7 @@ div.form-switch {
     .comment {
         flex-direction: column;
         grid-row-gap: $gap;
+        min-width: 350px;
     }
 
     .comment-block-content {

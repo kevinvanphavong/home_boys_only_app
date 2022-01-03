@@ -6,6 +6,10 @@
     text-align: center;
 }
 
+.fav-party-content-background {
+    background: linear-gradient($primary-red-tr, $primary-orange-tr);
+}
+
 .section-favlist-party {
     @include section-account-user;
     flex-direction: row;
@@ -18,14 +22,15 @@
 }
 .fav-party {
     @include account-user-party-card;
-    max-width: 300px;
 }
+
 .fav-party:active {
     box-shadow: $box-shadow;
 }
 
 .fav-party-block-img {
     position: relative;
+    z-index: 1;
 }
 
 .fav-party-starting-date {
@@ -50,23 +55,33 @@
     filter: hue-rotate(10deg);
     height: 200px;
 }
-.fav-party-price {
-    box-shadow: $box-shadow;
-}
+
 .fav-party-price p {
-    padding: 5px 20px;
-    background: rgba($black, 0.75);
-    color: $white;
+    padding: 10px;
 }
 .fav-party-main-infos {
     @include account-user-party-main-infos;
+    h4 {
+        text-align: center;
+    }
 }
 .block-btn-display-event {
     @include account-user-block-btn-display-event;
 }
 .btn-display-event {
-    color: $black;
+    color: $white;
     cursor: pointer;
+}
+
+.material-icons.card-event-icons {
+    height: max-content;
+    padding: 5px;
+    border-radius: 10px;
+    background: rgba($white, 0.6);
+    margin: 20px 10px;
+}
+.material-icons.card-event-icons+p {
+    align-self: center;
 }
 
 @media screen and (max-width: 500px) {

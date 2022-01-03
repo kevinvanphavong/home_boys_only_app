@@ -21,7 +21,7 @@
     position: relative;
     overflow: hidden;
     min-height: 400px;
-    min-width: 600px;
+    min-width: 500px;
     z-index: 0;
     display: flex;
     flex-direction: column;
@@ -84,6 +84,9 @@ $spacing-btn: 40px;
 }
 
 @media screen and (max-width: 500px) {
+    .event-card {
+        min-width: 300px;
+    }
     .dashboard-section {
         width: 100%;
     }

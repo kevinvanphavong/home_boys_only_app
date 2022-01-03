@@ -1,15 +1,7 @@
 @mixin background-shadow-gradient-colors {
-    box-shadow: inset 0 0 12px 12px white, inset 0 0 3px 2px white;
-    background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);
+    box-shadow: inset 0 0 12px 0px white, inset 0 0 3px 0px white;
+    background: linear-gradient($primary-red-tr, $primary-orange-tr);
     border-radius: $radius;
-}
-
-@mixin account-element-card {
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    background: rgba($black, 0.925);
-    box-shadow: $box-shadow;
 }
 
 @mixin section-account-user {
@@ -18,8 +10,10 @@
     display: flex;
     flex-direction: column;
 }
+
 @mixin account-user-party-card {
     min-width: 300px; 
+    max-width: 400px; 
     border-radius: $radius;
     box-shadow: $box-shadow;
     overflow: hidden;
@@ -31,13 +25,12 @@
     padding: 10px;
     background: rgba($white, 0.75);
     z-index: 2;
-    color: $black;
     margin: 10px;
 }
 
 @mixin account-user-block-btn-display-event {
     padding: 10px;
-    background: $white;
+    background: rgba($white, 0.6);
     box-shadow: $box-shadow;
     border-radius: $radius;
     display: flex;
@@ -47,14 +40,13 @@
 @mixin account-user-party-main-infos {
     color: $white;
     padding: 20px;
-    background: linear-gradient(to right, $primary-red-tr, $primary-orange-tr);
+    background: rgba($black, 0.8);
 }
 
 @mixin party-img-in-card {
     width: 101%;
     object-fit: cover;
     overflow: hidden;
-    box-shadow: 0px 1px 10px rgba($white, 0.5);
 }
 
 @mixin btn-register-login-form {

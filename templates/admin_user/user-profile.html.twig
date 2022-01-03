@@ -5,6 +5,9 @@
 {% block stylesheets %}
 	{{ encore_entry_link_tags('user-form-scss') }}
     <style>
+    .title-account-user {
+        text-align: center;
+    }
     .block-profile-picture {
         display: flex;
         justify-content: center;
@@ -62,7 +65,6 @@
 <script>
     const title = document.getElementById('title-account-user')
     const underline = document.querySelector('.underline')
-    const body = document.querySelector('body')
 
     underline.style.width = title.offsetWidth - title.offsetTop + "px";
 </script>

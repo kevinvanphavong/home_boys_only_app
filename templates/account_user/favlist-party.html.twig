@@ -29,24 +29,35 @@
 				<img src="{{ asset('build/images/thumbnail-profile.jpg') }}" alt="">
 			{% endif %}
 		</div>
-
-		<div class="fav-party-price">
-			{% if party.entrancePrice %}
-				<p>{{ 'Entrée payante : ' ~ party.entrancePrice ~ '€' }}</p>
-			{% else %}
-				<p>{{ 'Entrée gratuite : 0€' }}</p>
-			{% endif %}
-		</div>
-
-		<div class="fav-party-main-infos">
-			<p>{{ party.title }}</p>
-			<br>
-			<p>{{ party.city|capitalize ~ ', ' ~ party.country|upper}}</p>
-			<br>
-			<div class="block-btn-display-event">
-				<a class="btn-display-event" href="{{ path('display-event', {id: party.id, title: party.title}) }}">
-					Voir la soirée
-				</a>
+		
+		<div class="fav-party-content-background">
+			<div class="fav-party-main-infos">
+				<h4>{{ party.title }}</h4>
+				<div class="d-flex">
+					<p class="material-icons card-event-icons">
+						sentiment_very_satisfied
+					</p>
+					<p>26 personnes sont intéressés par cette soirée</p>
+				</div>
+				<div class="d-flex">
+					<p class="material-icons card-event-icons">
+						payments
+					</p>
+					<p class="fav-party-price">
+						{{ (party.entrancePrice ?? '0') ~ '€'}}
+					</p>
+				</div>
+				<div class="d-flex">
+					<p class="material-icons card-event-icons">
+						home
+					</p>
+					<p>{{ party.city|capitalize ~ ', ' ~ party.country|upper}}</p>
+				</div>
+				<div class="block-btn-display-event">
+					<a class="btn-display-event" href="{{ path('display-event', {id: party.id, title: party.title}) }}">
+						Voir la soirée
+					</a>
+				</div>
 			</div>
 		</div>
 </div>

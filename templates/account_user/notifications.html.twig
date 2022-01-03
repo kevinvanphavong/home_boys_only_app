@@ -9,13 +9,11 @@
 {% block body %}
 <section class="section-80 header">
 	<h1>MES NOTIFICATIONS</h1>
-	<br>
-	<p>Vous pouvez consulter vos différentes notifications reçues ici</p>
 </section>
 
 <section class="section-notifications">
 	{% for notification in notificationsAsGuest %}
-		<div class="notification-card-background">
+		{{ (loop.index == 1) ? '' : '<hr class="w-50 mx-auto text-secondary">'}}
 			<div class="notification-card">
 				<div class="notification-header">
 					<div class="notification-div-picture">
@@ -36,11 +34,11 @@
 					</div>
 				</div>
 			</div>
-		</div>
 	{% endfor %}
 </section>
 {% endblock %}
 
 
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+{% endblock %}
 

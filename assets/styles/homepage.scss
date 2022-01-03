@@ -5,38 +5,38 @@
    @include separator;
 }
 
-@keyframes light {
-    0% {
-        filter: brightness(0.85) grayscale(0.85);
-    }
-    10% {
-        filter: brightness(0.3) grayscale(0.85);
-    }
-    20% {
-        filter: brightness(0.85) grayscale(0.85);
-    }
-    30% {
-        filter: brightness(0.3) grayscale(0.85);
-    }
-    40% {
-        filter: brightness(0.45) grayscale(0.85);
-    }
-    50% {
-        filter: brightness(0.3) grayscale(0.85);
-    }
-    50% {
-        filter: brightness(0.45) grayscale(0.85);
-    }
-    60% {
-        filter: brightness(0.2) grayscale(0.85);
-    }
-    80% {
-        filter: brightness(0.6) grayscale(0.85);
-    }
-    100% {
-        filter: brightness(0.85) grayscale(0.85);
-    }
-}
+// @keyframes light {
+//     0% {
+//         filter: brightness(0.85) grayscale(0.85);
+//     }
+//     10% {
+//         filter: brightness(0.3) grayscale(0.85);
+//     }
+//     20% {
+//         filter: brightness(0.85) grayscale(0.85);
+//     }
+//     30% {
+//         filter: brightness(0.3) grayscale(0.85);
+//     }
+//     40% {
+//         filter: brightness(0.45) grayscale(0.85);
+//     }
+//     50% {
+//         filter: brightness(0.3) grayscale(0.85);
+//     }
+//     50% {
+//         filter: brightness(0.45) grayscale(0.85);
+//     }
+//     60% {
+//         filter: brightness(0.2) grayscale(0.85);
+//     }
+//     80% {
+//         filter: brightness(0.6) grayscale(0.85);
+//     }
+//     100% {
+//         filter: brightness(0.85) grayscale(0.85);
+//     }
+// }
 
 
 h2,
@@ -59,27 +59,8 @@ h2 + p {
     height: 500px;
     object-fit: cover;
     filter: grayscale(0.85) brightness(0.85);
-    transform: scale(1);
     box-shadow: $box-shadow;
-    animation: scaling 10s ease-in 0s infinite, light 15s ease-in 0s infinite;
-}
-
-@keyframes scaling {
-    from {
-        transform: scale(1.01);
-    }
-    10% {
-        transform: scale(1.1);
-    }
-    50% {
-        transform: scale(1.01);
-    }
-    75%{
-        transform: scale(1.15);
-    }
-    to {
-        transform: scale(1.01);
-    }
+    // animation: light 15s ease-in 0s infinite;
 }
 
 .block-upcoming-event-card,
