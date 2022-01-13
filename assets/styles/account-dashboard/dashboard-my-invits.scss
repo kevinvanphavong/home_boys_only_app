@@ -1,19 +1,13 @@
 .section-dashboard-active.section-my-invits {
-    margin: 20px 0 0 0;
-    display: flex;
-    flex-wrap: wrap;
-    grid-gap: 20px;
+    display: block;
     justify-content: center;
 }
 
-.invitation-card-background {
-    @include background-shadow-gradient-colors;
-}
-
 .invitation {
+    margin: 2rem;
     padding: 40px;
-    background: rgba($black, 0.8);
-    color: $white;
+    background: darken($white, 3%);
+    color: $black;
     box-shadow: $box-shadow;
     border-radius: $radius;
     width: max-content;
@@ -38,9 +32,11 @@
 }
 
 .invit-block-content {
-    height: stretch;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    .invit-block-infos p {
+        text-align: center;
+    }
 }

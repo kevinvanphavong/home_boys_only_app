@@ -49,6 +49,7 @@ h1 + p {
 .overlay-container img {
     box-shadow: $box-shadow;
     border-radius: $radius;
+    max-width: 80%;
 }
 
 .overlay-btn-close {

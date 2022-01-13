@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Invitation;
+use App\Entity\Partygoer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,6 +18,18 @@ class InvitationRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Invitation::class);
+    }
+
+    public function getAllEventRelatedToInvit(Partygoer $partygoer)
+    {
+        $qb = $this->createQueryBuilder('i')
+            ->join('i.event', 'e')
+            ->where('e.planner = :partygoerId')
+            ->setParameter('partygoerId', $partygoer->getId())
+            ->getQuery()
+            ->getResult();
+
+        return $qb;
     }
 
     // /**

@@ -83,7 +83,6 @@
                 <div class="block-comment-by-title">
                     {% for comment in comments %}
                         {% if comment.event.id == item.id  %}
-                        <div class="comment-card-background">
                             <div class="comment">
 
                                 <div class="comment-block-author">
@@ -96,7 +95,7 @@
                                 </div>
 
                                 <div class="comment-block-content">
-                                    <h5>{{ comment.event.title ~ ' (id:' ~ comment.event.id ~ ')'}}</h5>
+                                    <h5>{{ comment.event.title }}</h5>
                                     <p>{{ comment.content }}</p>
                                     <div class="comment-visibility">
                                         <div class="form-switch">
@@ -108,7 +107,6 @@
                                 </div>
 
                             </div>
-                        </div>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -117,35 +115,47 @@
         </div>
 
         <div data-ref="invits" class="section-dashboard dashboard-sub-section section-my-invits">
-            {% for invit in invitations %}
-            <div class="invitation-card-background">
-                <div class="invitation">
-                    <div class="invit-block-partygoer">
-                        {% if invit.partygoerGuest.profileImage %}
-                            <img class="invit-partygoer-profile-picture" src="{{ asset( publicFolderProfilePicture ~ '/partygoer_id_' ~ invit.partygoerGuest.id ~ '/' ~ invit.partygoerGuest.profileImage.name ) }}" alt="">
-                        {% else %}
-                            <img class="invit-partygoer-profile-picture" src="{{ asset('build/images/thumbnail-profile.jpg') }}" alt="">
-                        {% endif %}
-                        <p>{{ invit.partygoerGuest.firstname ~ ' ' ~ invit.partygoerGuest.lastname }}</p>
-                    </div>
-                    <div class="invit-block-content">
-                        <div class="invit-block-infos">
-                            <p>Demande d'invitation pour :</p>
-                            <b>
-                                <p>{{ invit.event.title }}</p>
-                            </b>
-                        </div>
-                        <a href="#" class="btn btn-warning">Voir profil</a>
-                        <div class="invit-block-acceptation">
-                            <div class="form-switch">
-                                <label for="acceptation{{ invit.id }}">Refusé</label>
-                                <input name="acceptation{{ invit.id }}" id="acceptation{{ invit.id }}" class="form-check-input btn-invit-set-acceptation" {{ invit.isAccepted ? 'checked' }} type="checkbox" data-href="{{ path('invit_set_acceptation', {'invitId': invit.id}) }}">
-                                <label for="acceptation{{ invit.id }}">Accepté</label>
-                            </div>
-                        </div>
-                    </div>
+            {% for item in arrayEventTitleFromInvits %}
+                <br>
+                <div class="block-invit-header">
+                    <h4 class="invit-title-group">{{ item.title }}</h4>
+                    <p>{{ item.startingDate|date('d-m-Y') }}</p>
                 </div>
-            </div>
+
+                <div class="block-invit-by-title">
+                    {% for invit in invitations %}
+                        {% if invit.event.id == item.id %}
+                            <div class="invitation">
+                                <div class="invit-block-partygoer">
+                                    {% if invit.partygoerGuest.profileImage %}
+                                        <img class="invit-partygoer-profile-picture" src="{{ asset( publicFolderProfilePicture ~ '/partygoer_id_' ~ invit.partygoerGuest.id ~ '/' ~ invit.partygoerGuest.profileImage.name ) }}" alt="">
+                                    {% else %}
+                                        <img class="invit-partygoer-profile-picture" src="{{ asset('build/images/thumbnail-profile.jpg') }}" alt="">
+                                    {% endif %}
+                                    <p>{{ invit.partygoerGuest.firstname ~ ' ' ~ invit.partygoerGuest.lastname }}</p>
+                                </div>
+                                <div class="invit-block-content">
+                                    <div class="invit-block-infos">
+                                        <p>Demande d'invitation :</p>
+                                        <b>
+                                            <p>{{ invit.event.title }}</p>
+                                        </b>
+                                    </div>
+                                    <a href="#" class="btn btn-warning">Voir profil</a>
+                                    <div class="invit-block-acceptation">
+                                        <div class="form-switch">
+                                            <label for="acceptation{{ invit.id }}">Refusé</label>
+                                            <input name="acceptation{{ invit.id }}" id="acceptation{{ invit.id }}" class="form-check-input btn-invit-set-acceptation" {{ invit.isAccepted ? 'checked' }} type="checkbox" data-href="{{ path('invit_set_acceptation', {'invitId': invit.id}) }}">
+                                            <label for="acceptation{{ invit.id }}">Accepté</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <hr class="w-50 m-auto">
+                <br>
             {% endfor %}
         </div>
     </section>

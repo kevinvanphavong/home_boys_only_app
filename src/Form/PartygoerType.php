@@ -5,6 +5,7 @@ namespace App\Form;
 use DateTime;
 use App\Entity\Partygoer;
 use App\Entity\ProfileImage;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -62,6 +63,11 @@ class PartygoerType extends AbstractType implements FormTypeInterface
                 'required'      => false,
                 'mapped'        => false,
                 'by_reference'  => false,
+                'constraints' => [
+                    new Image([
+                        'maxSizeMessage' => 'Troppp lourd pelo'
+                    ])
+                    ],
                 'label'         => 'Ajoute votre photo de profil',
                 'label_attr'    => ['class' => 'user-form-label'],
                 'attr'          => ['class' => 'user-form-input user-form-input-profile-picture'],

@@ -114,6 +114,14 @@
     display: none;
 }
 
+.login-register-hr-separator {
+    width: 20px;
+    color: darken($white, 5%);
+    margin: auto 0;
+    transform: rotate(90deg);
+    height: 0.5px;
+}
+
 // media screen under 1000px
 @media screen and (max-width: 1000px) {
     .navbar-block {

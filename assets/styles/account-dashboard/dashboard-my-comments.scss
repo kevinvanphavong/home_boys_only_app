@@ -1,32 +1,26 @@
-.block-comment-header {
-    display: flex;
-    justify-content: space-between;
-}
-.block-comment-header p,
-.block-comment-header h4 {
-    font-style: italic;
+.block-comment-header,
+.block-invit-header {
     padding: 10px;
     background: linear-gradient($primary-red-tr, $primary-orange-tr);
     color: $white;
     border-radius: $radius-10;
     box-shadow: $box-shadow;
+    width: max-content;
+    transform: skewX(-10deg);
 }
 
-.block-comment-by-title {
+.block-comment-by-title,
+.block-invit-by-title {
     display: flex;
     overflow-x: scroll;
     grid-column-gap: 20px;
 }
 
-.comment-card-background {
-    margin: 2rem 0;
-    @include background-shadow-gradient-colors;
-}
-
 .comment {
-    padding: 20px;
-    background: rgba($black, 0.8);
-    color: $white;
+    margin: 2rem;
+    padding: 20px 30px;
+    background: darken($white, 3%);
+    color: $black;
     box-shadow: $box-shadow;
     border-radius: $radius;
     min-height: 300px;
@@ -71,6 +65,7 @@
         padding: 10px;
         margin: 10px 0;
         border-radius: $radius-10;
+        box-shadow: $box-shadow;
     }
     .comment-visibility {
         align-self: end;
@@ -80,7 +75,7 @@
 input.form-check-input[type="checkbox"] {
     cursor: pointer;
     background-color: $primary-red-tr;
-    border-color: $border-color;
+    border-color: rgba($black, 0.2);
     margin: 0;
     &:checked {
         background-color: $checked;

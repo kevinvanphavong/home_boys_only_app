@@ -18,12 +18,6 @@
         {% for complement in party.gatheringComplementsToBring %}
             <p class="gathering-complements to-bring">{{ complement.name }}</p>
         {% endfor %}
-        {% if party.eventCover %}
-            <p class="data-event-cover-name">{{ party.eventCover.name }}</p>
-        {% endif %}
-        {% for image in party.EventPictures %}
-            <p class="data-event-pictures-name">{{ image.name }}</p>
-        {% endfor %}
     </div>
 
     <section class="section-80">
@@ -42,7 +36,7 @@
 
 {% block javascripts %}
 	{{ parent() }}
-	{{ encore_entry_script_tags('event-form-js') }}
+    {{ encore_entry_script_tags('event-form-js') }}
     <script>
     // Display all the gathering complements included or to bring, in a party in checked color
         let gatheringComplements = document.querySelectorAll('.gathering-complements')
@@ -72,7 +66,41 @@
             let data = "event_gatheringComplementsToBring_" + complement.replace("-", "_");
             showSelectedGatheringComplements(data)
         });
+    </script>
 
+    <script>
+        let btnSubmit = document.querySelector('.btn-submit-event-form');
+
+        function editOnlyGatheringsToBring() {
+            let arrayValue1 = []
+            let arrayValue2 = []
+            let allLabelsIncluded = document.querySelectorAll('.block-label-whats-included label.checked')
+            let allLabelsToBring = document.querySelectorAll('.block-label-what-to-bring label.checked')
+            // let allLabelsToBring = document.querySelectorAll('.block-label-whats-to-bring label.checked')
+            allLabelsIncluded.forEach(element => {
+                arrayValue1.push(element.innerText)
+            })
+            allLabelsToBring.forEach(element => {
+                arrayValue2.push(element.innerText)
+            })
+
+            return [arrayValue1, arrayValue2]
+        }
+
+        btnSubmit.addEventListener('click', function(e){
+            console.log(e)
+            e.preventDefault()
+
+
+            fetch(this.dataset.href, {
+			method: "POST",
+			headers: {
+				'X-Requested-With': "XMLHttpRequest",
+				'Content-Typeb       ': "application/json" 
+			},
+			body: JSON.stringify(editOnlyGatheringsToBring()),
+            })
+        })
 
     </script>
 {% endblock %}

@@ -56,9 +56,7 @@
                     <li>
                         <a href="{{ path('my_account_dashboard_parties')}}">Mes soirées à organiser</a>
                     </li>
-                    <li>Tous mes évènements</li>
-                    <hr>
-                    <li>
+                    <li class="material-icons">
                         <a href="{{ path('app_logout')}}">Se déconnecter</a>
                     </li>
                 {% else %}
@@ -79,16 +77,20 @@
 <div class="menu-responsive">
     {% if app.user %}
     <div class="menu-user-admin">
-    	<a href="{{ path('admin_user_profile')}}">MON COMPTE</a>
     	<a href="{{ path('my_account_dashboard_parties')}}">MES SOIRÉES À ORGANISER</a>
     	<a href="{{ path('my_account_favlist_parties')}}">MA FAVLIST - INVITATIONS</a>
     	<a href="#">MES DERNIÈRES SOIRÉES</a>
-        <a href="{{ path('app_logout')}}">Se déconnecter</a>
+        
+        <a href="{{ path('app_logout')}}" class="d-flex">
+            <p class="material-icons">logout</p>
+            <p class="px-2">Déconnexion</p>
+        </a>
     {% else %}
     <div class="menu-user-admin not-logged">
         {# <a href="{{ path('')}}">S'inscrire</a> #}
-        <a href="#">S'inscrire</a>
-        <a href="{{ path('app_login')}}">Se connecter</a>
+        <a href="#">Inscription</a>
+        <hr class="login-register-hr-separator">
+        <a href="{{ path('app_login')}}">Connexion</a>
     {% endif %}
 
     </div>

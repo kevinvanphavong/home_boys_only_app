@@ -67,7 +67,11 @@
 	{% endif %}
 
 	<hr>
-	<button class="btn-submit-event-form btn btn-success">{{ button_label|default('Enregistrer') }}</button>
-
+	{% if app.request.attributes.get('_route') == "edit-event" %}
+		{% set dataHref = "{{ path('edit-event-gatherings', {id: party.id}) }}" %}
+	{% else %}
+		{% set dataHref = "" %}	
+	{% endif %}
+	<button data-href=dataHref class="btn-submit-event-form btn btn-success">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(eventForm) }}
 {% endblock %}

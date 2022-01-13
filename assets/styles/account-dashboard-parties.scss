@@ -2,9 +2,11 @@
 @import "mixins.scss";
 
 .header h1 {
-  letter-spacing: 5px;
-  text-align: center;
+    letter-spacing: 5px;
+    text-align: center;
+    margin: 60px 0;
 }
+
 .dashboard-section {
   @include section-account-user;
 }
@@ -37,6 +39,11 @@
 
 .section-dashboard-active {
   display: block;
+}
+
+.btn-comment-set-visibility,
+.btn-invit-set-acceptation {
+  border-color: lighten($black, 10%);
 }
 
 @import "account-dashboard/dashboard-my-parties.scss";

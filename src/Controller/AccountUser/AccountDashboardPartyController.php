@@ -30,13 +30,7 @@ class AccountDashboardPartyController extends AbstractController
 
         $parties = $partygoer->getCreatedEvents();
         $comments = $commentRepository->findAllCommentsOnMyParties($partygoer);
-        $invitations = $invitationRepository->findBy(
-            [
-                'isMaking' => false,
-                'isRequest' => true,
-                'partygoerEventPlanner' => $partygoer,
-            ]
-        );
+        $invitations = $invitationRepository->findBy(['isMaking' => false, 'isRequest' => true, 'partygoerEventPlanner' => $partygoer]);
 
         $arrayPathFolder = explode('/', $this->getParameter('profile_pictures'));
         $publicFolderProfilePicture = $arrayPathFolder[count($arrayPathFolder) - 2] . '/' . $arrayPathFolder[count($arrayPathFolder) - 1];
@@ -46,6 +40,7 @@ class AccountDashboardPartyController extends AbstractController
 
         $arrayDatesFromEvents = $dashboardPartyService->getAllDatesFromMyEvents($eventRepository, $partygoer);
         $arrayEventTitleFromComments = $dashboardPartyService->getAllEventTitleFromMyComments($commentRepository, $partygoer);
+        $arrayEventTitleFromInvits = $dashboardPartyService->getAllEventTitleFromMyInvits($invitationRepository, $partygoer);
 
         return $this->render('account_user/dashboard-parties.html.twig', [
             'parties'   =>  $parties,
@@ -57,6 +52,7 @@ class AccountDashboardPartyController extends AbstractController
 
             'arrayDatesFromEvents'   =>  $arrayDatesFromEvents,
             'arrayEventTitleFromComments'   =>  $arrayEventTitleFromComments,
+            'arrayEventTitleFromInvits'   =>  $arrayEventTitleFromInvits,
         ]);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Partygoer;
 use App\Repository\CommentRepository;
 use App\Repository\EventRepository;
+use App\Repository\InvitationRepository;
 
 class DashboardPartyService
 {
@@ -36,7 +37,23 @@ class DashboardPartyService
             ];
         }
 
-        // dd($arrayEventTitleComment);
+        return $arrayEventTitleComment;
+    }
+    
+    public function getAllEventTitleFromMyInvits(InvitationRepository $invitationRepository, Partygoer $partygoer)
+    {
+        $invits = $invitationRepository->getAllEventRelatedToInvit($partygoer);
+
+        $arrayEventTitleComment = [];
+
+        foreach ($invits as $invit) {
+            $arrayEventTitleComment[$invit->getEvent()->getId()] = [
+                'title' => $invit->getEvent()->getTitle(),
+                'id' => $invit->getEvent()->getId(),
+                'startingDate' => $invit->getEvent()->getStartingDate(),
+            ];
+        }
+
         return $arrayEventTitleComment;
     }
 }

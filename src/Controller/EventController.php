@@ -7,6 +7,8 @@ use App\Entity\EventCover;
 use App\Entity\EventPicture;
 use App\Entity\Partygoer;
 use App\Form\EventType;
+use App\Repository\GatheringComplementIncludedRepository;
+use App\Repository\GatheringComplementToBringRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -97,7 +99,6 @@ class EventController extends AbstractController
 
         if ($eventForm->isSubmitted() && $eventForm->isValid()) {
         
-            $this->setEventFormGatheringsComplements($eventForm, $event);
             $this->setEventFormPictures($eventForm, $event);
             $this->setEventFormCover($eventForm, $event);
 
@@ -111,27 +112,65 @@ class EventController extends AbstractController
         ]);
     }
 
-    public function setEventFormGatheringsComplements($eventForm, $event)
+    /**
+     * @Route("/event/gatherings/edit/{id}/", name="edit-event-gatherings")
+     * @ParamConverter("event", options={"id" = "id"})
+     */
+    public function editEventOnlyGatheringsAside(Request $request, Event $event, GatheringComplementIncludedRepository $gatherginsIncludedRepo, GatheringComplementToBringRepository $gatheringsToBringRepo)
     {
-        $complements1 = $eventForm->get('gatheringComplementsIncluded')->getData();
-        if (count($complements1) > 0) {
-            // Supprimer toutes les compléments de la soirée
-            foreach ($event->getGatheringComplementsIncluded() as $complement) {
-                $event->removeGatheringComplementsIncluded($complement);
-            }
-            // Ajouter les nouveux compléments sélectionnés
-            foreach ($complements1 as $complement) {
-                $event->addGatheringComplementsIncluded($complement);
-            }
+        $messageContent = json_decode($request->getContent());
+
+        $gatheringsIncludedBag = [];
+        $gatheringsToBringBag = [];
+
+        foreach ($messageContent[0] as $gatheringIcon) {
+            $gatheringsIncludedBag[] = $gatherginsIncludedRepo->findOneBy(['icon' => $gatheringIcon]);
         }
 
-        $complements2 = $eventForm->get('gatheringComplementsToBring')->getData();
-        if (count($complements2) > 0) {
-            foreach ($event->getGatheringComplementsToBring() as $complement) {
-                $event->removeGatheringComplementsToBring($complement);
+        foreach ($messageContent[1] as $gatheringIcon) {
+            $gatheringsToBringBag[] = $gatheringsToBringRepo->findOneBy(['icon' => $gatheringIcon]);
+        }
+
+        $this->setEventFormGatheringsComplements($event, null, $gatheringsIncludedBag, $gatheringsToBringBag);
+        $this->getDoctrine()->getManager()->flush();
+
+        return new Response();
+    }
+
+    public function setEventFormGatheringsComplements($event, $eventForm = null, $gatheringsIncludedBag = null, $gatheringsToBringBag = null)
+    {
+        if ($eventForm){    
+            $complements1 = $eventForm->get('gatheringComplementsIncluded')->getData();
+            if (count($complements1) > 0) {
+                // Ajouter les nouveux compléments sélectionnés
+                foreach ($complements1 as $complement) {
+                    $event->addGatheringComplementsIncluded($complement);
+                }
             }
-            foreach ($complements2 as $complement) {
-                $event->addGatheringComplementsToBring($complement);
+            
+            $complements2 = $eventForm->get('gatheringComplementsToBring')->getData();
+            if (count($complements2) > 0) {
+                // Ajouter les nouveux compléments sélectionnés
+                foreach ($complements2 as $complement) {
+                    $event->addGatheringComplementsToBring($complement);
+                }
+            }
+        } else {
+            if (isset($gatheringsIncludedBag)) {
+                foreach ($event->getGatheringComplementsIncluded() as $complement) {
+                    $event->removeGatheringComplementsIncluded($complement);
+                }
+                foreach ($gatheringsIncludedBag as $complement) {
+                    $event->addGatheringComplementsIncluded($complement);
+                }
+            }
+            if (isset($gatheringsToBringBag)) {
+                foreach ($event->getGatheringComplementsToBring() as $complement) {
+                    $event->removeGatheringComplementsToBring($complement);
+                }
+                foreach ($gatheringsToBringBag as $complement) {
+                    $event->addGatheringComplementsToBring($complement);
+                }
             }
         }
     }

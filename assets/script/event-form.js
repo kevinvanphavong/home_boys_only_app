@@ -5,9 +5,10 @@ const inputsWhatsIncluded = document.querySelectorAll('#event_gatheringComplemen
 const labelsWhatsIncluded = document.querySelectorAll('#event_gatheringComplementsIncluded label')
 const blockWhatsIncluded = document.querySelector('#event_gatheringComplementsIncluded')
 
+let gatheringComplementsIncluded = document.querySelectorAll('.gathering-complements.included')
+// let gatheringComplementsToBring = document.querySelectorAll('.gathering-complements.to-bring')
 
 for (let index = 0; index < inputsWhatsIncluded.length; index++) {
-
     // 1) Transformer les span en icon
     const currentInput = inputsWhatsIncluded[index];
     currentInput.style.display = "none";
@@ -30,13 +31,16 @@ for (let index = 0; index < inputsWhatsIncluded.length; index++) {
     blockWhatsIncluded.appendChild(div)
 
     // 2) Donner du style au input s'il sont checked true or false
-    currentInput.addEventListener('change', function() {
+    currentInput.addEventListener('click', function() {
+        // verifier le checked représentera l'état actuel, suite à l'action de l'utilisateur
+        // Si c'est true, c'est que l'utilisateur a cliqué dessus pour le rajouter
+        // Si c'est false, c'est que l'utilisateur a cliqué dessus pour l'enlever
         if (currentInput.checked == false) {
             currentLabel.classList.remove('checked')
-        } else if (currentInput.checked == true) {
-            currentLabel.classList.remove('not-checked')
+        } else {
             currentLabel.classList.add('checked')
         }
+
     })
 }
 

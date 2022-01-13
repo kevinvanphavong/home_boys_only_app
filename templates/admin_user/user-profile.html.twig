@@ -5,9 +5,6 @@
 {% block stylesheets %}
 	{{ encore_entry_link_tags('user-form-scss') }}
     <style>
-    .title-account-user {
-        text-align: center;
-    }
     .block-profile-picture {
         display: flex;
         justify-content: center;
@@ -61,14 +58,6 @@
         {{ include('form/form-partygoer.html.twig') }}
     </div>
 </section>
-
-<script>
-    const title = document.getElementById('title-account-user')
-    const underline = document.querySelector('.underline')
-
-    underline.style.width = title.offsetWidth - title.offsetTop + "px";
-</script>
-
 {% endblock %}
 
 {% block javascripts %}
