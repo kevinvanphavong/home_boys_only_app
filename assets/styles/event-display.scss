@@ -309,9 +309,9 @@ span.material-icons {
     flex-direction: column;
     grid-row-gap: 20px;
     width: 100%;
-    background: linear-gradient(red, orange);
+    background: linear-gradient($primary-red-tr,  $primary-orange-tr);
     padding: 50px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: $box-shadow;
 }
 .section-comments {
     display: flex;
