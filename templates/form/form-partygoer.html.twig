@@ -1,36 +1,36 @@
 {% block partygoerForm %}
-{{ form_start(partygoerForm, {'attr': {'id': 'user-form'}}) }}
+	{{ form_start(partygoerForm, {'attr': {'id': 'user-form'}}) }}
 
-        <div class="user-form-group">
-            {{form_row(partygoerForm.profilePicture) }}
-        </div>
-        <div class="user-form-group">
-            {{form_row(partygoerForm.email, {'value' : app.user.email}) }}
-        </div>
-        <div class="user-form-group">
-            {{form_row(partygoerForm.firstname) }}
-        </div>
-        <div class="user-form-group">
-            {{form_row(partygoerForm.lastname) }}
-        </div>
-        <div class="user-form-group">
-            {{form_row(partygoerForm.birthdate) }}
-        </div>
-        <div class="user-form-group">
-            {{form_row(partygoerForm.phone) }}
-        </div>
-        <div class="user-form-group">
-            {{form_row(partygoerForm.presentation) }}
-        </div>
-        <div class="user-form-group">
-            <div class="user-form-row">
-                <label for="">Centre d'intérêts</label>
-                <div class="multiples-life-interests">
-                    <input type="text" value="{{ partygoer.lifeInterests }}"  class="user-form-input user-form-input-life-interests">
-                </div>
-                <a href="{{ path('admin_user_profile_modify_life_interests', {'partygoerId': partygoer.id}) }}" class="btn-validate-life-interests">Valider</a>
-            </div>
-        </div>
-    <button class="btn-submit-user-form" type="submit">{{ button_label|default('Enregistrer') }}</button>
-    {{ form_end(partygoerForm) }}
+	<div class="user-form-group">
+		{{form_row(partygoerForm.profilePicture) }}
+	</div>
+	<div class="user-form-group">
+		{{form_row(partygoerForm.email, {'value' : app.user.email}) }}
+	</div>
+	<div class="user-form-group">
+		{{form_row(partygoerForm.firstname) }}
+	</div>
+	<div class="user-form-group">
+		{{form_row(partygoerForm.lastname) }}
+	</div>
+	<div class="user-form-group">
+		{{form_row(partygoerForm.birthdate) }}
+	</div>
+	<div class="user-form-group">
+		{{form_row(partygoerForm.phone) }}
+	</div>
+	<div class="user-form-group">
+		{{form_row(partygoerForm.presentation) }}
+	</div>
+	<div class="user-form-group">
+		<div class="user-form-row">
+			{{ form_label(partygoerForm.lifeInterests) }}
+			<div class="multiples-life-interests">
+				{{ form_widget(partygoerForm.lifeInterests, { "value": partygoer.lifeInterests }) }}
+			</div>
+			<a href="{{ path('admin_user_profile_modify_life_interests', {'partygoerId': partygoer.id}) }}" class="btn-validate-life-interests">Valider</a>
+		</div>
+	</div>
+	<button class="btn-submit-user-form" type="submit">{{ button_label|default('Enregistrer') }}</button>
+	{{ form_end(partygoerForm) }}
 {% endblock %}
