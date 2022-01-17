@@ -4,20 +4,6 @@
 
 {% block stylesheets %}
 	{{ encore_entry_link_tags('user-form-scss') }}
-    <style>
-    .block-profile-picture {
-        display: flex;
-        justify-content: center;
-    }
-    .block-profile-picture div img {
-        width: 300px;
-        height: 300px;
-        object-fit: cover;
-        border-radius: 50%;
-        border: 1px solid whitesmoke;
-        box-shadow: 2px 2px 4px rgba(0,0,0, 0.25);
-    }
-    </style>
 {% endblock %}
 
 
@@ -26,11 +12,7 @@
     <h1 class="title-account-user">BIENVENUE SUR VOTRE ESPACE PERSONNEL</h1>
     <br>
     <p>
-    {% if app.user %}
-        {{ app.user.partygoer.firstname ~ ' ' ~ app.user.partygoer.lastname }}, à 
-    {% else %}
-        À
-    {% endif %}
+        {{ partygoer.firstname ~ ' ' ~ partygoer.lastname }},
         partir de votre espace utilisateur, si tu le souhaites tu peux :
     </p>
     <br>
@@ -58,6 +40,9 @@
         {{ include('form/form-partygoer.html.twig') }}
     </div>
 </section>
+<pre>
+    {{ dump(partygoer.lifeInterests) }}
+</pre>
 {% endblock %}
 
 {% block javascripts %}
@@ -78,5 +63,45 @@
         blockNewProfilePicture.append(image)
     })
 // ---------- display profile picture once upload in input
+
+// ------- Display 10 block input for lifeInterest attribut
+let inputLifeInterests = document.querySelector('.user-form-input-life-interests')
+let parentInputLifeInterests = inputLifeInterests.parentElement
+
+let arrayValues = inputLifeInterests.value.split(',')
+
+for (let index = 0; index < 10; index++) {
+    let clone = inputLifeInterests.cloneNode(true);
+
+    if (inputLifeInterests.value !== "") {
+        clone.value = arrayValues[index];
+    }
+    parentInputLifeInterests.appendChild(clone);
+}
+
+parentInputLifeInterests.removeChild(inputLifeInterests)
+// ------- Display 10 block input for lifeInterest attribut
+
+// ------ Delay submit for sending another HTTP request handling lifeInterests
+let userForm = document.getElementById('user-form');
+let btnValidateLifeInterests = document.querySelector('.btn-validate-life-interests');
+
+btnValidateLifeInterests.addEventListener('click', function(e) {
+    e.preventDefault();
+    // Envoyer la 2eme requete HTTP pour les centres d'intérêts
+    let allInputsLifeInterests = document.querySelectorAll('.user-form-input-life-interests');
+    let xhr = new XMLHttpRequest();
+
+    let content = []
+    allInputsLifeInterests.forEach(element => {
+        content.push(element.value)
+    });
+
+    let body = content.join(',');
+
+    xhr.open('POST', this.href, true)
+    xhr.send(body);
+})
+// ------ Delay submit for sending another HTTP request handling lifeInterests
 </script>
 {% endblock %}

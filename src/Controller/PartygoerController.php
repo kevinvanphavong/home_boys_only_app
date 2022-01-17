@@ -20,8 +20,12 @@ class PartygoerController extends AbstractController
      */
     public function index(Request $request, Partygoer $partygoer): Response
     {
+        $arrayPathFolder = explode('/', $this->getParameter('profile_pictures'));
+        $publicFolderProfilePicture = $arrayPathFolder[count($arrayPathFolder) - 2] . '/' . $arrayPathFolder[count($arrayPathFolder) - 1];
+
         return $this->render('partygoer/partygoer-profile.html.twig', [
-            "partygogo" => $partygoer
+            "partygoer" => $partygoer,
+            "publicFolderProfilePicture" => $publicFolderProfilePicture
         ]);
     }
 }

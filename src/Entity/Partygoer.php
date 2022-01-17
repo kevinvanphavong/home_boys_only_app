@@ -29,7 +29,7 @@ class Partygoer
     private $lastname;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $birthdate;
 
@@ -103,6 +103,21 @@ class Partygoer
      * @ORM\OneToMany(targetEntity=Invitation::class, mappedBy="partygoerEventPlanner")
      */
     private $invitationsMakings;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $country;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $lifeInterests = [];
 
     public function __construct()
     {
@@ -475,6 +490,42 @@ class Partygoer
                 $invitationsMaking->setPartygoerEventPlanner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getLifeInterests(): ?string
+    {
+        return $this->lifeInterests;
+    }
+
+    public function setLifeInterests(?string $lifeInterests): self
+    {
+        $this->lifeInterests = $lifeInterests;
 
         return $this;
     }

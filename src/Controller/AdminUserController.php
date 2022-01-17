@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Form\PartygoerType;
 use App\Security\EmailVerifier;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,8 +34,7 @@ class AdminUserController extends AbstractController
         $partygoer = $this->getUser()->getPartygoer();
         $partygoerForm = $this->createForm(PartygoerType::class, $partygoer);
         $partygoerForm->handleRequest($request);
-
-
+        
         if ($partygoerForm->isSubmitted() && $partygoerForm->isValid()) {  
             
             // si il y a un changement de photo de profile
@@ -48,6 +48,8 @@ class AdminUserController extends AbstractController
             // handling new user email if edit
             $user = $this->getUser();
             $user->setEmail($partygoerForm->get('email')->getData());
+
+            $partygoer->getLifeInterests();
             
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Vos informations ont bien été enregistrés ;)');
@@ -170,5 +172,22 @@ class AdminUserController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->flush();
+    }
+
+    /**
+     * @Route("/my-account/personnal-informations/modify/life-interest/{partygoerId}", name="admin_user_profile_modify_life_interests")
+     * @ParamConverter("partygoer", options={"id" = "partygoerId"})
+     */
+    public function modifyLifeInterestsAside(Request $request, Partygoer $partygoer): Response
+    {
+        $lifeInterest = $request->getContent();
+
+        
+        $partygoer->setLifeInterests($lifeInterest);
+        $this->getDoctrine()->getManager()->persist($partygoer);
+        $this->getDoctrine()->getManager()->flush();
+        $this->addFlash('success', 'Vos informations ont bien été enregistrés ;)');
+        dd($partygoer);
+        return new Response($partygoer->getLifeInterests());
     }
 }

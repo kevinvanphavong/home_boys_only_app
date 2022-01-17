@@ -1,3 +1,68 @@
-<pre>
-    {{ dump(partygogo) }}
-</pre>
+{% extends 'layout.html.twig' %}
+
+{% block title %}Mes informations personnelles{% endblock %}
+
+{% block stylesheets %}
+	{# {{ encore_entry_link_tags('') }} #}
+    <style>
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            grid-row-gap: 20px;
+        }
+        .header h1 {
+            letter-spacing: 5px;
+            text-align: center;
+            margin: 30px 0 0 0;
+        }
+
+        .profile-picture {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: grey;
+            object-fit: cover;
+        }
+
+        .events-block {
+            width: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            padding: 20px 0px;
+        }
+
+        .events-block p {
+            width: 300px;
+            padding: 10px 20px;
+            background: lightgrey;
+            border-radius: 10px;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<section class="section-80 header">
+    <h1>{{ partygoer.firstname ~ ' ' ~ partygoer.lastname }}</h1>
+    <p>
+        <b><i>{{ age(partygoer.birthdate) ~ ' ans ' }}</i></b>🌹
+        {{ partygoer.city ~ ', ' ~ partygoer.country }}
+    </p>
+    {% if partygoer.profileImage %}
+        <img class="profile-picture" src="{{ asset(publicFolderProfilePicture ~ '/partygoer_id_' ~ partygoer.id ~ '/' ~ partygoer.profileImage.name ) }}"/>
+    {% else %}
+        <img class="profile-picture" src="{{ asset('build/images/thumbnail-profile.jpg') }}"/>
+    {% endif %}
+    <div class="events-block">
+        <p class="event-organized-block">20 soirées organisées</p>
+        <p class="event-involved-block">53 soirées participées</p>
+    </div>
+</section>
+
+<section class="section-80">
+
+</section>
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

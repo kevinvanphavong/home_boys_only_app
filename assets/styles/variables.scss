@@ -1,5 +1,5 @@
-$primary-red: #b80000;
-$primary-orange: #f18200;
+$primary-red: rgba(#d80000, 0.85);
+$primary-orange: rgba(#f18200, 0.85);
 $black: #171717;
 $white: whitesmoke;
 $radius-5: 5px;
@@ -12,8 +12,8 @@ $border-1: 1px solid $border-color;
 $border-05: 0.5px solid $border-color;
 $box-shadow: 2px 2px 4px rgba($black, 0.25);
 
-$primary-red-tr: rgba($primary-red, 0.85);
-$primary-orange-tr: rgba($primary-orange, 0.85);
+$primary-red-tr: rgba(#d80000, 0.85);
+$primary-orange-tr: rgba(#f18200, 0.85);
 
 $text-size: 16px;
 $h1p : 20px; 
