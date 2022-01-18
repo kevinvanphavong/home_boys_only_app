@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
@@ -175,19 +176,25 @@ class AdminUserController extends AbstractController
     }
 
     /**
-     * @Route("/my-account/personnal-informations/modify/life-interest/{partygoerId}", name="admin_user_profile_modify_life_interests")
+     * @Route("/my-account/personnal-informations/modify/personal-interests/{partygoerId}", name="admin_user_profile_modify_personal_interests")
      * @ParamConverter("partygoer", options={"id" = "partygoerId"})
      */
-    public function modifyLifeInterestsAside(Request $request, Partygoer $partygoer): Response
+    public function validatePersonalInterests(Request $request, Partygoer $partygoer): Response
     {
-        $lifeInterest = $request->getContent();
+        try {
+            $data = json_decode($request->getContent());
 
-        
-        $partygoer->setLifeInterests(strtoupper($lifeInterest));
-        $this->getDoctrine()->getManager()->persist($partygoer);
-        $this->getDoctrine()->getManager()->flush();
-        $this->addFlash('success', 'Vos informations ont bien été enregistrés ;)');
-        dd($partygoer);
-        return new Response($partygoer->getLifeInterests());
+            $partygoer->setFoodTastes(ucfirst(strtolower(implode(',', $data->foodTastes))));
+            $partygoer->setMusicTastes(ucfirst(strtolower(implode(',', $data->musicTastes))));
+            $partygoer->setLifeInterests(ucfirst(strtolower(implode(',', $data->lifeInterests))));
+
+            $this->getDoctrine()->getManager()->persist($partygoer);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Vos centres d\'intérêts ont bien été enregistrés ;)');
+
+            return new JsonResponse('Good', 200);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }

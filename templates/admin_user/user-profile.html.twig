@@ -61,45 +61,128 @@
     })
 // ---------- display profile picture once upload in input
 
-// ------- Display 10 block input for lifeInterest attribut
+
+// Créer une fonction pour dupliquer 10 inputs d'un groupe
+// 0) Déclarer la fonction qui prendra 2 params (html element, array placeholder)
+// 1) Récupérer l'élément HTML en querySelector
+// 2) Récupérer son élément parent dans une variable
+// 3) Récupérer le tableau de palceholder envoyé en params
+// 3.5) Transformer la valeur de cette propriété (string) en tableau (si toute fois il y a deja une valeur renseignée en bdd)
+// 4) Créer une boucle de 10 itérations pour
+    // 5) cloner l'élement html
+    // 6) insérer une la valeur du tableau récemment transformé sinon chaine vide
+    // 7) ajouter le placeholder
+    // 8) l'insérer dans l'élement parent
+// 9) remove le premier input
 let inputLifeInterests = document.querySelector('.user-form-input-life-interests')
-let parentInputLifeInterests = inputLifeInterests.parentElement
-
-let arrayValues = inputLifeInterests.value.split(',')
-
-for (let index = 0; index < 10; index++) {
-    let clone = inputLifeInterests.cloneNode(true);
-
-    if (inputLifeInterests.value !== "") {
-        clone.value = arrayValues[index];
-        clone.placeholder = "Animaux, Sport, Concert ...";
-    }
-    parentInputLifeInterests.appendChild(clone);
+let inputMusicTastes = document.querySelector('.user-form-input-music-tastes')
+let inputFoodTastes = document.querySelector('.user-form-input-food-tastes')
+const arrayPlaceholder = {
+    life : [
+        'Animaux',
+        'Concert',
+        'Voyages',
+        'Langues étrangères',
+        'Jeux vidéos',
+        'Danser',
+        'Custom des vêtements',
+        'Peindre',
+        'Lecture',
+        'Manga',
+    ],
+    music : [
+        'Hip Hop',
+        'Pop',
+        'Soul',
+        'Electro',
+        'Reggae',
+        'Rap',
+        'Funk',
+        'Trap',
+        'RnB',
+        'Techno',
+    ]
+    ,
+    food : [
+        'Hip Hop',
+        'Pop',
+        'Soul',
+        'Electro',
+        'Reggae',
+        'Rap',
+        'Funk',
+        'Trap',
+        'RnB',
+        'Techno',
+    ]
 }
 
-parentInputLifeInterests.removeChild(inputLifeInterests)
-// ------- Display 10 block input for lifeInterest attribut
+function duplicateTenInputs(firstInput, arrayPlaceholder) {
+    let arrayValues = firstInput.value.split(',')
+    let parent = firstInput.parentElement
 
-// ------ Delay submit for sending another HTTP request handling lifeInterests
+    for (let index = 0; index < 10; index++) {
+        let clone = firstInput.cloneNode(true)
+        if (arrayValues[index] === undefined) {
+            clone.value = ""
+        } else {
+            clone.value = arrayValues[index]
+        }
+        clone.placeholder = arrayPlaceholder[index]
+        
+        parent.appendChild(clone)        
+    }
+
+    parent.removeChild(firstInput)
+}
+
+duplicateTenInputs(inputLifeInterests, arrayPlaceholder['life'])
+duplicateTenInputs(inputMusicTastes, arrayPlaceholder['music'])
+duplicateTenInputs(inputFoodTastes, arrayPlaceholder['food'])
+
+
+// // ------ Delay submit for sending another HTTP request handling lifeInterests
 let userForm = document.getElementById('user-form');
-let btnValidateLifeInterests = document.querySelector('.btn-validate-life-interests');
+let btnValidateLifeInterests = document.querySelector('.btn-validate-personal-interests');
+
+
+function createArrayValuesFrom10GroupInputs(inputs) {
+    let content = []
+    inputs.forEach(element => {
+        content.push(element.value)
+    });
+
+    return content
+}
 
 btnValidateLifeInterests.addEventListener('click', function(e) {
     e.preventDefault();
     // Envoyer la 2eme requete HTTP pour les centres d'intérêts
-    let allInputsLifeInterests = document.querySelectorAll('.user-form-input-life-interests');
-    let xhr = new XMLHttpRequest();
+    let allInputsLifeInterests = document.querySelectorAll('.user-form-input-life-interests')
+    let allInputsMusicTastes = document.querySelectorAll('.user-form-input-music-tastes')
+    let allInputsFoodTastes = document.querySelectorAll('.user-form-input-food-tastes')
 
-    let content = []
-    allInputsLifeInterests.forEach(element => {
-        content.push(element.value)
-    });
+    let lifeInterests = createArrayValuesFrom10GroupInputs(allInputsLifeInterests)
+    let musicTastes = createArrayValuesFrom10GroupInputs(allInputsMusicTastes)
+    let foodTastes = createArrayValuesFrom10GroupInputs(allInputsFoodTastes)
 
-    let body = content.join(',');
-
-    xhr.open('POST', this.href, true)
-    xhr.send(body);
+    fetch(btnValidateLifeInterests.href, {
+        method: "POST",
+        headers: {
+            'X-Requested-With': "XMLHttpRequest",
+            'Content-Type': "application/json" 
+        },
+        body: JSON.stringify({lifeInterests,musicTastes,foodTastes})
+    })
 })
+    // .then(function(response) {
+    //     return response.json();
+    // })
+    // .then(function(response) {
+    //     button.classList.add('btn-event-set-cancellation-on');
+    //     button.innerText = "Soirée annulée";
+    // })
+
 // ------ Delay submit for sending another HTTP request handling lifeInterests
 </script>
 {% endblock %}

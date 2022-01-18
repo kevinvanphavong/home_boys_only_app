@@ -115,9 +115,19 @@ class Partygoer
     private $country;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $lifeInterests = [];
+    private $lifeInterests;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $musicTastes;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $foodTastes;
 
     public function __construct()
     {
@@ -526,6 +536,30 @@ class Partygoer
     public function setLifeInterests(?string $lifeInterests): self
     {
         $this->lifeInterests = $lifeInterests;
+
+        return $this;
+    }
+
+    public function getMusicTastes(): ?string
+    {
+        return $this->musicTastes;
+    }
+
+    public function setMusicTastes(?string $musicTastes): self
+    {
+        $this->musicTastes = $musicTastes;
+
+        return $this;
+    }
+
+    public function getFoodTastes(): ?string
+    {
+        return $this->foodTastes;
+    }
+
+    public function setFoodTastes(?string $foodTastes): self
+    {
+        $this->foodTastes = $foodTastes;
 
         return $this;
     }

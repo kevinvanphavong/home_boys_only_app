@@ -23,6 +23,15 @@
     width: 100%;
 }
 
+.user-form-group-personnal-interests {
+    padding: 20px 0;
+    overflow-x: scroll;
+    .user-form-row {
+        width: fit-content;
+        margin: 0 30px;
+    }
+} 
+
 .user-form-label {
     @include label-form;
 }
@@ -47,19 +56,24 @@
     justify-content: flex-end
 }
 
+.multiples-food-tastes,
+.multiples-music-tastes,
 .multiples-life-interests {
+    width: 500px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     grid-gap: 20px 50px;
 }
 
+.user-form-input#partygoer_foodTastes,
+.user-form-input#partygoer_musicTastes,
 .user-form-input#partygoer_lifeInterests {
     width: 200px;
     height: 50px;
 }
 
-.btn-validate-life-interests {
+.btn-validate-personal-interests {
     @include input-form;
     background: rgba($white, 0.5);
     width: fit-content;

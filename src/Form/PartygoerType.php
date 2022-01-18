@@ -74,9 +74,23 @@ class PartygoerType extends AbstractType implements FormTypeInterface
                 'row_attr'      => ['class' => 'user-form-row user-form-row-profile-picture'],
             ])
             ->add('lifeInterests', TextType::class, [
-                'label' => 'Centre d\'intérêts',
+                'label' => 'Tu kiff quoi dans la vie pélo ?',
                 'label_attr' => ['class' => 'user-form-label'],
                 'attr' => ['class' => 'user-form-input user-form-input-life-interests'],
+                'required'      => false,
+                'mapped'        => false,
+            ])
+            ->add('musicTastes', TextType::class, [
+                'label' => 'Ce que t\'écoutes dans tes faux airPouds',
+                'label_attr' => ['class' => 'user-form-label'],
+                'attr' => ['class' => 'user-form-input user-form-input-music-tastes'],
+                'required'      => false,
+                'mapped'        => false,
+            ])
+            ->add('foodTastes', TextType::class, [
+                'label' => 'Tes plats préférés',
+                'label_attr' => ['class' => 'user-form-label'],
+                'attr' => ['class' => 'user-form-input user-form-input-food-tastes'],
                 'required'      => false,
                 'mapped'        => false,
             ])
