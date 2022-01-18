@@ -183,7 +183,7 @@ class AdminUserController extends AbstractController
         $lifeInterest = $request->getContent();
 
         
-        $partygoer->setLifeInterests($lifeInterest);
+        $partygoer->setLifeInterests(strtoupper($lifeInterest));
         $this->getDoctrine()->getManager()->persist($partygoer);
         $this->getDoctrine()->getManager()->flush();
         $this->addFlash('success', 'Vos informations ont bien été enregistrés ;)');
