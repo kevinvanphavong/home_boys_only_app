@@ -1,0 +1,35 @@
+@import "app.scss";
+
+footer {
+    background: $black;
+    color: $white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    grid-gap: 20px;
+    padding: 20px;
+    box-shadow: inset 2px 2px 4px red;
+}
+
+.footer-block {
+    width: fit-content;
+}
+
+.footer-block {
+    width: 250px;
+}
+.footer-logo {
+    display: flex;
+    justify-content: center;
+    img {
+        width: 80%;
+        object-fit: cover;
+        border-radius: 50%
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    footer {
+        margin-bottom: 100px;
+    }
+}

@@ -126,12 +126,9 @@
     // ------------
     window.addEventListener('load', function(){
         let flashMessage = document.querySelector('.alert')
-        if (flashMessage) {
-            flashMessage.classList.add('shade-disappear');
-            setTimeout(() => {
-                flashMessage.style.display = "none";
-            }, 2000);
-        }
+        setTimeout(() => {
+            flashMessage.style.display = "none";
+        }, 2000);
     })
 // --------
 </script>

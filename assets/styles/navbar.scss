@@ -12,19 +12,6 @@
     display: flex;
     align-items: center;
 }
-@keyframes shade {
-  0%{
-    opacity: 1;
-  }
-  100%{
-    opacity: 0;
-  }
-}
-
-.shade-disappear {
-    animation-name: shade;
-    animation-duration: 2s;
-}
 // ----- Flash Messages -------
 
 
@@ -132,19 +119,17 @@
         display: none;
     }
 
-    body {
-        padding-bottom: 150px;
-    }
-
     .menu-responsive {
-        display: block;
-        width: 100vw;
         position: fixed;
+        display: block;
+        height: 100px;
+        width: 100vw;
         bottom : 0;
         z-index: 100;
     }
 
     .menu-user-admin {
+        height: 45%;
         background: $black;
         display: flex;
         justify-content: flex-start;
@@ -172,6 +157,7 @@
 
 
     .menu-user-icon {
+        height: 55%;
         width: 100%;
         display: flex;
     }

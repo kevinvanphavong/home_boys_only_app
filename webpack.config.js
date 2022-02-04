@@ -40,6 +40,7 @@ Encore
     .addEntry('app-scss',                               './assets/styles/app.scss')
     .addEntry('homepage-scss',                          './assets/styles/homepage.scss')
     .addEntry('navbar-scss',                            './assets/styles/navbar.scss')
+    .addEntry('footer-scss',                            './assets/styles/footer.scss')
     .addEntry('user-form-scss',                         './assets/styles/user-form.scss')
     .addEntry('event-form-scss',                        './assets/styles/event-form.scss')
     .addEntry('event-display-scss',                     './assets/styles/event-display.scss')

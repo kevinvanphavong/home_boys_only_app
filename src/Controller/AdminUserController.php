@@ -28,7 +28,10 @@ class AdminUserController extends AbstractController
     }
     
     /**
+     *
      * @Route("/my-account/personnal-informations", name="admin_user_profile")
+     * @param Request $request
+     * @return Response
      */
     public function index(Request $request): Response
     {
@@ -125,6 +128,8 @@ class AdminUserController extends AbstractController
 
     /**
      * @Route("/verify/email", name="app_verify_email")
+     * @param Request $request
+     * @return Response
      */
     public function verifyUserEmail(Request $request): Response
     {
@@ -147,7 +152,11 @@ class AdminUserController extends AbstractController
     }
 
     /**
-     * 
+     *
+     * @param Partygoer $partygoer
+     * @param [type] $oldProfilePicture
+     * @param [type] $newProfilePicture
+     * @return void
      */
     public function modifyProfilePicture(Partygoer $partygoer, $oldProfilePicture, $newProfilePicture = null)
     {
@@ -159,8 +168,6 @@ class AdminUserController extends AbstractController
             $profilePictureName = md5(uniqid()) . '.' . $newProfilePicture->guessExtension();
             $newProfilePicture->move($this->getParameter('profile_pictures') . '/partygoer_id_' . $partygoer->getId(), $profilePictureName);
 
-            // dump($partygoer->getProfileImage());
-            // die();
             $partygoer->getProfileImage()->setName($profilePictureName);
         } else {
             $profilePictureName = md5(uniqid()) . '.' . $oldProfilePicture->guessExtension();

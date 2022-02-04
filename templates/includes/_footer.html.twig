@@ -1,0 +1,44 @@
+{% block stylesheets %}
+	{{ encore_entry_link_tags('footer-scss') }}
+    <style>
+    .footer-block h4 {
+        margin: 0 0 10px 0;
+    }
+    .footer-block ul li {
+        font-size: 12px;
+        padding: 10px 0;
+    }
+    </style>
+{% endblock %}
+
+<footer>
+    <div class="footer-block footer-logo">
+        <img src="{{ asset('build/images/logo.png') }}" alt="">
+    </div>
+
+    <div class="footer-block footer-contact">
+        <h4>Plus de contact </h4>
+        <ul>
+            <li>Email support : kevin45van@hotmail.fr</li>
+            <li>Whatsapp support : +33645953115</li>
+            <li>Nous écrire -></li>
+        </ul>
+    </div>
+
+    <div class="footer-block footer-informations">
+        <h4>Plus d'informations</h4>
+        <ul>
+            <li>Conditions générales d'utilisaton</li>
+            <li>Politique de confidentialité</li>
+        </ul>
+    </div>
+
+    <div class="footer-block footer-social-networks">
+    	<h4>Plus de réseaux sociaux</h4>
+        <ul>
+            <li>Instagram : lowkey_lyon_</li>
+            <li>Facebook : Lowkey Lyon</li>
+        </ul>
+    </div>
+
+</footer>
